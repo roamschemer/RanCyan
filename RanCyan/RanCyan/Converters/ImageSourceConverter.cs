@@ -12,7 +12,6 @@ namespace RanCyan.Converters
     /// </summary>
     public class ImageSourceConverter : IValueConverter
     {
-        #region IValueConverter
 
         /// <summary>
         /// 画像パスの文字列を ImageSource に変換します
@@ -48,6 +47,5 @@ namespace RanCyan.Converters
             throw new NotImplementedException();
         }
 
-        #endregion //IValueConverter
     }
 }

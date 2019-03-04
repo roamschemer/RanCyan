@@ -21,6 +21,7 @@ namespace RanCyan.ViewModels
         public ReactiveCollection<MenuItem> ListView { get; set; } = new ReactiveCollection<MenuItem>();
         public AsyncReactiveCommand<MenuItem> ListTapped { get; set; } = new AsyncReactiveCommand<MenuItem>();
         public ReactiveCommand AdDisplay { get; } = new ReactiveCommand();
+        public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
 
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)

@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Core"
+             xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              x:Class="RanCyan.Views.MainPage"
              Title="乱ちゃんProject">
@@ -20,12 +20,12 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
             <RowDefinition Height="8*" />
             <RowDefinition Height="50" />
+            <RowDefinition Height="200" />
+            <!-- <RowDefinition Height="50" /> -->
         </Grid.RowDefinitions>
-        <Label Text="苦行選択！" Grid.Row="0" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontSize="Large" />
-        <ListView ItemsSource="{Binding ListView}" Grid.Row="1" HasUnevenRows="false" RowHeight="80" >
+        <ListView ItemsSource="{Binding ListView}" Grid.Row="0" HasUnevenRows="false" RowHeight="80" >
             <ListView.Behaviors>
                 <behaviorsPack:SelectedItemBehavior Command="{Binding ListTapped}"/>
             </ListView.Behaviors>
@@ -40,6 +40,8 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <Label Text="苦行を選択して…?" Grid.Row="1" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+        <Image Aspect = "AspectFit" Grid.Row="2" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
         <!-- <Renderers:AdMobBanner WidthRequest="320" HeightRequest="50" Grid.Row="2"/> -->
     </Grid>
 
