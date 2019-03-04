@@ -1,11 +1,46 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cv="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.Core"
+             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              x:Class="RanCyan.Views.MainPage"
-             Title="{Binding Title}">
+             Title="乱ちゃんProject">
 
-    <StackLayout HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand">
-        <Label Text="Welcome to Xamarin Forms and Prism!" />
-    </StackLayout>
+    <ContentPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS">0,20,0,0</On>
+        </OnPlatform>
+    </ContentPage.Padding>
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="8*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+        <Label Text="苦行選択！" Grid.Row="0" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontSize="Large" />
+        <ListView ItemsSource="{Binding ListView}" Grid.Row="1" HasUnevenRows="false" RowHeight="80" >
+            <ListView.Behaviors>
+                <behaviorsPack:SelectedItemBehavior Command="{Binding ListTapped}"/>
+            </ListView.Behaviors>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal">
+                            <Image Aspect = "AspectFit" Source="{Binding Image, Converter={StaticResource ImageSourceConverter}}" />
+                            <Label Text="{Binding Title}" />
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!-- <Renderers:AdMobBanner WidthRequest="320" HeightRequest="50" Grid.Row="2"/> -->
+    </Grid>
 
 </ContentPage>
