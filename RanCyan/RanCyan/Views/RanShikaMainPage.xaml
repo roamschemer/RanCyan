@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            x:Class="RanCyan.Views.RanShikaMainPage"
+            xmlns:controls="clr-namespace:RanCyan.Controls"
+            x:Name="Base"
+            Title="乱屍">
+    
+    <TabbedPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS">0,20,0,0</On>
+        </OnPlatform>
+    </TabbedPage.Padding>
+
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <Style TargetType="controls:ToggleButton">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="BackgroundColor" Value="AliceBlue"/>
+                <Style.Triggers>
+                    <Trigger TargetType="controls:ToggleButton" Property="IsSelected" Value="True">
+                        <Setter Property="TextColor" Value="Gainsboro"/>
+                    </Trigger>
+                    <Trigger TargetType="controls:ToggleButton" Property="IsHited" Value="True">
+                        <Setter Property="BackgroundColor" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+
+    <ContentPage Title="進言">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding ShingenItems}" Grid.Row="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.ShingenItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="進言ランダム" Command="{Binding ShingenRanCommand}" Grid.Row="1"/>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="交神">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding KoushinItems}" Grid.Row="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.KoushinItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="交神ランダム" Command="{Binding KoushinRanCommand}" Grid.Row="1"/>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="職業">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding SyokugyouItems}" Grid.Row="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.SyokugyouItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="職業ランダム" Command="{Binding SyokugyouRanCommand}" Grid.Row="1"/>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="討伐">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="4*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ListView ItemsSource="{Binding ToubatsuItems}" Grid.Row="0">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.ToubatsuItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="討伐先ランダム" Command="{Binding ToubatsuRanCommand}" Grid.Row="1"/>
+        </Grid>
+    </ContentPage>
+
+</TabbedPage>

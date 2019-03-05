@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.Forms;
 
 namespace RanCyan.ViewModels
 {
@@ -28,9 +29,10 @@ namespace RanCyan.ViewModels
         {
             //ResetBanner();
 
+            string ranShikaPage = RanShikaPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
-                new MenuItem {Title="乱屍",Target="RanShikaMainPage",Image="RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="乱屍",Target=ranShikaPage,Image="RanCyan.Images.Ranshika.png" },
                 //new MenuItem {Title="著作権情報",Target="RanMemoMainPage",Image="RanCyan.Images.Ranshika.png" },
                 new MenuItem {Title="広告が見られるページ!!!!!!",Target="AdDisplayMainPage",Image="RanCyan.Images.Ranshika.png" },
             };
@@ -42,10 +44,23 @@ namespace RanCyan.ViewModels
             });
 
         }
+
+        /// <summary>
+        /// 乱屍の遷移先取得
+        /// </summary>
+        /// <returns>遷移先View</returns>
+        private string RanShikaPageGet()
+        {
+            if (Device.RuntimePlatform == Device.Android) return "RanShikaMainPage";
+            if (Device.RuntimePlatform == Device.iOS) return "RanShikaMainPage";
+            if (Device.RuntimePlatform == Device.UWP) return "RanShikaUWPPage";
+            if (Device.RuntimePlatform == Device.WPF) return "RanShikaUWPPage";
+            return "";
+        }
         /// <summary>
         /// バナー広告をリセットします。
         /// </summary>
-        public void ResetBanner()
+        private void ResetBanner()
         {
             //var depemdemcy = DependencyService.Get<IBannerCtrl>();
             //depemdemcy.ResetBanner();

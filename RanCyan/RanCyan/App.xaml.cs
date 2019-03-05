@@ -1,5 +1,6 @@
 ﻿using Prism;
 using Prism.Ioc;
+using Prism.Mvvm;
 using RanCyan.ViewModels;
 using RanCyan.Views;
 using Xamarin.Forms;
@@ -30,6 +31,9 @@ namespace RanCyan
         {
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
+            containerRegistry.RegisterForNavigation<RanShikaMainPage, RanShikaMainPageViewModel>();
+            containerRegistry.RegisterForNavigation<RanShikaUWPPage, RanShikaMainPageViewModel>();
         }
+
     }
 }
