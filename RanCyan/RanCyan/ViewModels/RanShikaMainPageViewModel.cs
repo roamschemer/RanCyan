@@ -32,6 +32,8 @@ namespace RanCyan.ViewModels
         public ReactiveCommand ToubatsuRanCommand { get; }
         public RandomList ToubatsuRandomList { get; }
 
+        public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
+
         public RanShikaMainPageViewModel()
         {
             var shingenItems = new List<Item>()

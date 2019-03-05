@@ -5,11 +5,13 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.RanShikaUWPPage"
              xmlns:controls="clr-namespace:RanCyan.Controls"
+             xmlns:cv="clr-namespace:RanCyan.Converters"
              x:Name="Base"
              Title="乱屍">
 
     <ContentPage.Resources>
         <ResourceDictionary>
+            <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
             <Style TargetType="controls:ToggleButton">
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="BackgroundColor" Value="AliceBlue"/>
@@ -31,6 +33,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="250"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -92,6 +95,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Text="討伐" Command="{Binding ToubatsuRanCommand}" Grid.Row="3" Grid.Column="1"/>
+        <Image Aspect = "AspectFit" Grid.Row="4" Grid.ColumnSpan="2" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
     </Grid>
 
 </ContentPage>

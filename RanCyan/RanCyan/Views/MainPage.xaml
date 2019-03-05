@@ -20,9 +20,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="8*" />
-            <RowDefinition Height="50" />
-            <RowDefinition Height="200" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="250" />
             <!-- <RowDefinition Height="50" /> -->
         </Grid.RowDefinitions>
         <ListView ItemsSource="{Binding ListView}" Grid.Row="0" HasUnevenRows="false" RowHeight="80" >
@@ -40,8 +39,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Label Text="苦行を選択して…?" Grid.Row="1" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
-        <Image Aspect = "AspectFit" Grid.Row="2" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+        <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
         <!-- <Renderers:AdMobBanner WidthRequest="320" HeightRequest="50" Grid.Row="2"/> -->
     </Grid>
 

@@ -5,6 +5,7 @@
             prism:ViewModelLocator.AutowireViewModel="True"
             x:Class="RanCyan.Views.RanShikaMainPage"
             xmlns:controls="clr-namespace:RanCyan.Controls"
+            xmlns:cv="clr-namespace:RanCyan.Converters"
             x:Name="Base"
             Title="乱屍">
     
@@ -14,8 +15,10 @@
         </OnPlatform>
     </TabbedPage.Padding>
 
+    
     <TabbedPage.Resources>
         <ResourceDictionary>
+            <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
             <Style TargetType="controls:ToggleButton">
                 <Setter Property="TextColor" Value="Black"/>
                 <Setter Property="BackgroundColor" Value="AliceBlue"/>
@@ -34,8 +37,9 @@
     <ContentPage Title="進言">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="250" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding ShingenItems}" Grid.Row="0">
                 <ListView.ItemTemplate>
@@ -50,15 +54,16 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="進言ランダム" Command="{Binding ShingenRanCommand}" Grid.Row="1"/>
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+            <Button Text="進言ランダム" Command="{Binding ShingenRanCommand}" Grid.Row="2"/>
         </Grid>
     </ContentPage>
 
     <ContentPage Title="交神">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding KoushinItems}" Grid.Row="0">
                 <ListView.ItemTemplate>
@@ -80,8 +85,8 @@
     <ContentPage Title="職業">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding SyokugyouItems}" Grid.Row="0">
                 <ListView.ItemTemplate>
@@ -103,8 +108,8 @@
     <ContentPage Title="討伐">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding ToubatsuItems}" Grid.Row="0">
                 <ListView.ItemTemplate>
