@@ -180,7 +180,10 @@
     <BundleResource Include="Resources\Default-Portrait@2x.png" />
     <BundleResource Include="Resources\Default.png" />
     <BundleResource Include="Resources\Default@2x.png" />
-    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Resources\LaunchScreen.storyboard">
+      <IncludeInPackage>true</IncludeInPackage>
+    </InterfaceDefinition>
+    <BundleResource Include="Resources\splash.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -202,7 +205,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RanCyan\RanCyan.csproj">
-      <Project>{A682884C-CB44-4A89-B752-27BB634E0ABE}</Project>
+      <Project>{CB7347FF-5907-4D0A-BB22-8FCC96EE82B4}</Project>
       <Name>RanCyan</Name>
     </ProjectReference>
   </ItemGroup>
