@@ -1,6 +1,7 @@
 ﻿using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
+using RanCyan.Interfaces;
 using Reactive.Bindings;
 using System;
 using System.Collections.Generic;
@@ -27,19 +28,20 @@ namespace RanCyan.ViewModels
         public MainPageViewModel(INavigationService navigationService)
             : base(navigationService)
         {
-            //ResetBanner();
+            ResetBanner();
 
             string ranShikaPage = RanShikaPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
                 new MenuItem {Title="乱屍",Target=ranShikaPage,Image="RanCyan.Images.Ranshika.png" },
                 //new MenuItem {Title="著作権情報",Target="RanMemoMainPage",Image="RanCyan.Images.Ranshika.png" },
-                new MenuItem {Title="広告が見られるページ!!!!!!",Target="AdDisplayMainPage",Image="RanCyan.Images.Ranshika.png" },
+                //new MenuItem {Title="広告が見られるページ!!!!!!",Target="AdDisplayMainPage",Image="RanCyan.Images.Ranshika.png" },
             };
 
             //LinQで書く
             ListTapped.Subscribe(async (x) =>
             {
+                ShowBanner();
                 await navigationService.NavigateAsync(x.Target);
             });
 
@@ -62,8 +64,16 @@ namespace RanCyan.ViewModels
         /// </summary>
         private void ResetBanner()
         {
-            //var depemdemcy = DependencyService.Get<IBannerCtrl>();
-            //depemdemcy.ResetBanner();
+            var depemdemcy = DependencyService.Get<IBannerCtrl>();
+            depemdemcy.ResetBanner();
+        }
+        /// <summary>
+        /// バナー広告を表示します。
+        /// </summary>
+        public void ShowBanner()
+        {
+            var depemdemcy = DependencyService.Get<IBannerCtrl>();
+            depemdemcy.ShowBanner();
         }
     }
 }

@@ -11,6 +11,13 @@ namespace RanCyan.Droid
     {
         protected override void OnCreate(Bundle bundle)
         {
+            CCommonModel_Droid.Init();
+#if DEBUG
+            CCommonModel_Droid.GetInstance().SetData(this, "ca-app-pub-3940256099942544/4411468910");//見本
+#else
+            CCommonModel_Droid.GetInstance().SetData(this, "ca-app-pub-7901117348649987/6717805060");
+#endif
+
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 
