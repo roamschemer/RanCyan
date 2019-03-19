@@ -33,6 +33,7 @@ namespace RanCyan
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<RanShikaMainPage, RanShikaMainPageViewModel>();
             containerRegistry.RegisterForNavigation<RanShikaUWPPage, RanShikaMainPageViewModel>();
+            containerRegistry.RegisterForNavigation<DiceMainPage, DiceMainPageViewModel>();
         }
 
     }

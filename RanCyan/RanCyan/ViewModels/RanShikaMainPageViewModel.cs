@@ -12,27 +12,23 @@ namespace RanCyan.ViewModels
 {
     public class RanShikaMainPageViewModel : BindableBase
     {
+        public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
+
         public ReadOnlyReactiveCollection<Item> ShingenItems { get; }
         public ReactiveCommand<Item> ShingenItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ShingenRanCommand { get; }
-        public RandomList ShingenRandomList { get; }
 
         public ReadOnlyReactiveCollection<Item> KoushinItems { get; }
         public ReactiveCommand<Item> KoushinItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand KoushinRanCommand { get; }
-        public RandomList KoushinRandomList { get; }
 
         public ReadOnlyReactiveCollection<Item> SyokugyouItems { get; }
         public ReactiveCommand<Item> SyokugyouItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand SyokugyouRanCommand { get; }
-        public RandomList SyokugyouRandomList { get; }
 
         public ReadOnlyReactiveCollection<Item> ToubatsuItems { get; }
         public ReactiveCommand<Item> ToubatsuItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ToubatsuRanCommand { get; }
-        public RandomList ToubatsuRandomList { get; }
-
-        public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
 
         public RanShikaMainPageViewModel()
         {

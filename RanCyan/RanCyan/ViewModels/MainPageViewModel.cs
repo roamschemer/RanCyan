@@ -34,6 +34,7 @@ namespace RanCyan.ViewModels
             ListView = new ReactiveCollection<MenuItem>
             {
                 new MenuItem {Title="乱屍",Target=ranShikaPage,Image="RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="サイコロ",Target="DiceMainPage",Image="RanCyan.Images.Ranshika.png" },
                 //new MenuItem {Title="著作権情報",Target="RanMemoMainPage",Image="RanCyan.Images.Ranshika.png" },
                 //new MenuItem {Title="広告が見られるページ!!!!!!",Target="AdDisplayMainPage",Image="RanCyan.Images.Ranshika.png" },
             };
