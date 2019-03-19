@@ -12,7 +12,7 @@ namespace RanCyan.ViewModels
 {
 	public class DiceMainPageViewModel : BindableBase
 	{
-        public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
+        public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
 
         public ReadOnlyReactiveCollection<Item> DiceItems { get; }
         public ReactiveCommand<Item> DiceItemTapped { get; } = new ReactiveCommand<Item>();

@@ -38,7 +38,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="250" />
-            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
         <ListView ItemsSource="{Binding DiceItems}" Grid.Row="0">
             <ListView.ItemTemplate>
@@ -53,8 +52,11 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
-        <Button Text="賽子を振る" Command="{Binding DiceCommand}" Grid.Row="2"/>
+        <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DiceCommand}"></TapGestureRecognizer>
+            </Image.GestureRecognizers>
+        </Image>
     </Grid>
     
 </ContentPage>

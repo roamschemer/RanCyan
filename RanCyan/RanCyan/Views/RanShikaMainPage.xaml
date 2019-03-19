@@ -39,7 +39,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="250" />
-                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding ShingenItems}" Grid.Row="0">
                 <ListView.ItemTemplate>
@@ -54,8 +53,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
-            <Button Text="進言ランダム" Command="{Binding ShingenRanCommand}" Grid.Row="2"/>
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShingenRanCommand}"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </ContentPage>
 
@@ -63,7 +65,7 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
-                <RowDefinition Height="100" />
+                <RowDefinition Height="250" />
             </Grid.RowDefinitions>
             <ListView ItemsSource="{Binding KoushinItems}" Grid.Row="0">
                 <ListView.ItemTemplate>
@@ -78,7 +80,11 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="交神ランダム" Command="{Binding KoushinRanCommand}" Grid.Row="1"/>
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding KoushinRanCommand}"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
     </ContentPage>
 
