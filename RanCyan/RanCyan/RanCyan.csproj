@@ -17,6 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AiForms.CollectionView" Version="0.3.10-pre" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.1.0" />
     <PackageReference Include="ReactiveProperty" Version="5.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.5.0.169047" />

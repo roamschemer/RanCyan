@@ -38,6 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CollectionView, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AiForms.CollectionView.0.3.10-pre\lib\netstandard2.0\CollectionView.dll</HintPath>
+    </Reference>
     <Reference Include="DryIoc, Version=3.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DryIoc.dll.3.0.2\lib\net45\DryIoc.dll</HintPath>
     </Reference>
