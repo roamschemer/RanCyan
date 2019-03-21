@@ -90,6 +90,16 @@ namespace RanCyan.Models
         private bool inRundom;
 
         /// <summary>
+        /// 選択された値
+        /// </summary>
+        public string DataLabel
+        {
+            get => dataLabel;
+            set => SetProperty(ref dataLabel, value);
+        }
+        private string dataLabel;
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="items">ループリスト</param>
@@ -132,6 +142,7 @@ namespace RanCyan.Models
                     {
                         count = count + x.Ratio;
                         x.IsHited = (lastCount < hitCount && hitCount <= count);
+                        if (x.IsHited) { DataLabel = x.Name; }
                         lastCount = count;
                     }
                 }

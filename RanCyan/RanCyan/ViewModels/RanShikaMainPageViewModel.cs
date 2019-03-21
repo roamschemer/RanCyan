@@ -18,18 +18,22 @@ namespace RanCyan.ViewModels
         public ReadOnlyReactiveCollection<Item> ShingenItems { get; }
         public ReactiveCommand<Item> ShingenItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ShingenRanCommand { get; }
+        public ReactiveProperty<String> ShingenLabel { get; set; } = new ReactiveProperty<string>();
 
         public ReadOnlyReactiveCollection<Item> KoushinItems { get; }
         public ReactiveCommand<Item> KoushinItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand KoushinRanCommand { get; }
+        public ReactiveProperty<String> KoushinLabel { get; set; } = new ReactiveProperty<string>();
 
         public ReadOnlyReactiveCollection<Item> SyokugyouItems { get; }
         public ReactiveCommand<Item> SyokugyouItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand SyokugyouRanCommand { get; }
+        public ReactiveProperty<String> SyokugyouLabel { get; set; } = new ReactiveProperty<string>();
 
         public ReadOnlyReactiveCollection<Item> ToubatsuItems { get; }
         public ReactiveCommand<Item> ToubatsuItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ToubatsuRanCommand { get; }
+        public ReactiveProperty<String> ToubatsuLabel { get; set; } = new ReactiveProperty<string>();
 
         public RanShikaMainPageViewModel()
         {
@@ -78,12 +82,16 @@ namespace RanCyan.ViewModels
             //ViewModel←Model
             ShingenItems = shingenRandomList.Items.ToReadOnlyReactiveCollection();
             ShingenRanCommand = shingenRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
+            ShingenLabel = shingenRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
             KoushinItems = koushinRandomList.Items.ToReadOnlyReactiveCollection();
             KoushinRanCommand = koushinRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
+            KoushinLabel = koushinRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
             SyokugyouItems = syokugyouRandomList.Items.ToReadOnlyReactiveCollection();
             SyokugyouRanCommand = syokugyouRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
+            SyokugyouLabel = syokugyouRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
             ToubatsuItems = toubatsuRandomList.Items.ToReadOnlyReactiveCollection();
             ToubatsuRanCommand = toubatsuRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
+            ToubatsuLabel = toubatsuRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
 
             //Button
             ShingenItemTapped.Where(_ => !shingenRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);

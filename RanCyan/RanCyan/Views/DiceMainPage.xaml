@@ -4,11 +4,12 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:controls="clr-namespace:RanCyan.Controls"
+             xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.DiceMainPage"
              x:Name="Base"
              Title="サイコロ">
-    
+
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS">0,20,0,0</On>
@@ -36,27 +37,29 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
+            <RowDefinition Height="4*" />
             <RowDefinition Height="250" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding DiceItems}" Grid.Row="0">
+        <Label Text="{Binding DiceLabel.Value}" Grid.Row="0" FontSize = "200" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+        <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding DiceCommand}" />
+            </Image.GestureRecognizers>
+        </Image>
+        <ai:HCollectionView Grid.Row="2" ItemsSource="{Binding DiceItems}" ColumnWidth="50" Spacing="4" >
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <ViewCell>
+                    <ai:ContentCell>
                         <controls:ToggleButton Command="{Binding BindingContext.DiceItemTapped, Source={x:Reference Base}}"
                                    CommandParameter="{Binding}"
                                    Text="{Binding Name}"
                                    IsSelected="{Binding IsSelected}"
                                    IsHited="{Binding IsHited}"/>
-                    </ViewCell>
+                    </ai:ContentCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
-        <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
-            <Image.GestureRecognizers>
-                <TapGestureRecognizer Command="{Binding DiceCommand}"></TapGestureRecognizer>
-            </Image.GestureRecognizers>
-        </Image>
+        </ai:HCollectionView>
     </Grid>
-    
+
 </ContentPage>

@@ -17,6 +17,7 @@ namespace RanCyan.ViewModels
         public ReadOnlyReactiveCollection<Item> DiceItems { get; }
         public ReactiveCommand<Item> DiceItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand DiceCommand { get; }
+        public ReactiveProperty<String> DiceLabel { get; set; } = new ReactiveProperty<string>();
 
         public DiceMainPageViewModel()
         {
@@ -34,6 +35,7 @@ namespace RanCyan.ViewModels
             //ViewModel←Model
             DiceItems = diceRandomList.Items.ToReadOnlyReactiveCollection();
             DiceCommand = diceRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
+            DiceLabel = diceRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
 
             //Button
             DiceItemTapped.Where(_ => !diceRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);
