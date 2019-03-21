@@ -33,7 +33,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="8*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="250"/>
+            <RowDefinition Height="200"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
@@ -95,7 +95,7 @@
             </ListView.ItemTemplate>
         </ListView>
         <Button Text="討伐" Command="{Binding ToubatsuRanCommand}" Grid.Row="3" Grid.Column="1"/>
-        <Image Aspect = "AspectFit" Grid.Row="4" Grid.ColumnSpan="2" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+        <Image Aspect = "AspectFit" Grid.Row="4" Grid.ColumnSpan="2" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" />
     </Grid>
 
 </ContentPage>
