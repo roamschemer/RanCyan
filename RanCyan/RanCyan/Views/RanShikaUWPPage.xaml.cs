@@ -2,7 +2,7 @@
 
 namespace RanCyan.Views
 {
-    public partial class RanShikaUWPPage : ContentPage
+    public partial class RanShikaUWPPage : TabbedPage
     {
         public RanShikaUWPPage()
         {

@@ -1,15 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
-             prism:ViewModelLocator.AutowireViewModel="True"
-             x:Class="RanCyan.Views.RanShikaUWPPage"
-             xmlns:controls="clr-namespace:RanCyan.Controls"
-             xmlns:cv="clr-namespace:RanCyan.Converters"
-             x:Name="Base"
-             Title="乱屍">
-
-    <ContentPage.Resources>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+            prism:ViewModelLocator.AutowireViewModel="True"
+            x:Class="RanCyan.Views.RanShikaUWPPage"
+            xmlns:controls="clr-namespace:RanCyan.Controls"
+            xmlns:cv="clr-namespace:RanCyan.Converters"
+            xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
+            x:Name="Base"
+            Title="乱屍">
+    
+    <TabbedPage.Resources>
         <ResourceDictionary>
             <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
             <Style TargetType="controls:ToggleButton">
@@ -25,77 +26,121 @@
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
-    </ContentPage.Resources>
+    </TabbedPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="8*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="200"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        <ListView ItemsSource="{Binding ShingenItems}" Grid.Row="0" Grid.Column="0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <controls:ToggleButton Command="{Binding BindingContext.ShingenItemTapped, Source={x:Reference Base}}"
+    <ContentPage Title="進言">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="{Binding ShingenLabel.Value}" Grid.Row="0" FontSize = "Large" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ShingenRanCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <ai:HCollectionView Grid.Row="2" ItemsSource="{Binding ShingenItems}" ColumnWidth="100" Spacing="4" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ai:ContentCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.ShingenItemTapped, Source={x:Reference Base}}"
                                    CommandParameter="{Binding}"
                                    Text="{Binding Name}"
                                    IsSelected="{Binding IsSelected}"
                                    IsHited="{Binding IsHited}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="進言" Command="{Binding ShingenRanCommand}" Grid.Row="1" Grid.Column="0"/>
-        <ListView ItemsSource="{Binding KoushinItems}" Grid.Row="0" Grid.Column="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <controls:ToggleButton Command="{Binding BindingContext.KoushinItemTapped, Source={x:Reference Base}}"
-                                   CommandParameter="{Binding}"
-                                   Text="{Binding Name}"
-                                   IsSelected="{Binding IsSelected}"
-                                   IsHited="{Binding IsHited}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="交神" Command="{Binding KoushinRanCommand}" Grid.Row="1" Grid.Column="1"/>
-        <ListView ItemsSource="{Binding SyokugyouItems}" Grid.Row="2" Grid.Column="0">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <controls:ToggleButton Command="{Binding BindingContext.SyokugyouItemTapped, Source={x:Reference Base}}"
-                                   CommandParameter="{Binding}"
-                                   Text="{Binding Name}"
-                                   IsSelected="{Binding IsSelected}"
-                                   IsHited="{Binding IsHited}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="職業" Command="{Binding SyokugyouRanCommand}" Grid.Row="3" Grid.Column="0"/>
-        <ListView ItemsSource="{Binding ToubatsuItems}" Grid.Row="2" Grid.Column="1">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <controls:ToggleButton Command="{Binding BindingContext.ToubatsuItemTapped, Source={x:Reference Base}}"
-                                   CommandParameter="{Binding}"
-                                   Text="{Binding Name}"
-                                   IsSelected="{Binding IsSelected}"
-                                   IsHited="{Binding IsHited}"/>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-        <Button Text="討伐" Command="{Binding ToubatsuRanCommand}" Grid.Row="3" Grid.Column="1"/>
-        <Image Aspect = "AspectFit" Grid.Row="4" Grid.ColumnSpan="2" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" />
-    </Grid>
+                        </ai:ContentCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ai:HCollectionView>
+        </Grid>
+    </ContentPage>
 
-</ContentPage>
+    <ContentPage Title="交神">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="{Binding KoushinLabel.Value}" Grid.Row="0" FontSize = "Large" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding KoushinRanCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <ai:HCollectionView Grid.Row="2" ItemsSource="{Binding KoushinItems}" ColumnWidth="50" Spacing="4" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ai:ContentCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.KoushinItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                        </ai:ContentCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ai:HCollectionView>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="職業">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="{Binding SyokugyouLabel.Value}" Grid.Row="0" FontSize = "Large" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SyokugyouRanCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <ai:HCollectionView Grid.Row="2" ItemsSource="{Binding SyokugyouItems}" ColumnWidth="40" Spacing="4" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ai:ContentCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.SyokugyouItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                        </ai:ContentCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ai:HCollectionView>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="討伐">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Label Text="{Binding ToubatsuLabel.Value}" Grid.Row="0" FontSize = "Large" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding ToubatsuRanCommand}" />
+                </Image.GestureRecognizers>
+            </Image>
+            <ai:HCollectionView Grid.Row="2" ItemsSource="{Binding ToubatsuItems}" ColumnWidth="40" Spacing="4" >
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ai:ContentCell>
+                            <controls:ToggleButton Command="{Binding BindingContext.ToubatsuItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                        </ai:ContentCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ai:HCollectionView>
+        </Grid>
+    </ContentPage>
+</TabbedPage>
