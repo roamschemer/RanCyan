@@ -4,7 +4,7 @@
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              x:Class="RanCyan.Views.MainPage"
-             Title="乱ちゃんProject">
+             Title="Menu">
 
     <ContentPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
@@ -21,7 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="*" />
             <!-- <RowDefinition Height="50" /> -->
         </Grid.RowDefinitions>
         <ListView ItemsSource="{Binding ListView}" Grid.Row="0" HasUnevenRows="false" RowHeight="80" >
@@ -31,9 +31,9 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal">
+                        <StackLayout Orientation="Horizontal" >
                             <Image Aspect = "AspectFit" Source="{Binding Image, Converter={StaticResource ImageSourceConverter}}" />
-                            <Label Text="{Binding Title}" />
+                            <Label Text="{Binding Title}" VerticalOptions = "Center"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:RanCyan.WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" MinWidth="10">
+        Title="夏狂乱" Height="450" Width="800" MinWidth="10">
     <Grid>
         
     </Grid>

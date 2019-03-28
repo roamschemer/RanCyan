@@ -38,9 +38,9 @@
     <ContentPage Title="進言">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="250" />
+                <RowDefinition Height="150" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <Label Text="{Binding ShingenLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
             <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
@@ -67,11 +67,11 @@
     <ContentPage Title="交神">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="250" />
+                <RowDefinition Height="150" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Label Text="{Binding KoushinLabel.Value}" Grid.Row="0" FontSize = "150" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Label Text="{Binding KoushinLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
             <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding KoushinRanCommand}" />
@@ -96,8 +96,8 @@
     <ContentPage Title="職業">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="250" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <Label Text="{Binding SyokugyouLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
@@ -125,12 +125,12 @@
     <ContentPage Title="討伐">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="4*" />
-                <RowDefinition Height="250" />
+                <RowDefinition Height="150" />
+                <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <Label Text="{Binding ToubatsuLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
-            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
+            <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToubatsuRanCommand}" />
                 </Image.GestureRecognizers>

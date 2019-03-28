@@ -37,11 +37,11 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="250" />
+            <RowDefinition Height="150" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-        <Label Text="{Binding DiceLabel.Value}" Grid.Row="0" FontSize = "200" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+        <Label Text="{Binding DiceLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
         <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" >
             <Image.GestureRecognizers>
                 <TapGestureRecognizer Command="{Binding DiceCommand}" />
