@@ -12,12 +12,15 @@
     <None Remove="Images\MiniKowashiyaRanCyan.png" />
     <None Remove="Images\MiniMikoRanCyan.png" />
     <None Remove="Images\Ranshika.png" />
+    <None Remove="Images\splash.png" />
+    <None Remove="Images\TalkRanCyan.png" />
   </ItemGroup>
 
   <ItemGroup>
     <EmbeddedResource Include="Images\MiniKowashiyaRanCyan.png" />
     <EmbeddedResource Include="Images\MiniMikoRanCyan.png" />
     <EmbeddedResource Include="Images\Ranshika.png" />
+    <EmbeddedResource Include="Images\TalkRanCyan.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -26,6 +29,10 @@
     <PackageReference Include="ReactiveProperty" Version="5.2.0" />
     <PackageReference Include="Xamarin.Forms" Version="3.5.0.169047" />
     <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="2.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Images\splash.png" />
   </ItemGroup>
 
   <ItemGroup>

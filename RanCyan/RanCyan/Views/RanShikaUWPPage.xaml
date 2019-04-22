@@ -143,4 +143,5 @@
             </ai:HCollectionView>
         </Grid>
     </ContentPage>
+    
 </TabbedPage>

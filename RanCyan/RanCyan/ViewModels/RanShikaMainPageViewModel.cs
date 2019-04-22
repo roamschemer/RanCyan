@@ -14,7 +14,7 @@ namespace RanCyan.ViewModels
     {
         public ReactiveProperty<String> RanCyanKowashiyaImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
         public ReactiveProperty<String> RanCyanMikoImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
-
+        public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.TalkRanCyan.png");
         public ReadOnlyReactiveCollection<Item> ShingenItems { get; }
         public ReactiveCommand<Item> ShingenItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ShingenRanCommand { get; }

@@ -9,14 +9,13 @@
             xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
             x:Name="Base"
             Title="乱屍">
-    
+
     <TabbedPage.Padding>
         <OnPlatform x:TypeArguments="Thickness">
             <On Platform="iOS">0,20,0,0</On>
         </OnPlatform>
     </TabbedPage.Padding>
 
-    
     <TabbedPage.Resources>
         <ResourceDictionary>
             <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
@@ -148,6 +147,22 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ai:HCollectionView>
+        </Grid>
+    </ContentPage>
+
+    <ContentPage Title="説明">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="2*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Text="{Binding Description}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Medium" />
+            <Image Aspect = "AspectFit" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.ColumnSpan="2" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+
         </Grid>
     </ContentPage>
 
