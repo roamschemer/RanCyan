@@ -143,5 +143,18 @@
             </ai:HCollectionView>
         </Grid>
     </ContentPage>
-    
+
+    <ContentPage Title="説明">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <ScrollView Grid.Row="0" >
+                <Label FontSize="Medium" Text="{Binding Infomation.Value}" />
+            </ScrollView>
+            <Image Aspect = "AspectFit" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+        </Grid>
+    </ContentPage>
+
 </TabbedPage>

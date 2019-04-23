@@ -35,6 +35,9 @@ namespace RanCyan.ViewModels
         public ReactiveCommand ToubatsuRanCommand { get; }
         public ReactiveProperty<String> ToubatsuLabel { get; set; } = new ReactiveProperty<string>();
 
+        public ReactiveProperty<string> Infomation { get; set; } = new ReactiveProperty<string>();
+        public FileRead fileRead { get; } = new FileRead();
+
         public RanShikaMainPageViewModel()
         {
             var shingenItems = new List<Item>()
@@ -78,7 +81,6 @@ namespace RanCyan.ViewModels
             };
             RandomList toubatsuRandomList = new RandomList(toubatsuItems, 20, 5000);
 
-
             //ViewModel←Model
             ShingenItems = shingenRandomList.Items.ToReadOnlyReactiveCollection();
             ShingenRanCommand = shingenRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
@@ -92,6 +94,7 @@ namespace RanCyan.ViewModels
             ToubatsuItems = toubatsuRandomList.Items.ToReadOnlyReactiveCollection();
             ToubatsuRanCommand = toubatsuRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
             ToubatsuLabel = toubatsuRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
+            Infomation = fileRead.ObserveProperty(x => x.ReadText).ToReactiveProperty();
 
             //Button
             ShingenItemTapped.Where(_ => !shingenRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);
@@ -103,6 +106,7 @@ namespace RanCyan.ViewModels
             ToubatsuItemTapped.Where(_ => !toubatsuRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);
             ToubatsuRanCommand.Subscribe(_ => toubatsuRandomList.RandomAction());
 
+            fileRead.GetResourceText("RanCyan.Texts.RanShikaInfomation.txt");
         }
     }
 }

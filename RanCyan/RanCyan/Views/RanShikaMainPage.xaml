@@ -153,16 +153,13 @@
     <ContentPage Title="説明">
         <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Label Text="{Binding Description}" Grid.Row="0" Grid.ColumnSpan="2" FontSize="Medium" />
-            <Image Aspect = "AspectFit" HorizontalOptions="EndAndExpand"  Grid.Row="1" Grid.ColumnSpan="2" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
-
+            <ScrollView Grid.Row="0" >
+                <Label FontSize="Medium" Text="{Binding Infomation.Value}" />
+            </ScrollView>
+            <Image Aspect = "AspectFit" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
         </Grid>
     </ContentPage>
 

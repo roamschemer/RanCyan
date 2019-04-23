@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -14,6 +14,7 @@
     <None Remove="Images\Ranshika.png" />
     <None Remove="Images\splash.png" />
     <None Remove="Images\TalkRanCyan.png" />
+    <None Remove="Texts\RanShikaInfomation.txt" />
   </ItemGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
     <EmbeddedResource Include="Images\MiniMikoRanCyan.png" />
     <EmbeddedResource Include="Images\Ranshika.png" />
     <EmbeddedResource Include="Images\TalkRanCyan.png" />
+    <EmbeddedResource Include="Texts\RanShikaInfomation.txt" />
   </ItemGroup>
 
   <ItemGroup>
