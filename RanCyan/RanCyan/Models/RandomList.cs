@@ -100,6 +100,16 @@ namespace RanCyan.Models
         private string dataLabel;
 
         /// <summary>
+        /// ラベルの色
+        /// </summary>
+        public string LabelColor
+        {
+            get => labelColor;
+            set => SetProperty(ref labelColor, value);
+        }
+        private string labelColor;
+
+        /// <summary>
         /// コンストラクタ
         /// </summary>
         /// <param name="items">ループリスト</param>
@@ -129,6 +139,7 @@ namespace RanCyan.Models
             if (Items.Count(x => !x.IsSelected) <= 1) return; //対象が1以下の場合抽選をの意味がないので回避する
             Items.Where(x => x.IsSelected).Select(x => x.IsHited = false).ToList();//IsHitedは全部Falseにする
             InRundom = true;
+            LabelColor = "Black";
             for (int i = 1; i <= loopNo; i++)
             {
                 // listの数からダンダムで値を取得
@@ -162,10 +173,12 @@ namespace RanCyan.Models
                     for (int i = 0; i < 10; i++)
                     {
                         x.IsHited = !x.IsHited;
+                        if (i % 2 == 0) { LabelColor = "Red"; } else { LabelColor = "Black"; } 
                         await Task.Delay(50);
                     }
                 }
             }
+            LabelColor = "Red";
             InRundom = false;
         }
     }

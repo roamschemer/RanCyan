@@ -36,6 +36,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="90"/>
@@ -45,25 +46,25 @@
         </Grid.ColumnDefinitions>
         <Label Text="{Binding ShingenLabel.Value}" IsVisible="{Binding ShingenVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" 
+               FontSize = "40" TextColor="{Binding ShingenColor.Value}"
                VerticalOptions="FillAndExpand" 
                HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
                FontAttributes = "Bold" />
         <Label Text="{Binding KoushinLabel.Value}" IsVisible="{Binding KoushinVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" 
+               FontSize = "40" TextColor="{Binding KoushinColor.Value}" 
                VerticalOptions="FillAndExpand" 
                HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
                FontAttributes = "Bold" />
         <Label Text="{Binding SyokugyouLabel.Value}" IsVisible="{Binding SyokugyouVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" 
+               FontSize = "40" TextColor="{Binding SyokugyouColor.Value}" 
                VerticalOptions="FillAndExpand" 
                HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
                FontAttributes = "Bold" />
         <Label Text="{Binding ToubatsuLabel.Value}" IsVisible="{Binding ToubatsuVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" 
+               FontSize = "40" TextColor="{Binding ToubatsuColor.Value}" 
                VerticalOptions="FillAndExpand" 
                HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
                FontAttributes = "Bold" />
@@ -82,6 +83,58 @@
         <Button Text="討伐先"
                 Grid.Row="6" Grid.Column="1" 
                 Command="{Binding ToubatsuRanCommand}" />
+        <ai:HCollectionView Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding ShingenItems}" ColumnWidth="100" Spacing="2" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.ShingenItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ai:HCollectionView>
+        <ai:HCollectionView Grid.Row="0" Grid.Column="3" Grid.RowSpan="3"  ItemsSource="{Binding KoushinItems}" ColumnWidth="50" Spacing="4" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.KoushinItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ai:HCollectionView>
+        <ai:HCollectionView Grid.Row="3" Grid.Column="2" Grid.RowSpan="4" ItemsSource="{Binding SyokugyouItems}" ColumnWidth="40" Spacing="4" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.SyokugyouItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ai:HCollectionView>
+        <ai:HCollectionView Grid.Row="3" Grid.Column="3" Grid.RowSpan="4" ItemsSource="{Binding ToubatsuItems}" ColumnWidth="40" Spacing="4" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.ToubatsuItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ai:HCollectionView>
     </Grid>
 
 

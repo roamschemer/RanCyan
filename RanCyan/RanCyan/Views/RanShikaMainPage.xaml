@@ -41,7 +41,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Label Text="{Binding ShingenLabel.Value}" Grid.Row="0" FontSize = "100" 
+            <Label Text="{Binding ShingenLabel.Value}" Grid.Row="0" FontSize = "100" TextColor="{Binding ShingenColor.Value}"
                    VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
             <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
                 <Image.GestureRecognizers>
@@ -71,7 +71,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Label Text="{Binding KoushinLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Label Text="{Binding KoushinLabel.Value}" Grid.Row="0" FontSize = "100"  TextColor="{Binding KoushinColor.Value}"
+                   VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
             <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding KoushinRanCommand}" />
@@ -100,7 +101,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Label Text="{Binding SyokugyouLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Label Text="{Binding SyokugyouLabel.Value}" Grid.Row="0" FontSize = "100" TextColor="{Binding SyokugyouColor.Value}"
+                   VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
             <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding SyokugyouRanCommand}" />
@@ -129,7 +131,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Label Text="{Binding ToubatsuLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Label Text="{Binding ToubatsuLabel.Value}" Grid.Row="0" FontSize = "100"  TextColor="{Binding ToubatsuColor.Value}"
+                   VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
             <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ToubatsuRanCommand}" />

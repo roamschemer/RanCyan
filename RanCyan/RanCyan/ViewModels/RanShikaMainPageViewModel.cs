@@ -22,24 +22,28 @@ namespace RanCyan.ViewModels
         public ReactiveCommand ShingenRanCommand { get; }
         public ReactiveProperty<String> ShingenLabel { get; set; } = new ReactiveProperty<string>();
         public ReactiveProperty<bool> ShingenVisible { get; set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<string> ShingenColor { get; set; } = new ReactiveProperty<string>();
 
         public ReadOnlyReactiveCollection<Item> KoushinItems { get; }
         public ReactiveCommand<Item> KoushinItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand KoushinRanCommand { get; }
         public ReactiveProperty<String> KoushinLabel { get; set; } = new ReactiveProperty<string>();
         public ReactiveProperty<bool> KoushinVisible { get; set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<string> KoushinColor { get; set; } = new ReactiveProperty<string>();
 
         public ReadOnlyReactiveCollection<Item> SyokugyouItems { get; }
         public ReactiveCommand<Item> SyokugyouItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand SyokugyouRanCommand { get; }
         public ReactiveProperty<String> SyokugyouLabel { get; set; } = new ReactiveProperty<string>();
         public ReactiveProperty<bool> SyokugyouVisible { get; set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<string> SyokugyouColor { get; set; } = new ReactiveProperty<string>();
 
         public ReadOnlyReactiveCollection<Item> ToubatsuItems { get; }
         public ReactiveCommand<Item> ToubatsuItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ToubatsuRanCommand { get; }
         public ReactiveProperty<String> ToubatsuLabel { get; set; } = new ReactiveProperty<string>();
         public ReactiveProperty<bool> ToubatsuVisible { get; set; } = new ReactiveProperty<bool>();
+        public ReactiveProperty<string> ToubatsuColor { get; set; } = new ReactiveProperty<string>();
 
         public ReactiveProperty<string> Infomation { get; set; } = new ReactiveProperty<string>();
         public FileRead fileRead { get; } = new FileRead();
@@ -92,15 +96,19 @@ namespace RanCyan.ViewModels
             ShingenItems = shingenRandomList.Items.ToReadOnlyReactiveCollection();
             ShingenRanCommand = shingenRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
             ShingenLabel = shingenRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
+            ShingenColor= shingenRandomList.ObserveProperty(x => x.LabelColor).ToReactiveProperty();
             KoushinItems = koushinRandomList.Items.ToReadOnlyReactiveCollection();
             KoushinRanCommand = koushinRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
             KoushinLabel = koushinRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
+            KoushinColor = koushinRandomList.ObserveProperty(x => x.LabelColor).ToReactiveProperty();
             SyokugyouItems = syokugyouRandomList.Items.ToReadOnlyReactiveCollection();
             SyokugyouRanCommand = syokugyouRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
             SyokugyouLabel = syokugyouRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
+            SyokugyouColor = syokugyouRandomList.ObserveProperty(x => x.LabelColor).ToReactiveProperty();
             ToubatsuItems = toubatsuRandomList.Items.ToReadOnlyReactiveCollection();
             ToubatsuRanCommand = toubatsuRandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand();
             ToubatsuLabel = toubatsuRandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty();
+            ToubatsuColor = toubatsuRandomList.ObserveProperty(x => x.LabelColor).ToReactiveProperty();
             Infomation = fileRead.ObserveProperty(x => x.ReadText).ToReactiveProperty();
 
             //Button
