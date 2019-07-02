@@ -41,7 +41,8 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Label Text="{Binding ShingenLabel.Value}" Grid.Row="0" FontSize = "100" VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
+            <Label Text="{Binding ShingenLabel.Value}" Grid.Row="0" FontSize = "100" 
+                   VerticalOptions="FillAndExpand" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" FontAttributes = "Bold" />
             <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" >
                 <Image.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding ShingenRanCommand}" />

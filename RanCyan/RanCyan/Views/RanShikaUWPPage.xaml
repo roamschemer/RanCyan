@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
             prism:ViewModelLocator.AutowireViewModel="True"
@@ -9,8 +9,8 @@
             xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
             x:Name="Base"
             Title="乱屍">
-    
-    <TabbedPage.Resources>
+
+    <ContentPage.Resources>
         <ResourceDictionary>
             <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
             <Style TargetType="controls:ToggleButton">
@@ -26,8 +26,66 @@
                 </Style.Triggers>
             </Style>
         </ResourceDictionary>
-    </TabbedPage.Resources>
+    </ContentPage.Resources>
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="{Binding ShingenLabel.Value}" IsVisible="{Binding ShingenVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               FontSize = "40" 
+               VerticalOptions="FillAndExpand" 
+               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
+               FontAttributes = "Bold" />
+        <Label Text="{Binding KoushinLabel.Value}" IsVisible="{Binding KoushinVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               FontSize = "40" 
+               VerticalOptions="FillAndExpand" 
+               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
+               FontAttributes = "Bold" />
+        <Label Text="{Binding SyokugyouLabel.Value}" IsVisible="{Binding SyokugyouVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               FontSize = "40" 
+               VerticalOptions="FillAndExpand" 
+               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
+               FontAttributes = "Bold" />
+        <Label Text="{Binding ToubatsuLabel.Value}" IsVisible="{Binding ToubatsuVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               FontSize = "40" 
+               VerticalOptions="FillAndExpand" 
+               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
+               FontAttributes = "Bold" />
+        <Image Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+               Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2"
+               Source="{Binding RanCyanMainImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+        <Button Text="進言"
+                Grid.Row="5" Grid.Column="0" 
+                Command="{Binding ShingenRanCommand}" />
+        <Button Text="交神"
+                Grid.Row="5" Grid.Column="1" 
+                Command="{Binding KoushinRanCommand}" />
+        <Button Text="職業"
+                Grid.Row="6" Grid.Column="0" 
+                Command="{Binding SyokugyouRanCommand}" />
+        <Button Text="討伐先"
+                Grid.Row="6" Grid.Column="1" 
+                Command="{Binding ToubatsuRanCommand}" />
+    </Grid>
+
+
+    <!--
     <ContentPage Title="進言">
         <Grid>
             <Grid.RowDefinitions>
@@ -156,5 +214,5 @@
             <Image Aspect = "AspectFit" HorizontalOptions="EndAndExpand" VerticalOptions="EndAndExpand" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
         </Grid>
     </ContentPage>
-
-</TabbedPage>
+    -->
+</ContentPage>

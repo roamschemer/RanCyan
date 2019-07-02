@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\MainRanCyan.png" />
     <None Remove="Images\MiniKowashiyaRanCyan.png" />
     <None Remove="Images\MiniMikoRanCyan.png" />
     <None Remove="Images\Ranshika.png" />
@@ -18,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="Images\MainRanCyan.png" />
     <EmbeddedResource Include="Images\MiniKowashiyaRanCyan.png" />
     <EmbeddedResource Include="Images\MiniMikoRanCyan.png" />
     <EmbeddedResource Include="Images\Ranshika.png" />

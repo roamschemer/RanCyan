@@ -15,25 +15,31 @@ namespace RanCyan.ViewModels
         public ReactiveProperty<String> RanCyanKowashiyaImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
         public ReactiveProperty<String> RanCyanMikoImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
         public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.TalkRanCyan.png");
+        public ReactiveProperty<String> RanCyanMainImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MainRanCyan.png");
+
         public ReadOnlyReactiveCollection<Item> ShingenItems { get; }
         public ReactiveCommand<Item> ShingenItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ShingenRanCommand { get; }
         public ReactiveProperty<String> ShingenLabel { get; set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<bool> ShingenVisible { get; set; } = new ReactiveProperty<bool>();
 
         public ReadOnlyReactiveCollection<Item> KoushinItems { get; }
         public ReactiveCommand<Item> KoushinItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand KoushinRanCommand { get; }
         public ReactiveProperty<String> KoushinLabel { get; set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<bool> KoushinVisible { get; set; } = new ReactiveProperty<bool>();
 
         public ReadOnlyReactiveCollection<Item> SyokugyouItems { get; }
         public ReactiveCommand<Item> SyokugyouItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand SyokugyouRanCommand { get; }
         public ReactiveProperty<String> SyokugyouLabel { get; set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<bool> SyokugyouVisible { get; set; } = new ReactiveProperty<bool>();
 
         public ReadOnlyReactiveCollection<Item> ToubatsuItems { get; }
         public ReactiveCommand<Item> ToubatsuItemTapped { get; } = new ReactiveCommand<Item>();
         public ReactiveCommand ToubatsuRanCommand { get; }
         public ReactiveProperty<String> ToubatsuLabel { get; set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<bool> ToubatsuVisible { get; set; } = new ReactiveProperty<bool>();
 
         public ReactiveProperty<string> Infomation { get; set; } = new ReactiveProperty<string>();
         public FileRead fileRead { get; } = new FileRead();
@@ -45,6 +51,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "進言 1" , Ratio=1 },
                 new Item { Name = "進言 2" , Ratio=1 },
                 new Item { Name = "進言 3" , Ratio=1 },
+                new Item { Name = "拒否" , Ratio=1 ,IsSelected=true},
             };
             RandomList shingenRandomList = new RandomList(shingenItems);
             var koushinItems = new List<Item>()
@@ -76,8 +83,8 @@ namespace RanCyan.ViewModels
                 new Item { Name = "流水道" , Ratio=1 },
                 new Item { Name = "鎮魂墓" , Ratio=1 },
                 new Item { Name = "紅蓮" , Ratio=1 },
-                new Item { Name = "大江山" , Ratio=1 },
-                new Item { Name = "地獄" , Ratio=1 },
+                new Item { Name = "大江山" , Ratio=1 ,IsSelected=true },
+                new Item { Name = "地獄" , Ratio=1 ,IsSelected=true },
             };
             RandomList toubatsuRandomList = new RandomList(toubatsuItems, 20, 5000);
 
@@ -98,13 +105,30 @@ namespace RanCyan.ViewModels
 
             //Button
             ShingenItemTapped.Where(_ => !shingenRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);
-            ShingenRanCommand.Subscribe(_ => shingenRandomList.RandomAction());
+            ShingenRanCommand.Subscribe(_ =>
+            {
+                ShingenVisible.Value = true; KoushinVisible.Value = false; SyokugyouVisible.Value = false; ToubatsuVisible.Value = false;
+                shingenRandomList.RandomAction();
+            });
             KoushinItemTapped.Where(_ => !koushinRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);
-            KoushinRanCommand.Subscribe(_ => koushinRandomList.RandomAction());
+            KoushinRanCommand.Subscribe(_ =>
+            {
+                ShingenVisible.Value = false; KoushinVisible.Value = true; SyokugyouVisible.Value = false; ToubatsuVisible.Value = false;
+                koushinRandomList.RandomAction();
+            });
             SyokugyouItemTapped.Where(_ => !syokugyouRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);
-            SyokugyouRanCommand.Subscribe(_ => syokugyouRandomList.RandomAction());
+            SyokugyouRanCommand.Subscribe(_ =>
+            {
+                ShingenVisible.Value = false; KoushinVisible.Value = false; SyokugyouVisible.Value = true; ToubatsuVisible.Value = false;
+                syokugyouRandomList.RandomAction();
+            });
+
             ToubatsuItemTapped.Where(_ => !toubatsuRandomList.InRundom).Subscribe(x => x.IsSelected = !x.IsSelected);
-            ToubatsuRanCommand.Subscribe(_ => toubatsuRandomList.RandomAction());
+            ToubatsuRanCommand.Subscribe(_ =>
+            {
+                ShingenVisible.Value = false; KoushinVisible.Value = false; SyokugyouVisible.Value = false; ToubatsuVisible.Value = true;
+                toubatsuRandomList.RandomAction();
+            });
 
             fileRead.GetResourceText("RanCyan.Texts.RanShikaInfomation.txt");
         }
