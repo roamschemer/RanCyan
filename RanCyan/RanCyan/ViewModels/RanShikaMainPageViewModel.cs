@@ -78,7 +78,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "壊し屋" , Ratio=1 },
                 new Item { Name = "大筒士" , Ratio=1 },
                 new Item { Name = "踊り屋" , Ratio=1 },
-                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
+                new Item { Name = "自由 " , Ratio=1 ,IsSelected=true},
             };
             RandomList syokugyouRandomList = new RandomList(syokugyouItems, 20, 5000);
             var toubatsuItems = new List<Item>()
