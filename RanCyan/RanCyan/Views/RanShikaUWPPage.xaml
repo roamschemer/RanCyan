@@ -25,6 +25,13 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
+            <Style  x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="40"/>
+            </Style>
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -46,28 +53,17 @@
         </Grid.ColumnDefinitions>
         <Label Text="{Binding ShingenLabel.Value}" IsVisible="{Binding ShingenVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" TextColor="{Binding ShingenColor.Value}"
-               VerticalOptions="FillAndExpand" 
-               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
-               FontAttributes = "Bold" />
+               TextColor="{Binding ShingenColor.Value}" Style="{StaticResource LabelStyle}"/>
         <Label Text="{Binding KoushinLabel.Value}" IsVisible="{Binding KoushinVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" TextColor="{Binding KoushinColor.Value}" 
-               VerticalOptions="FillAndExpand" 
-               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
-               FontAttributes = "Bold" />
+               TextColor="{Binding KoushinColor.Value}" Style="{StaticResource LabelStyle}"/>
         <Label Text="{Binding SyokugyouLabel.Value}" IsVisible="{Binding SyokugyouVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" TextColor="{Binding SyokugyouColor.Value}" 
-               VerticalOptions="FillAndExpand" 
-               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
-               FontAttributes = "Bold" />
+               TextColor="{Binding SyokugyouColor.Value}" Style="{StaticResource LabelStyle}"/>
         <Label Text="{Binding ToubatsuLabel.Value}" IsVisible="{Binding ToubatsuVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               FontSize = "40" TextColor="{Binding ToubatsuColor.Value}" 
-               VerticalOptions="FillAndExpand" 
-               HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" 
-               FontAttributes = "Bold" />
+               TextColor="{Binding ToubatsuColor.Value}" 
+               VerticalOptions="FillAndExpand" Style="{StaticResource LabelStyle}"/>
         <Image Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
                Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2"
                Source="{Binding RanCyanMainImage.Value, Converter={StaticResource ImageSourceConverter}}" />
@@ -83,7 +79,7 @@
         <Button Text="討伐先"
                 Grid.Row="6" Grid.Column="1" 
                 Command="{Binding ToubatsuRanCommand}" />
-        <ai:HCollectionView Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding ShingenItems}" ColumnWidth="100" Spacing="2" >
+        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding ShingenItems}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -95,8 +91,8 @@
                     </ai:ContentCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ai:HCollectionView>
-        <ai:HCollectionView Grid.Row="0" Grid.Column="3" Grid.RowSpan="3"  ItemsSource="{Binding KoushinItems}" ColumnWidth="50" Spacing="4" >
+        </ListView>
+        <ListView Grid.Row="0" Grid.Column="3" Grid.RowSpan="3"  ItemsSource="{Binding KoushinItems}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -108,8 +104,8 @@
                     </ai:ContentCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ai:HCollectionView>
-        <ai:HCollectionView Grid.Row="3" Grid.Column="2" Grid.RowSpan="4" ItemsSource="{Binding SyokugyouItems}" ColumnWidth="40" Spacing="4" >
+        </ListView>
+        <ListView Grid.Row="3" Grid.Column="2" Grid.RowSpan="4" ItemsSource="{Binding SyokugyouItems}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -121,8 +117,8 @@
                     </ai:ContentCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ai:HCollectionView>
-        <ai:HCollectionView Grid.Row="3" Grid.Column="3" Grid.RowSpan="4" ItemsSource="{Binding ToubatsuItems}" ColumnWidth="40" Spacing="4" >
+        </ListView>
+        <ListView Grid.Row="3" Grid.Column="3" Grid.RowSpan="4" ItemsSource="{Binding ToubatsuItems}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -134,7 +130,7 @@
                     </ai:ContentCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ai:HCollectionView>
+        </ListView>
     </Grid>
 
 

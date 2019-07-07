@@ -1,5 +1,7 @@
-﻿using Prism.Mvvm;
+﻿using PCLStorage;
+using Prism.Mvvm;
 using Reactive.Bindings;
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,6 +12,14 @@ namespace RanCyan.Models
 {
     public class Item : BindableBase
     {
+        //主キー
+        [PrimaryKey, AutoIncrement]
+        public int Id
+        {
+            get => id;
+            set => SetProperty(ref id, value);
+        }
+        private int id = 0;
         /// <summary>
         /// ラベル名称
         /// </summary>
@@ -49,7 +59,7 @@ namespace RanCyan.Models
             set => SetProperty(ref isHited, value);
         }
         private bool isHited;
-        
+
     }
 
     public class RandomList : BindableBase
@@ -109,17 +119,107 @@ namespace RanCyan.Models
         }
         private string labelColor;
 
+        private readonly string dbPath;
+
         /// <summary>
         /// コンストラクタ
         /// </summary>
+        /// <param name="dbPath">DBテーブル名</param>
         /// <param name="items">ループリスト</param>
         /// <param name="loopNo">ループする回数(回)</param>
         /// <param name="loopTime">全ループ合計時間(msec)</param>
-        public RandomList(List<Item> items, int loopNo = 10, int loopTime = 1000)
+        public RandomList(string dbPath, List<Item> items, int loopNo = 10, int loopTime = 1000)
         {
+            this.dbPath = dbPath;
             Items = new ObservableCollection<Item>(items);
             LoopNo = loopNo;
             LoopTime = loopTime;
+        }
+
+        /// <summary>
+        /// データベースから情報を呼び出して元の状態を復元する
+        /// </summary>
+        public async void DbDataRead()
+        {
+            var items = new ObservableCollection<Item>(Items);
+            await DbLoad();
+            if (items.Count != Items.Count)
+            {
+                await DbDelete();
+                await DbInsert(items);
+                await DbLoad();
+            }
+        }
+
+        /// <summary>
+        /// データベースへ現在の状態を保存する
+        /// </summary>
+        public async void DBDataWrite()
+        {
+            await DbDelete();
+            await DbInsert(Items);
+        }
+        /// <summary>
+        /// データベースの呼出
+        /// </summary>
+        private async Task DbLoad()
+        {
+            Items.Clear();
+            using (var db = await CreateDb())
+            {
+                foreach (var x in db.Table<Item>())
+                {
+                    Items.Add(x);
+                }
+            }
+        }
+
+        /// <summary>
+        /// データベースから全削除
+        /// </summary>
+        private async Task DbDelete()
+        {
+            using (var db = await CreateDb())
+            {
+                db.DeleteAll<Item>();
+            }
+        }
+
+        /// <summary>
+        /// データベースへ追加
+        /// </summary>
+        /// <param name="person">人情報</param>
+        private async Task DbInsert(ObservableCollection<Item> items)
+        {
+            using (var db = await CreateDb())
+            {
+                foreach (var x in items)
+                {
+                    db.Insert(x);
+                }
+            }
+        }
+
+        /// <summary>
+        /// データベースの生成と取得(以下のようにPCLStorageを使わないとUWPで例外が発生した)
+        /// </summary>
+        /// <returns></returns>
+        private async Task<SQLiteConnection> CreateDb()
+        {
+            IFolder rootFolder = FileSystem.Current.LocalStorage;
+            var result = await rootFolder.CheckExistsAsync(dbPath);
+            if (result == ExistenceCheckResult.NotFound)
+            {
+                IFile file = await rootFolder.CreateFileAsync(dbPath, CreationCollisionOption.ReplaceExisting);
+                var db = new SQLiteConnection(file.Path);
+                db.CreateTable<Item>();
+                return db;
+            }
+            else
+            {
+                IFile file = await rootFolder.CreateFileAsync(dbPath, CreationCollisionOption.OpenIfExists);
+                return new SQLiteConnection(file.Path);
+            }
         }
 
         public async void RandomAction()
@@ -173,7 +273,7 @@ namespace RanCyan.Models
                     for (int i = 0; i < 10; i++)
                     {
                         x.IsHited = !x.IsHited;
-                        if (i % 2 == 0) { LabelColor = "Red"; } else { LabelColor = "Black"; } 
+                        if (i % 2 == 0) { LabelColor = "Red"; } else { LabelColor = "Black"; }
                         await Task.Delay(50);
                     }
                 }
