@@ -56,6 +56,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "進言 2" , Ratio=1 },
                 new Item { Name = "進言 3" , Ratio=1 },
                 new Item { Name = "拒否" , Ratio=1 ,IsSelected=true},
+                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
             RandomList shingenRandomList = new RandomList(shingenItems);
             var koushinItems = new List<Item>()
@@ -64,6 +65,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "水" , Ratio=1 },
                 new Item { Name = "風" , Ratio=1 },
                 new Item { Name = "土" , Ratio=1 },
+                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
             RandomList koushinRandomList = new RandomList(koushinItems, 20, 5000);
             var syokugyouItems = new List<Item>()
@@ -76,6 +78,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "壊し屋" , Ratio=1 },
                 new Item { Name = "大筒士" , Ratio=1 },
                 new Item { Name = "踊り屋" , Ratio=1 },
+                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
             RandomList syokugyouRandomList = new RandomList(syokugyouItems, 20, 5000);
             var toubatsuItems = new List<Item>()
@@ -89,6 +92,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "紅蓮" , Ratio=1 },
                 new Item { Name = "大江山" , Ratio=1 ,IsSelected=true },
                 new Item { Name = "地獄" , Ratio=1 ,IsSelected=true },
+                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
             RandomList toubatsuRandomList = new RandomList(toubatsuItems, 20, 5000);
 

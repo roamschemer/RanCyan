@@ -71,7 +71,7 @@
         <Image Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
                Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2"
                Source="{Binding RanCyanMainImage.Value, Converter={StaticResource ImageSourceConverter}}" />
-        <Button Text="進言"
+        <Button Text="進言" 
                 Grid.Row="5" Grid.Column="0" 
                 Command="{Binding ShingenRanCommand}" />
         <Button Text="交神"
