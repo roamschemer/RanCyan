@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("RanCyan.UWP")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("乱ちゃんProject")]
+[assembly: AssemblyDescription("ゲームをちょっとだけ楽しくするツール")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("放浪軍師")]
 [assembly: AssemblyProduct("RanCyan.UWP")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCopyright("Copyright ©  2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

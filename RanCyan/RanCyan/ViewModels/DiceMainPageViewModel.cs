@@ -37,7 +37,7 @@ namespace RanCyan.ViewModels
             //Button
             DiceItemTapped.Where(_ => !diceRandomList.InRundom).Subscribe(x => {
                 x.IsSelected = !x.IsSelected;
-                diceRandomList.RandomAction();
+                diceRandomList.DBDataWrite();
             });
             DiceCommand.Subscribe(_ => diceRandomList.RandomAction());
         }
