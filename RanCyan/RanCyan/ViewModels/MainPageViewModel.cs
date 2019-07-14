@@ -25,20 +25,29 @@ namespace RanCyan.ViewModels
         public ReactiveCommand AdDisplay { get; } = new ReactiveCommand();
         public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
 
-        public MainPageViewModel(INavigationService navigationService)
-            : base(navigationService)
+        public MainPageViewModel(INavigationService navigationService) : base(navigationService)
         {
             ResetBanner();
 
-            string ranShikaPage = RanShikaPageGet();
+            string ranShikaPageGet()
+            {
+                if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.WPF) return "RanShikaUWPPage";
+                return "RanShikaMainPage";
+            }
+            var ranShikaPage = ranShikaPageGet();
+            string genericRandomPageGet()
+            {
+                if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.WPF) return "GenericRandomUWPPage";
+                return "GenericRandomMainPage";
+            }
+            var genericRandomPage = genericRandomPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
                 new MenuItem {Title="乱屍",Target=ranShikaPage,Image="RanCyan.Images.Ranshika.png" },
-                new MenuItem {Title="サイコロ",Target="DiceMainPage",Image="RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="汎用",Target=genericRandomPage,Image="RanCyan.Images.Ranshika.png" },
                 //new MenuItem {Title="著作権情報",Target="RanMemoMainPage",Image="RanCyan.Images.Ranshika.png" },
             };
 
-            //LinQで書く
             ListTapped.Subscribe(async (x) =>
             {
                 ShowBanner();
@@ -47,18 +56,7 @@ namespace RanCyan.ViewModels
 
         }
 
-        /// <summary>
-        /// 乱屍の遷移先取得
-        /// </summary>
-        /// <returns>遷移先View</returns>
-        private string RanShikaPageGet()
-        {
-            if (Device.RuntimePlatform == Device.Android) return "RanShikaMainPage";
-            if (Device.RuntimePlatform == Device.iOS) return "RanShikaMainPage";
-            if (Device.RuntimePlatform == Device.UWP) return "RanShikaUWPPage";
-            if (Device.RuntimePlatform == Device.WPF) return "RanShikaUWPPage";
-            return "";
-        }
+
         /// <summary>
         /// バナー広告をリセットします。
         /// </summary>

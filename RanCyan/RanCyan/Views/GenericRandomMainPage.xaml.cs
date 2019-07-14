@@ -2,9 +2,9 @@
 
 namespace RanCyan.Views
 {
-    public partial class DiceMainPage : ContentPage
+    public partial class GenericRandomMainPage : TabbedPage
     {
-        public DiceMainPage()
+        public GenericRandomMainPage()
         {
             InitializeComponent();
         }

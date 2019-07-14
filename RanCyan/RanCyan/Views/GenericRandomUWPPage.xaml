@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
+             prism:ViewModelLocator.AutowireViewModel="True"
+             x:Class="RanCyan.Views.GenericRandomUWPPage"            
+             xmlns:controls="clr-namespace:RanCyan.Controls"
+             xmlns:cv="clr-namespace:RanCyan.Converters"
+             xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
+             x:Name="Base"
+             Title="汎用ランダム">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
+            <Style TargetType="controls:ToggleButton">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="BackgroundColor" Value="AliceBlue"/>
+                <Style.Triggers>
+                    <Trigger TargetType="controls:ToggleButton" Property="IsSelected" Value="True">
+                        <Setter Property="TextColor" Value="Gainsboro"/>
+                    </Trigger>
+                    <Trigger TargetType="controls:ToggleButton" Property="IsHited" Value="True">
+                        <Setter Property="BackgroundColor" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style  x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
+                <Setter Property="FontAttributes" Value="Bold"/>
+                <Setter Property="FontSize" Value="40"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Label Text="{Binding FastSet.Label.Value}" IsVisible="{Binding FastSet.IsVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               TextColor="{Binding FastSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Image Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+               Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2"
+               Source="{Binding RanCyanMainImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+        <Button Text="進言" 
+                Grid.Row="5" Grid.Column="0" 
+                Command="{Binding FastSet.RanCommand}" />
+        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding FastSet.Items}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.ShingenItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+    </Grid>
+
+</ContentPage>
