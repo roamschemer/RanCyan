@@ -20,16 +20,6 @@ namespace RanCyan.ViewModels
         public ReactiveProperty<String> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.TalkRanCyan.png");
         public ReactiveProperty<String> RanCyanMainImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MainRanCyan.png");
 
-        public class RandomSet
-        {
-            public RandomList RandomList;
-            public ReadOnlyReactiveCollection<Item> Items { get; set; }
-            public ReactiveCommand<Item> ItemTapped { get; set; } = new ReactiveCommand<Item>();
-            public ReactiveCommand RanCommand { get; set; }
-            public ReactiveProperty<string> Label { get; set; } = new ReactiveProperty<string>("a");
-            public ReactiveProperty<bool> IsVisible { get; set; } = new ReactiveProperty<bool>();
-            public ReactiveProperty<string> Color { get; set; } = new ReactiveProperty<string>();
-        }
         public RandomSet FastSet { get; set; } = new RandomSet();
 
         public GenericRandomMainPageViewModel(INavigationService navigationService) : base(navigationService)
