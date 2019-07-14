@@ -51,20 +51,38 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label Text="{Binding FastSet.Label.Value}" IsVisible="{Binding FastSet.IsVisible.Value}"
-               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-               TextColor="{Binding FastSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
         <Image Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
                Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2"
                Source="{Binding RanCyanMainImage.Value, Converter={StaticResource ImageSourceConverter}}" />
-        <Button Text="進言" 
+        <Label Text="{Binding FirstSet.Label.Value}" IsVisible="{Binding FirstSet.IsVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               TextColor="{Binding FirstSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Label Text="{Binding SecondSet.Label.Value}" IsVisible="{Binding SecondSet.IsVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               TextColor="{Binding SecondSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Label Text="{Binding ThirdSet.Label.Value}" IsVisible="{Binding ThirdSet.IsVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               TextColor="{Binding ThirdSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Label Text="{Binding FourthSet.Label.Value}" IsVisible="{Binding FourthSet.IsVisible.Value}"
+               Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+               TextColor="{Binding FourthSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Button Text="進言"
                 Grid.Row="5" Grid.Column="0" 
-                Command="{Binding FastSet.RanCommand}" />
-        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding FastSet.Items}" >
+                Command="{Binding FirstSet.RanCommand}" />
+        <Button Text="交神"
+                Grid.Row="6" Grid.Column="0" 
+                Command="{Binding SecondSet.RanCommand}" />
+        <Button Text="職業"
+                Grid.Row="5" Grid.Column="1" 
+                Command="{Binding ThirdSet.RanCommand}" />
+        <Button Text="討伐先"
+                Grid.Row="6" Grid.Column="1" 
+                Command="{Binding FourthSet.RanCommand}" />
+        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding FirstSet.Items}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
-                        <controls:ToggleButton Command="{Binding BindingContext.ShingenItemTapped, Source={x:Reference Base}}"
+                        <controls:ToggleButton Command="{Binding BindingContext.FirstSet.ItemTapped, Source={x:Reference Base}}"
                                    CommandParameter="{Binding}"
                                    Text="{Binding Name}"
                                    IsSelected="{Binding IsSelected}"
@@ -73,7 +91,45 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-
+        <ListView Grid.Row="3" Grid.Column="2" Grid.RowSpan="4" ItemsSource="{Binding SecondSet.Items}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.SecondSet.ItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" ItemsSource="{Binding ThirdSet.Items}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.ThirdSet.ItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <ListView Grid.Row="3" Grid.Column="3" Grid.RowSpan="4" ItemsSource="{Binding FourthSet.Items}" >
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ai:ContentCell>
+                        <controls:ToggleButton Command="{Binding BindingContext.FourthSet.ItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                    </ai:ContentCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </Grid>
 
 </ContentPage>
