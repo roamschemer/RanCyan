@@ -69,10 +69,10 @@
         <Button Text="進言"
                 Grid.Row="5" Grid.Column="0" 
                 Command="{Binding FirstSet.RanCommand}" />
-        <Button Text="交神"
+        <Button Text="職業"
                 Grid.Row="6" Grid.Column="0" 
                 Command="{Binding SecondSet.RanCommand}" />
-        <Button Text="職業"
+        <Button Text="交神"
                 Grid.Row="5" Grid.Column="1" 
                 Command="{Binding ThirdSet.RanCommand}" />
         <Button Text="討伐先"

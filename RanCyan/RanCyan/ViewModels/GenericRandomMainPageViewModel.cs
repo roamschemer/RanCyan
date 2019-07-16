@@ -37,19 +37,9 @@ namespace RanCyan.ViewModels
                 new Item { Name = "拒否" , Ratio=1 ,IsSelected=true},
                 new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
-            FirstSet.RandomList = new RandomList("GenericFast", firstItems);
+            FirstSet.RandomList = new RandomList("GenericFirst", firstItems);
 
             var secondItems = new List<Item>()
-            {
-                new Item { Name = "火" , Ratio=1 },
-                new Item { Name = "水" , Ratio=1 },
-                new Item { Name = "風" , Ratio=1 },
-                new Item { Name = "土" , Ratio=1 },
-                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
-            };
-            SecondSet.RandomList = new RandomList("GenericSecond", secondItems);
-
-            var thirdItems = new List<Item>()
             {
                 new Item { Name = "剣士" , Ratio=1 },
                 new Item { Name = "薙刀士" , Ratio=1 },
@@ -59,6 +49,16 @@ namespace RanCyan.ViewModels
                 new Item { Name = "壊し屋" , Ratio=1 },
                 new Item { Name = "大筒士" , Ratio=1 },
                 new Item { Name = "踊り屋" , Ratio=1 },
+                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
+            };
+            SecondSet.RandomList = new RandomList("GenericSecond", secondItems);
+
+            var thirdItems = new List<Item>()
+            {
+                new Item { Name = "火の神様" , Ratio=1 },
+                new Item { Name = "水の神様" , Ratio=1 },
+                new Item { Name = "風の神様" , Ratio=1 },
+                new Item { Name = "土の神様" , Ratio=1 },
                 new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
             ThirdSet.RandomList = new RandomList("GenericThird", thirdItems);
