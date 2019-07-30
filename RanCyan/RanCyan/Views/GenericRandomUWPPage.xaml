@@ -26,7 +26,7 @@
                 </Style.Triggers>
             </Style>
             <Style  x:Key="LabelStyle" TargetType="Label">
-                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
                 <Setter Property="HorizontalTextAlignment" Value="Center"/>
                 <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
@@ -37,7 +37,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -56,7 +57,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Image Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
-               Grid.Row="1" Grid.RowSpan="4" Grid.Column="0" Grid.ColumnSpan="2"
+               Grid.Row="1" Grid.RowSpan="5" Grid.Column="0" Grid.ColumnSpan="2"
                Source="{Binding RanCyanMainImage.Value, Converter={StaticResource ImageSourceConverter}}" />
         <Label Text="{Binding FirstSet.Label.Value}" IsVisible="{Binding FirstSet.IsVisible.Value}"
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
@@ -71,18 +72,18 @@
                Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                TextColor="{Binding FourthSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
         <Button Text="進言"
-                Grid.Row="5" Grid.Column="0" 
+                Grid.Row="6" Grid.Column="0" 
                 Command="{Binding FirstSet.RanCommand}" />
         <Button Text="職業"
-                Grid.Row="6" Grid.Column="0" 
+                Grid.Row="7" Grid.Column="0" 
                 Command="{Binding SecondSet.RanCommand}" />
         <Button Text="交神"
-                Grid.Row="5" Grid.Column="1" 
+                Grid.Row="6" Grid.Column="1" 
                 Command="{Binding ThirdSet.RanCommand}" />
         <Button Text="討伐先"
-                Grid.Row="6" Grid.Column="1" 
+                Grid.Row="7" Grid.Column="1" 
                 Command="{Binding FourthSet.RanCommand}" />
-        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="3" ItemsSource="{Binding FirstSet.Items}" >
+        <ListView Grid.Row="0" Grid.Column="2" Grid.RowSpan="4" ItemsSource="{Binding FirstSet.Items}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -95,7 +96,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="3" Grid.Column="2" Grid.RowSpan="4" ItemsSource="{Binding SecondSet.Items}" >
+        <ListView Grid.Row="4" Grid.Column="2" Grid.RowSpan="4" ItemsSource="{Binding SecondSet.Items}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -108,7 +109,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="0" Grid.Column="3" Grid.RowSpan="3" ItemsSource="{Binding ThirdSet.Items}" >
+        <ListView Grid.Row="0" Grid.Column="3" Grid.RowSpan="4" ItemsSource="{Binding ThirdSet.Items}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -121,7 +122,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="3" Grid.Column="3" Grid.RowSpan="4" ItemsSource="{Binding FourthSet.Items}" >
+        <ListView Grid.Row="4" Grid.Column="3" Grid.RowSpan="4" ItemsSource="{Binding FourthSet.Items}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ai:ContentCell>
@@ -134,7 +135,7 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="0" Grid.Column="4" Grid.RowSpan="3" ItemsSource="{Binding FirstSet.Items}" SelectedItem="{Binding SelectedItem.Value}">
+        <ListView Grid.Row="0" Grid.Column="4" Grid.RowSpan="4" ItemsSource="{Binding FirstSet.Items}" SelectedItem="{Binding FirstSet.SelectedItem.Value}">
             <ListView.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -160,14 +161,16 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <StackLayout Grid.Row="0" Grid.Column="5" Grid.RowSpan="3">
-            <Entry Grid.Row="0" Grid.Column="0" Text="" Placeholder="Name" />
-            <Entry Grid.Row="0" Grid.Column="1" Text="" Placeholder="Ratio" />
-            <Button Text="追加" />
-            <Button Text="変更" />
-            <Button Text="削除" />
+        <StackLayout Grid.Row="0" Grid.Column="5" Grid.RowSpan="4">
+            <Label Text="Name" />
+            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding FirstSet.InputName.Value}" Placeholder="Name" />
+            <Label Text="Ratio" />
+            <Picker ItemsSource="{Binding FirstSet.RatioList}" SelectedItem="{Binding FirstSet.InputRatio.Value}"/>
+            <Button Text="追加" Command="{Binding FirstSet.InsertTapped}"/>
+            <Button Text="変更" Command="{Binding FirstSet.UpDateTapped}"/>
+            <Button Text="削除" Command="{Binding FirstSet.DeleteTapped}"/>
         </StackLayout>
-        <ListView Grid.Row="3" Grid.Column="4" Grid.RowSpan="4" ItemsSource="{Binding SecondSet.Items}" SelectedItem="{Binding SelectedItem.Value}">
+        <ListView Grid.Row="4" Grid.Column="4" Grid.RowSpan="4" ItemsSource="{Binding SecondSet.Items}" SelectedItem="{Binding SecondSet.SelectedItem.Value}">
             <ListView.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -193,7 +196,16 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="0" Grid.Column="6" Grid.RowSpan="3" ItemsSource="{Binding ThirdSet.Items}" SelectedItem="{Binding SelectedItem.Value}">
+        <StackLayout Grid.Row="4" Grid.Column="5" Grid.RowSpan="4">
+            <Label Text="Name" />
+            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding SecondSet.InputName.Value}" Placeholder="Name" />
+            <Label Text="Ratio" />
+            <Picker ItemsSource="{Binding SecondSet.RatioList}" SelectedItem="{Binding SecondSet.InputRatio.Value}"/>
+            <Button Text="追加" Command="{Binding SecondSet.InsertTapped}"/>
+            <Button Text="変更" Command="{Binding SecondSet.UpDateTapped}"/>
+            <Button Text="削除" Command="{Binding SecondSet.DeleteTapped}"/>
+        </StackLayout>
+        <ListView Grid.Row="0" Grid.Column="6" Grid.RowSpan="4" ItemsSource="{Binding ThirdSet.Items}" SelectedItem="{Binding ThirdSet.SelectedItem.Value}">
             <ListView.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -219,7 +231,16 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <ListView Grid.Row="3" Grid.Column="6" Grid.RowSpan="4" ItemsSource="{Binding FourthSet.Items}" SelectedItem="{Binding SelectedItem.Value}">
+        <StackLayout Grid.Row="0" Grid.Column="7" Grid.RowSpan="4">
+            <Label Text="Name" />
+            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding ThirdSet.InputName.Value}" Placeholder="Name" />
+            <Label Text="Ratio" />
+            <Picker ItemsSource="{Binding ThirdSet.RatioList}" SelectedItem="{Binding ThirdSet.InputRatio.Value}"/>
+            <Button Text="追加" Command="{Binding ThirdSet.InsertTapped}"/>
+            <Button Text="変更" Command="{Binding ThirdSet.UpDateTapped}"/>
+            <Button Text="削除" Command="{Binding ThirdSet.DeleteTapped}"/>
+        </StackLayout>
+        <ListView Grid.Row="4" Grid.Column="6" Grid.RowSpan="4" ItemsSource="{Binding FourthSet.Items}" SelectedItem="{Binding FourthSet.SelectedItem.Value}">
             <ListView.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -245,6 +266,15 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
+        <StackLayout Grid.Row="4" Grid.Column="7" Grid.RowSpan="4">
+            <Label Text="Name" />
+            <Entry Grid.Row="0" Grid.Column="0" Text="{Binding FourthSet.InputName.Value}" Placeholder="Name" />
+            <Label Text="Ratio" />
+            <Picker ItemsSource="{Binding FourthSet.RatioList}" SelectedItem="{Binding FourthSet.InputRatio.Value}"/>
+            <Button Text="追加" Command="{Binding FourthSet.InsertTapped}"/>
+            <Button Text="変更" Command="{Binding FourthSet.UpDateTapped}"/>
+            <Button Text="削除" Command="{Binding FourthSet.DeleteTapped}"/>
+        </StackLayout>    
     </Grid>
 
 </ContentPage>

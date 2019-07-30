@@ -6,6 +6,7 @@ using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -18,7 +19,7 @@ namespace RanCyan.ViewModels
         public ReactiveProperty<string> RanCyanKowashiyaImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
         public ReactiveProperty<string> RanCyanMikoImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
         public ReactiveProperty<string> RanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.TalkRanCyan.png");
-        public ReactiveProperty<string> RanCyanMainImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.RanCyanTaiki2.gif");
+        public ReactiveProperty<string> RanCyanMainImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MainRanCyan.png");
 
         public RandomSet FirstSet { get; } = new RandomSet();
         public RandomSet SecondSet { get; } = new RandomSet();
@@ -81,6 +82,9 @@ namespace RanCyan.ViewModels
             var set = new[] { FirstSet, SecondSet, ThirdSet, FourthSet };
             foreach(var s in set)
             {
+                //レートリスト
+                s.RatioList = new ObservableCollection<int>(Enumerable.Range(1, 100).ToList());
+                //DB情報取得
                 s.RandomList.DbDataRead();
                 //ViewModel←Model
                 s.Items = s.RandomList.Items.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
@@ -99,6 +103,9 @@ namespace RanCyan.ViewModels
                     s.IsVisible.Value = true;
                     s.RandomList.RandomAction();
                 });
+                s.InsertTapped.Subscribe(_ => s.RandomList.Insert(s.InputName.Value, s.InputRatio.Value));
+                s.UpDateTapped.Subscribe(_ => s.RandomList.UpDate(s.SelectedItem.Value, s.InputName.Value, s.InputRatio.Value));
+                s.DeleteTapped.Subscribe(_ => s.RandomList.Delete(s.SelectedItem.Value));
             }
         }
         public override void Destroy()

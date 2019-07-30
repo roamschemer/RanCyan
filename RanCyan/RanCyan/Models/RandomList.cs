@@ -72,22 +72,22 @@ namespace RanCyan.Models
         /// <summary>
         /// ループする回数(回)
         /// </summary>
-        public int LoopNo
+        public int LoopTimes
         {
-            get => loopNo;
-            set => SetProperty(ref loopNo, value);
+            get => loopTimes;
+            set => SetProperty(ref loopTimes, value);
         }
-        private int loopNo;
+        private int loopTimes;
 
         /// <summary>
         /// 全ループ合計時間(msec)
         /// </summary>
-        public int LoopTime
+        public int LoopTotalTime
         {
-            get => loopTime;
-            set => SetProperty(ref loopTime, value);
+            get => loopTotalTime;
+            set => SetProperty(ref loopTotalTime, value);
         }
-        private int loopTime;
+        private int loopTotalTime;
 
         /// <summary>
         /// ランダム実行中
@@ -132,8 +132,8 @@ namespace RanCyan.Models
         {
             this.dbPath = dbPath;
             Items = new ObservableCollection<Item>(items);
-            LoopNo = loopNo;
-            LoopTime = loopTime;
+            LoopTimes = loopNo;
+            LoopTotalTime = loopTime;
         }
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace RanCyan.Models
             await DbLoad();
             if (items.Count != Items.Count)
             {
-                await DbDelete();
+                await DbDeleteAll();
                 await DbInsert(items);
                 await DbLoad();
             }
@@ -156,9 +156,46 @@ namespace RanCyan.Models
         /// </summary>
         public async void DBDataWrite()
         {
-            await DbDelete();
+            await DbDeleteAll();
             await DbInsert(Items);
         }
+
+        /// <summary>
+        /// リストの追加
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="ratio"></param>
+        public async void Insert(string name, int ratio)
+        {
+            var item = new Item { Name = name, Ratio = ratio };
+            Items.Add(item);
+            await DbDeleteAll();
+            await DbInsert(Items);
+            await DbLoad();
+        }
+
+        /// <summary>
+        /// リストの更新
+        /// </summary>
+        public async void UpDate(Item selectedItem, string name, int ratio)
+        {
+            if (selectedItem == null) return;
+            var item = new Item { Id = selectedItem.Id, Name = name, Ratio = ratio };
+            await DbUpDate(item);
+            await DbLoad();
+        }
+
+        /// <summary>
+        /// リストから消す
+        /// </summary>
+        public async void Delete(Item selectedItem)
+        {
+            if (selectedItem == null) return;
+            var item = new Item { Id = selectedItem.Id };
+            await DbDelete(item);
+            await DbLoad();
+        }
+
         /// <summary>
         /// データベースの呼出
         /// </summary>
@@ -175,9 +212,32 @@ namespace RanCyan.Models
         }
 
         /// <summary>
+        /// データベースの更新
+        /// </summary>
+        /// <param name="item">情報</param>
+        private async Task DbUpDate(Item item)
+        {
+            using (var db = await CreateDb())
+            {
+                db.Update(item);
+            }
+        }
+
+        /// <summary>
+        /// データベースから削除
+        /// </summary>
+        private async Task DbDelete(Item item)
+        {
+            using (var db = await CreateDb())
+            {
+                db.Delete<Item>(item.Id);
+            }
+        }
+
+        /// <summary>
         /// データベースから全削除
         /// </summary>
-        private async Task DbDelete()
+        private async Task DbDeleteAll()
         {
             using (var db = await CreateDb())
             {
@@ -188,7 +248,8 @@ namespace RanCyan.Models
         /// <summary>
         /// データベースへ追加
         /// </summary>
-        /// <param name="person">人情報</param>
+        /// <param name="items">追加するitems</param>
+        /// <returns></returns>
         private async Task DbInsert(ObservableCollection<Item> items)
         {
             using (var db = await CreateDb())
@@ -222,6 +283,9 @@ namespace RanCyan.Models
             }
         }
 
+        /// <summary>
+        /// ランダム選択の実行
+        /// </summary>
         public async void RandomAction()
         {
 
@@ -231,7 +295,7 @@ namespace RanCyan.Models
             Random rnd = new System.Random(seed);
 
             //基準となるウェイト時間(msec)
-            float oneWaitTime = loopTime / (((loopNo - 1) * loopNo) / 2);
+            float oneWaitTime = loopTotalTime / (((loopTimes - 1) * loopTimes) / 2);
 
             var RaitoSum = Items.Where(x => !x.IsSelected)  //選択している奴は除外した
                                 .Sum(x => x.Ratio);         //Ratioの合計値
@@ -240,7 +304,7 @@ namespace RanCyan.Models
             Items.Where(x => x.IsSelected).Select(x => x.IsHited = false).ToList();//IsHitedは全部Falseにする
             InRundom = true;
             LabelColor = "Black";
-            for (int i = 1; i <= loopNo; i++)
+            for (int i = 1; i <= loopTimes; i++)
             {
                 // listの数からダンダムで値を取得
                 var hitCount = rnd.Next(1, RaitoSum + 1);
@@ -258,7 +322,7 @@ namespace RanCyan.Models
                     }
                 }
 
-                if (i < loopNo)
+                if (i < loopTimes)
                 {
                     //少しずつウェイト時間を長くする
                     await Task.Delay((int)(oneWaitTime * i));
