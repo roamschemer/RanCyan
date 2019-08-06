@@ -119,7 +119,7 @@ namespace RanCyan.Models
         }
         private string labelColor;
 
-        private readonly string dbPath;
+        private string dbPath;
 
         /// <summary>
         /// コンストラクタ
@@ -128,12 +128,16 @@ namespace RanCyan.Models
         /// <param name="items">ループリスト</param>
         /// <param name="loopNo">ループする回数(回)</param>
         /// <param name="loopTime">全ループ合計時間(msec)</param>
-        public RandomList(string dbPath, List<Item> items, int loopNo = 10, int loopTime = 1000)
+        public RandomList(List<Item> items, int loopNo = 10, int loopTime = 1000)
         {
-            this.dbPath = dbPath;
             Items = new ObservableCollection<Item>(items);
             LoopTimes = loopNo;
             LoopTotalTime = loopTime;
+        }
+
+        public void SetDbPath(string dbPath)
+        {
+            this.dbPath = dbPath;
         }
 
         /// <summary>
@@ -143,7 +147,7 @@ namespace RanCyan.Models
         {
             var items = new ObservableCollection<Item>(Items);
             await DbLoad();
-            if (items.Count != Items.Count)
+            if (Items.Count == 0)
             {
                 await DbDeleteAll();
                 await DbInsert(items);
@@ -167,6 +171,7 @@ namespace RanCyan.Models
         /// <param name="ratio"></param>
         public async void Insert(string name, int ratio)
         {
+            if (name == null) return;
             var item = new Item { Name = name, Ratio = ratio };
             Items.Add(item);
             await DbDeleteAll();
@@ -179,6 +184,7 @@ namespace RanCyan.Models
         /// </summary>
         public async void UpDate(Item selectedItem, string name, int ratio)
         {
+            if (name == null) return;
             if (selectedItem == null) return;
             var item = new Item { Id = selectedItem.Id, Name = name, Ratio = ratio };
             await DbUpDate(item);

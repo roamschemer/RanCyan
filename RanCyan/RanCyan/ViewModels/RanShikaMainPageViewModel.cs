@@ -58,55 +58,55 @@ namespace RanCyan.ViewModels
 
         public RanShikaMainPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-            var shingenItems = new List<Item>()
-            {
-                new Item { Name = "進言 1" , Ratio=1 },
-                new Item { Name = "進言 2" , Ratio=1 },
-                new Item { Name = "進言 3" , Ratio=1 },
-                new Item { Name = "拒否" , Ratio=1 ,IsSelected=true},
-                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
-            };
-            ShingenRandomList = new RandomList("RanShikaShingen", shingenItems);
-            ShingenRandomList.DbDataRead();
-            var koushinItems = new List<Item>()
-            {
-                new Item { Name = "火" , Ratio=1 },
-                new Item { Name = "水" , Ratio=1 },
-                new Item { Name = "風" , Ratio=1 },
-                new Item { Name = "土" , Ratio=1 },
-                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
-            };
-            KoushinRandomList = new RandomList("RanShikaKoushin", koushinItems, 20, 5000);
-            KoushinRandomList.DbDataRead();
-            var syokugyouItems = new List<Item>()
-            {
-                new Item { Name = "剣士" , Ratio=1 },
-                new Item { Name = "薙刀士" , Ratio=1 },
-                new Item { Name = "弓使い" , Ratio=1 },
-                new Item { Name = "槍使い" , Ratio=1 },
-                new Item { Name = "拳法家" , Ratio=1 },
-                new Item { Name = "壊し屋" , Ratio=1 },
-                new Item { Name = "大筒士" , Ratio=1 },
-                new Item { Name = "踊り屋" , Ratio=1 },
-                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
-            };
-            SyokugyouRandomList = new RandomList("RanShikaSyokugyou", syokugyouItems, 20, 5000);
-            SyokugyouRandomList.DbDataRead();
-            var toubatsuItems = new List<Item>()
-            {
-                new Item { Name = "鳥居" , Ratio=1 },
-                new Item { Name = "相翼院" , Ratio=1 },
-                new Item { Name = "九重楼" , Ratio=1 },
-                new Item { Name = "白骨城" , Ratio=1 },
-                new Item { Name = "流水道" , Ratio=1 },
-                new Item { Name = "鎮魂墓" , Ratio=1 },
-                new Item { Name = "紅蓮" , Ratio=1 },
-                new Item { Name = "大江山" , Ratio=1 ,IsSelected=true },
-                new Item { Name = "地獄" , Ratio=1 ,IsSelected=true },
-                new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
-            };
-            ToubatsuRandomList = new RandomList("RanShikaToubatsu", toubatsuItems, 20, 5000);
-            ToubatsuRandomList.DbDataRead();
+            //var shingenItems = new List<Item>()
+            //{
+            //    new Item { Name = "進言 1" , Ratio=1 },
+            //    new Item { Name = "進言 2" , Ratio=1 },
+            //    new Item { Name = "進言 3" , Ratio=1 },
+            //    new Item { Name = "拒否" , Ratio=1 ,IsSelected=true},
+            //    new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
+            //};
+            //ShingenRandomList = new RandomList("RanShikaShingen", shingenItems);
+            //ShingenRandomList.DbDataRead();
+            //var koushinItems = new List<Item>()
+            //{
+            //    new Item { Name = "火" , Ratio=1 },
+            //    new Item { Name = "水" , Ratio=1 },
+            //    new Item { Name = "風" , Ratio=1 },
+            //    new Item { Name = "土" , Ratio=1 },
+            //    new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
+            //};
+            //KoushinRandomList = new RandomList("RanShikaKoushin", koushinItems, 20, 5000);
+            //KoushinRandomList.DbDataRead();
+            //var syokugyouItems = new List<Item>()
+            //{
+            //    new Item { Name = "剣士" , Ratio=1 },
+            //    new Item { Name = "薙刀士" , Ratio=1 },
+            //    new Item { Name = "弓使い" , Ratio=1 },
+            //    new Item { Name = "槍使い" , Ratio=1 },
+            //    new Item { Name = "拳法家" , Ratio=1 },
+            //    new Item { Name = "壊し屋" , Ratio=1 },
+            //    new Item { Name = "大筒士" , Ratio=1 },
+            //    new Item { Name = "踊り屋" , Ratio=1 },
+            //    new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
+            //};
+            //SyokugyouRandomList = new RandomList("RanShikaSyokugyou", syokugyouItems, 20, 5000);
+            //SyokugyouRandomList.DbDataRead();
+            //var toubatsuItems = new List<Item>()
+            //{
+            //    new Item { Name = "鳥居" , Ratio=1 },
+            //    new Item { Name = "相翼院" , Ratio=1 },
+            //    new Item { Name = "九重楼" , Ratio=1 },
+            //    new Item { Name = "白骨城" , Ratio=1 },
+            //    new Item { Name = "流水道" , Ratio=1 },
+            //    new Item { Name = "鎮魂墓" , Ratio=1 },
+            //    new Item { Name = "紅蓮" , Ratio=1 },
+            //    new Item { Name = "大江山" , Ratio=1 ,IsSelected=true },
+            //    new Item { Name = "地獄" , Ratio=1 ,IsSelected=true },
+            //    new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
+            //};
+            //ToubatsuRandomList = new RandomList("RanShikaToubatsu", toubatsuItems, 20, 5000);
+            //ToubatsuRandomList.DbDataRead();
 
             //ViewModel←Model
             ShingenItems = ShingenRandomList.Items.ToReadOnlyReactiveCollection().AddTo(this.Disposable);

@@ -18,13 +18,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <!-- <RowDefinition Height="50" /> -->
-        </Grid.RowDefinitions>
-        <ListView ItemsSource="{Binding ListView}" Grid.Row="0" HasUnevenRows="false" RowHeight="80" >
+    <StackLayout>
+        <ListView ItemsSource="{Binding ListView}" HasUnevenRows="false" RowHeight="80" >
             <ListView.Behaviors>
                 <behaviorsPack:SelectedItemBehavior Command="{Binding ListTapped}"/>
             </ListView.Behaviors>
@@ -39,8 +34,6 @@
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Image Aspect = "AspectFit" Grid.Row="1" Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
-        <!-- <Renderers:AdMobBanner WidthRequest="320" HeightRequest="50" Grid.Row="2"/> -->
-    </Grid>
+    </StackLayout>
 
 </ContentPage>

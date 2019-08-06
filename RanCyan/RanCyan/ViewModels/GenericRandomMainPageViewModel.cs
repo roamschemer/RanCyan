@@ -24,9 +24,12 @@ namespace RanCyan.ViewModels
         public RandomSet FirstSet { get; } = new RandomSet();
         public RandomSet SecondSet { get; } = new RandomSet();
         public RandomSet ThirdSet { get; } = new RandomSet();
-        public RandomSet FourthSet { get;  } = new RandomSet();
+        public RandomSet FourthSet { get; } = new RandomSet();
 
         public ReactiveProperty<string> GenericLabel { get; set; } = new ReactiveProperty<string>();
+        public ReactiveProperty<string> Title { get; set; } = new ReactiveProperty<string>();
+        public string id;
+
 
         public GenericRandomMainPageViewModel(INavigationService navigationService) : base(navigationService)
         {
@@ -38,7 +41,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "拒否" , Ratio=1 ,IsSelected=true},
                 new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
-            FirstSet.RandomList = new RandomList("GenericFirst", firstItems);
+            FirstSet.RandomList = new RandomList(firstItems);
 
             var secondItems = new List<Item>()
             {
@@ -52,7 +55,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "踊り屋" , Ratio=1 },
                 new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
-            SecondSet.RandomList = new RandomList("GenericSecond", secondItems);
+            SecondSet.RandomList = new RandomList(secondItems);
 
             var thirdItems = new List<Item>()
             {
@@ -62,7 +65,7 @@ namespace RanCyan.ViewModels
                 new Item { Name = "土の神様" , Ratio=1 },
                 new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
-            ThirdSet.RandomList = new RandomList("GenericThird", thirdItems);
+            ThirdSet.RandomList = new RandomList(thirdItems);
 
             var fourthItems = new List<Item>()
             {
@@ -77,15 +80,15 @@ namespace RanCyan.ViewModels
                 new Item { Name = "地獄" , Ratio=1 ,IsSelected=true },
                 new Item { Name = "自由" , Ratio=1 ,IsSelected=true},
             };
-            FourthSet.RandomList = new RandomList("Genericfourth", fourthItems);
+            FourthSet.RandomList = new RandomList(fourthItems);
 
             var set = new[] { FirstSet, SecondSet, ThirdSet, FourthSet };
-            foreach(var s in set)
+            foreach (var s in set)
             {
                 //レートリスト
                 s.RatioList = new ObservableCollection<int>(Enumerable.Range(1, 100).ToList());
-                //DB情報取得
-                s.RandomList.DbDataRead();
+                s.LoopTimesList = new ObservableCollection<int>(Enumerable.Range(1, 100).ToList());
+                s.LoopTotalTimeList = new ObservableCollection<int>(Enumerable.Range(1, 40).Select(x => x * 500).ToList());
                 //ViewModel←Model
                 s.Items = s.RandomList.Items.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
                 s.RanCommand = s.RandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand().AddTo(this.Disposable);
@@ -111,6 +114,22 @@ namespace RanCyan.ViewModels
         public override void Destroy()
         {
             this.Disposable.Dispose();
+        }
+        public override void OnNavigatedTo(INavigationParameters parameters)
+        {
+            id = (string)parameters["Id"];
+            Title.Value = "乱ちゃんProject" + id;
+            var set = new[] { new { rSet = FirstSet, dbPath = "Generic" + id + "First" },
+                              new { rSet = SecondSet, dbPath = "Generic" + id + "Second" },
+                              new { rSet = ThirdSet, dbPath = "Generic" + id + "Third" },
+                              new { rSet = FourthSet, dbPath = "Generic" + id + "Fourth" },
+                            };
+            foreach (var s in set)
+            {
+                //DB情報取得
+                s.rSet.RandomList.SetDbPath(s.dbPath);
+                s.rSet.RandomList.DbDataRead();
+            }
         }
     }
 }

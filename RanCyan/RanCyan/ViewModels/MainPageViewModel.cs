@@ -18,6 +18,7 @@ namespace RanCyan.ViewModels
             public string Title { get; set; }
             public string Target { get; set; }
             public string Image { get; set; }
+            public string Id { get; set; }
         }
 
         public ReactiveCollection<MenuItem> ListView { get; set; } = new ReactiveCollection<MenuItem>();
@@ -43,15 +44,24 @@ namespace RanCyan.ViewModels
             var genericRandomPage = genericRandomPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
-                new MenuItem {Title="乱屍",Target=ranShikaPage,Image="RanCyan.Images.Ranshika.png" },
-                new MenuItem {Title="汎用",Target=genericRandomPage,Image="RanCyan.Images.Ranshika.png" },
+                //new MenuItem {Title="乱屍", Target=ranShikaPage, Image="RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="Project01", Target=genericRandomPage, Id="01", Image="RanCyan.Images.MiniMikoRanCyan.png" },
+                new MenuItem {Title="Project02", Target=genericRandomPage, Id="02", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
+                new MenuItem {Title="Project03", Target=genericRandomPage, Id="03", Image="RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="Project04", Target=genericRandomPage, Id="04", Image="RanCyan.Images.MiniMikoRanCyan.png" },
+                new MenuItem {Title="Project05", Target=genericRandomPage, Id="05", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
+                new MenuItem {Title="Project06", Target=genericRandomPage, Id="06", Image="RanCyan.Images.Ranshika.png" },
                 //new MenuItem {Title="著作権情報",Target="RanMemoMainPage",Image="RanCyan.Images.Ranshika.png" },
             };
 
             ListTapped.Subscribe(async (x) =>
             {
                 ShowBanner();
-                await navigationService.NavigateAsync(x.Target);
+                var p = new NavigationParameters
+                {
+                    {"Id", x.Id},
+                };
+                await navigationService.NavigateAsync(x.Target, p);
             });
 
         }
