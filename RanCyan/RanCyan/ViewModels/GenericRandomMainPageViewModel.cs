@@ -91,7 +91,7 @@ namespace RanCyan.ViewModels
                 s.LoopTotalTimeList = new ObservableCollection<int>(Enumerable.Range(1, 40).Select(x => x * 500).ToList());
                 //ViewModel←Model
                 s.Items = s.RandomList.Items.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
-                s.RanCommand = s.RandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand().AddTo(this.Disposable);
+                //s.RanCommand = s.RandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand().AddTo(this.Disposable);
                 s.Label = s.RandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty().AddTo(this.Disposable);
                 s.Color = s.RandomList.ObserveProperty(x => x.LabelColor).ToReactiveProperty().AddTo(this.Disposable);
                 //Button

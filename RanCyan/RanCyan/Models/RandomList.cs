@@ -294,6 +294,11 @@ namespace RanCyan.Models
         /// </summary>
         public async void RandomAction()
         {
+            if (InRundom) return;//抽選中は抜ける
+            var RaitoSum = Items.Where(x => !x.IsSelected)  //選択している奴は除外した
+                                .Sum(x => x.Ratio);         //Ratioの合計値
+            if (RaitoSum == 0) return; //レートが0の場合は抽選を回避する
+            if (Items.Count(x => !x.IsSelected) <= 1) return; //対象が1以下の場合抽選をの意味がないので回避する
 
             //シード値を取得(乱数固定化の阻止)
             int seed = Environment.TickCount;
@@ -303,10 +308,6 @@ namespace RanCyan.Models
             //基準となるウェイト時間(msec)
             float oneWaitTime = loopTotalTime / (((loopTimes - 1) * loopTimes) / 2);
 
-            var RaitoSum = Items.Where(x => !x.IsSelected)  //選択している奴は除外した
-                                .Sum(x => x.Ratio);         //Ratioの合計値
-            if (RaitoSum == 0) return; //レートが0の場合は抽選を回避する
-            if (Items.Count(x => !x.IsSelected) <= 1) return; //対象が1以下の場合抽選をの意味がないので回避する
             Items.Where(x => x.IsSelected).Select(x => x.IsHited = false).ToList();//IsHitedは全部Falseにする
             InRundom = true;
             LabelColor = "Black";

@@ -8,7 +8,8 @@
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
              x:Name="Base"
-             Title="{Binding Title.Value}" >
+             Title="{Binding Title.Value}" 
+             BackgroundColor="Transparent">
 
     <ContentPage.Resources>
         <ResourceDictionary>

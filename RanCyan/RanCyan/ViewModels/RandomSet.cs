@@ -15,7 +15,7 @@ namespace RanCyan.ViewModels
         /// <summary>ランダムアイテムタップイベント</summary>
         public ReactiveCommand<Item> ItemTapped { get; set; } = new ReactiveCommand<Item>();
         /// <summary>ランダムボタン</summary>
-        public ReactiveCommand RanCommand { get; set; }
+        public ReactiveCommand RanCommand { get; set; } = new ReactiveCommand();
         /// <summary>ランダムボタンのテキスト</summary>
         public ReactiveProperty<string> RanCommandButtonText { get; set; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> Label { get; set; } = new ReactiveProperty<string>();
