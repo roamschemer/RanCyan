@@ -305,13 +305,14 @@ namespace RanCyan.Models
             // Randomクラスのインスタンス生成
             Random rnd = new System.Random(seed);
 
+            var lT = loopTimes;
             //基準となるウェイト時間(msec)
-            float oneWaitTime = loopTotalTime / (((loopTimes - 1) * loopTimes) / 2);
+            float oneWaitTime = loopTotalTime / (((lT - 1) * lT) / 2);
 
             Items.Where(x => x.IsSelected).Select(x => x.IsHited = false).ToList();//IsHitedは全部Falseにする
             InRundom = true;
             LabelColor = "Black";
-            for (int i = 1; i <= loopTimes; i++)
+            for (int i = 1; i <= lT; i++)
             {
                 // listの数からダンダムで値を取得
                 var hitCount = rnd.Next(1, RaitoSum + 1);
@@ -329,7 +330,7 @@ namespace RanCyan.Models
                     }
                 }
 
-                if (i < loopTimes)
+                if (i < lT)
                 {
                     //少しずつウェイト時間を長くする
                     await Task.Delay((int)(oneWaitTime * i));

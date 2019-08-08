@@ -94,6 +94,10 @@ namespace RanCyan.ViewModels
                 //s.RanCommand = s.RandomList.ObserveProperty(x => !x.InRundom).ToReactiveCommand().AddTo(this.Disposable);
                 s.Label = s.RandomList.ObserveProperty(x => x.DataLabel).ToReactiveProperty().AddTo(this.Disposable);
                 s.Color = s.RandomList.ObserveProperty(x => x.LabelColor).ToReactiveProperty().AddTo(this.Disposable);
+                //ViewModel←→Model
+                s.LoopTimes = s.RandomList.ToReactivePropertyAsSynchronized(x => x.LoopTimes).AddTo(this.Disposable);
+                s.LoopTotalTime=s.RandomList.ToReactivePropertyAsSynchronized(x=>x.LoopTotalTime).AddTo(this.Disposable);
+
                 //Button
                 s.ItemTapped.Where(_ => !s.RandomList.InRundom).Subscribe(x =>
                 {
@@ -105,6 +109,11 @@ namespace RanCyan.ViewModels
                     set.Select(x => x.IsVisible.Value = false).ToList();
                     s.IsVisible.Value = true;
                     s.RandomList.RandomAction();
+                });
+                s.SelectedItem.Where(x => x != null).Subscribe(x =>
+                {
+                    s.InputName.Value = x.Name;
+                    s.InputRatio.Value = x.Ratio;
                 });
                 s.InsertTapped.Subscribe(_ => s.RandomList.Insert(s.InputName.Value, s.InputRatio.Value));
                 s.UpDateTapped.Subscribe(_ => s.RandomList.UpDate(s.SelectedItem.Value, s.InputName.Value, s.InputRatio.Value));
