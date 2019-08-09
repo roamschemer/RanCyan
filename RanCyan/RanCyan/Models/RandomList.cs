@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace RanCyan.Models
 {
@@ -75,9 +76,27 @@ namespace RanCyan.Models
         public int LoopTimes
         {
             get => loopTimes;
-            set => SetProperty(ref loopTimes, value);
+            set
+            {
+                SetProperty(ref loopTimes, value);
+                Application.Current.Properties[dbPath + "loopTimes"] = loopTimes;
+            }
         }
-        private int loopTimes;
+        private int loopTimes = 10; 
+
+        /// <summary>
+        /// ランダムボタンの名称
+        /// </summary>
+        public string RanCommandButtonText
+        {
+            get => ranCommandButtonText;
+            set
+            {
+                SetProperty(ref ranCommandButtonText, value);
+                Application.Current.Properties[dbPath + "ranCommandButtonText"] = ranCommandButtonText;
+            }
+        }
+        private string ranCommandButtonText;
 
         /// <summary>
         /// 全ループ合計時間(msec)
@@ -85,9 +104,13 @@ namespace RanCyan.Models
         public int LoopTotalTime
         {
             get => loopTotalTime;
-            set => SetProperty(ref loopTotalTime, value);
+            set
+            {
+                SetProperty(ref loopTotalTime, value);
+                Application.Current.Properties[dbPath + "loopTotalTime"] = loopTotalTime;
+            }
         }
-        private int loopTotalTime;
+        private int loopTotalTime = 1000;
 
         /// <summary>
         /// ランダム実行中
@@ -126,18 +149,17 @@ namespace RanCyan.Models
         /// </summary>
         /// <param name="dbPath">DBテーブル名</param>
         /// <param name="items">ループリスト</param>
-        /// <param name="loopNo">ループする回数(回)</param>
-        /// <param name="loopTime">全ループ合計時間(msec)</param>
-        public RandomList(List<Item> items, int loopNo = 10, int loopTime = 1000)
+        public RandomList(List<Item> items)
         {
             Items = new ObservableCollection<Item>(items);
-            LoopTimes = loopNo;
-            LoopTotalTime = loopTime;
         }
 
         public void SetDbPath(string dbPath)
         {
             this.dbPath = dbPath;
+            if (Application.Current.Properties.ContainsKey(dbPath + "loopTimes")) LoopTimes = int.Parse(Application.Current.Properties[dbPath + "loopTimes"].ToString());
+            if (Application.Current.Properties.ContainsKey(dbPath + "loopTotalTime")) LoopTotalTime = int.Parse(Application.Current.Properties[dbPath + "loopTotalTime"].ToString());
+            if (Application.Current.Properties.ContainsKey(dbPath + "ranCommandButtonText")) RanCommandButtonText = Application.Current.Properties[dbPath + "ranCommandButtonText"].ToString();
         }
 
         /// <summary>
@@ -199,6 +221,15 @@ namespace RanCyan.Models
             if (selectedItem == null) return;
             var item = new Item { Id = selectedItem.Id };
             await DbDelete(item);
+            await DbLoad();
+        }
+
+        /// <summary>
+        /// リストから全消し
+        /// </summary>
+        public async void AllDelete()
+        {
+            await DbDeleteAll();
             await DbLoad();
         }
 

@@ -44,7 +44,8 @@ namespace RanCyan.ViewModels
         public ReactiveCommand UpDateTapped { get; set; } = new ReactiveCommand();
         /// <summary>リストから排除</summary>
         public ReactiveCommand DeleteTapped { get; set; } = new ReactiveCommand();
-
+        /// <summary>リスト全削除</summary>
+        public ReactiveCommand AllDeleteTapped { get; set; } = new ReactiveCommand();
 
 
     }

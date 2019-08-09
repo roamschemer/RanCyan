@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using Xamarin.Forms;
 
 namespace RanCyan.ViewModels
 {
@@ -96,8 +97,8 @@ namespace RanCyan.ViewModels
                 s.Color = s.RandomList.ObserveProperty(x => x.LabelColor).ToReactiveProperty().AddTo(this.Disposable);
                 //ViewModel←→Model
                 s.LoopTimes = s.RandomList.ToReactivePropertyAsSynchronized(x => x.LoopTimes).AddTo(this.Disposable);
-                s.LoopTotalTime=s.RandomList.ToReactivePropertyAsSynchronized(x=>x.LoopTotalTime).AddTo(this.Disposable);
-
+                s.LoopTotalTime = s.RandomList.ToReactivePropertyAsSynchronized(x => x.LoopTotalTime).AddTo(this.Disposable);
+                s.RanCommandButtonText = s.RandomList.ToReactivePropertyAsSynchronized(x => x.RanCommandButtonText).AddTo(this.Disposable);
                 //Button
                 s.ItemTapped.Where(_ => !s.RandomList.InRundom).Subscribe(x =>
                 {
@@ -118,6 +119,11 @@ namespace RanCyan.ViewModels
                 s.InsertTapped.Subscribe(_ => s.RandomList.Insert(s.InputName.Value, s.InputRatio.Value));
                 s.UpDateTapped.Subscribe(_ => s.RandomList.UpDate(s.SelectedItem.Value, s.InputName.Value, s.InputRatio.Value));
                 s.DeleteTapped.Subscribe(_ => s.RandomList.Delete(s.SelectedItem.Value));
+                s.AllDeleteTapped.Subscribe(async _ =>
+                {
+                    var select = await Application.Current.MainPage.DisplayAlert("全消去", "リストを全て消去するけど構わない？", "いいよ", "待った");
+                    if (select) s.RandomList.AllDelete();
+                });
             }
         }
         public override void Destroy()
