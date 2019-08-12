@@ -44,11 +44,14 @@ namespace RanCyan.ViewModels
 
             var ranCyanImageItems = new List<string>
             {
-                "RanCyan.Images.MainRanCyan.png",
-                "RanCyan.Images.MiniKowashiyaRanCyan.png",
-                "RanCyan.Images.MiniMikoRanCyan.png",
+                "RanCyan.Images.3D_Keirei.gif",
+                "RanCyan.Images.3D_Taiki2.gif",
+                "RanCyan.Images.3D_Taiki5.gif",
+                "RanCyan.Images.3D_Taiki6.gif",
+                "RanCyan.Images.3D_Taiki8.gif",
+                "RanCyan.Images.3D_walk.gif",
             };
-            var timer = new ReactiveTimer(TimeSpan.FromSeconds(1)); // 秒スパンのタイマー
+            var timer = new ReactiveTimer(TimeSpan.FromSeconds(5)); // 秒スパンのタイマー
             timer.Subscribe(x => {
                 int seed = Environment.TickCount;
                 Random rnd = new System.Random(seed);
