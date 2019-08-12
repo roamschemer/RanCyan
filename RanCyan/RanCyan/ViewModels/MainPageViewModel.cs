@@ -30,12 +30,6 @@ namespace RanCyan.ViewModels
         {
             ResetBanner();
 
-            string ranShikaPageGet()
-            {
-                if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.WPF) return "RanShikaUWPPage";
-                return "RanShikaMainPage";
-            }
-            var ranShikaPage = ranShikaPageGet();
             string genericRandomPageGet()
             {
                 if (Device.RuntimePlatform == Device.UWP || Device.RuntimePlatform == Device.WPF) return "GenericRandomUWPPage";
@@ -44,7 +38,7 @@ namespace RanCyan.ViewModels
             var genericRandomPage = genericRandomPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
-                new MenuItem {Title="説明",Target="RanMemoMainPage",Image="RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="説明",Target="",Image="RanCyan.Images.Ranshika.png" },
                 new MenuItem {Title="Project01", Target=genericRandomPage, Id="01", Image="RanCyan.Images.MiniMikoRanCyan.png" },
                 new MenuItem {Title="Project02", Target=genericRandomPage, Id="02", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
                 new MenuItem {Title="Project03", Target=genericRandomPage, Id="03", Image="RanCyan.Images.MiniMikoRanCyan.png" },

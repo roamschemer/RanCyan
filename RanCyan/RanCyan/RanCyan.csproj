@@ -9,13 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\3D_Keirei.gif" />
     <None Remove="Images\3D_Taiki1.gif" />
     <None Remove="Images\3D_Taiki2.gif" />
     <None Remove="Images\3D_Taiki5.gif" />
     <None Remove="Images\3D_Taiki6.gif" />
     <None Remove="Images\3D_Taiki8.gif" />
-    <None Remove="Images\3D_walk.gif" />
     <None Remove="Images\MainRanCyan.png" />
     <None Remove="Images\MiniKowashiyaRanCyan.png" />
     <None Remove="Images\MiniMikoRanCyan.png" />
@@ -26,13 +24,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\3D_Keirei.gif" />
     <EmbeddedResource Include="Images\3D_Taiki1.gif" />
     <EmbeddedResource Include="Images\3D_Taiki2.gif" />
     <EmbeddedResource Include="Images\3D_Taiki5.gif" />
     <EmbeddedResource Include="Images\3D_Taiki6.gif" />
     <EmbeddedResource Include="Images\3D_Taiki8.gif" />
-    <EmbeddedResource Include="Images\3D_walk.gif" />
     <EmbeddedResource Include="Images\MainRanCyan.png" />
     <EmbeddedResource Include="Images\MiniKowashiyaRanCyan.png" />
     <EmbeddedResource Include="Images\MiniMikoRanCyan.png" />
@@ -72,12 +68,6 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\GenericRandomUWPPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\RanShikaMainPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\RanShikaUWPPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
