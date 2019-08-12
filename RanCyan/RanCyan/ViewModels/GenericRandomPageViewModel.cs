@@ -15,7 +15,7 @@ using Xamarin.Forms;
 
 namespace RanCyan.ViewModels
 {
-    public class GenericRandomMainPageViewModel : ViewModelBase
+    public class GenericRandomPageViewModel : ViewModelBase
     {
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
         public ReactiveProperty<string> RanCyanKowashiyaImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
@@ -34,7 +34,7 @@ namespace RanCyan.ViewModels
 
         public ReactiveCommand<string> InitializationCommand { get; set; } = new ReactiveCommand<string>();
 
-        public GenericRandomMainPageViewModel(INavigationService navigationService) : base(navigationService)
+        public GenericRandomPageViewModel(INavigationService navigationService) : base(navigationService)
         {
 
             FirstSet.RandomList = new RandomList(new ObservableCollection<Item>());
@@ -139,8 +139,8 @@ namespace RanCyan.ViewModels
                         new Item { Name = "踊り屋" , Ratio=1 },
                     };
                     SecondSet.RandomList.Initialization(items);
-                    SecondSet.LoopTimes.Value = 20;
-                    SecondSet.LoopTotalTime.Value = 5000;
+                    SecondSet.LoopTimes.Value = 40;
+                    SecondSet.LoopTotalTime.Value = 10000;
                     SecondSet.RanCommandButtonText.Value = "職業";
                     items = new ObservableCollection<Item>()
                     {
@@ -150,8 +150,8 @@ namespace RanCyan.ViewModels
                         new Item { Name = "土の神様" , Ratio=1 },
                     };
                     ThirdSet.RandomList.Initialization(items);
-                    ThirdSet.LoopTimes.Value = 20;
-                    ThirdSet.LoopTotalTime.Value = 5000;
+                    ThirdSet.LoopTimes.Value = 40;
+                    ThirdSet.LoopTotalTime.Value = 10000;
                     ThirdSet.RanCommandButtonText.Value = "交神";
                     items = new ObservableCollection<Item>()
                     {
@@ -166,8 +166,8 @@ namespace RanCyan.ViewModels
                         new Item { Name = "地獄" , Ratio=1 ,IsSelected=true },
                     };
                     FourthSet.RandomList.Initialization(items);
-                    FourthSet.LoopTimes.Value = 20;
-                    FourthSet.LoopTotalTime.Value = 5000;
+                    FourthSet.LoopTimes.Value = 40;
+                    FourthSet.LoopTotalTime.Value = 10000;
                     FourthSet.RanCommandButtonText.Value = "討伐先";
                 }
                 if (ranType == "乱メモ")
