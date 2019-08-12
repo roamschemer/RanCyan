@@ -8,8 +8,7 @@
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
              x:Name="Base"
-             Title="{Binding Title.Value}" 
-             BackgroundColor="Transparent">
+             Title="{Binding Title.Value}" >
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -69,12 +68,15 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <BoxView Grid.Row="0" Grid.RowSpan="14" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="0" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="7" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="0" Grid.RowSpan="7" Grid.Column="7" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="7" Grid.RowSpan="7" Grid.Column="7" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
+        <BoxView Grid.Row="7" Grid.RowSpan="7" Grid.Column="7" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
+        <BoxView Grid.Row="0" Grid.RowSpan="14" Grid.Column="10" Grid.ColumnSpan="1" Style="{StaticResource BoxViewStyle}" />
         <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
                 Text="{Binding FirstSet.Label.Value}" IsVisible="{Binding FirstSet.IsVisible.Value}"
                 TextColor="{Binding FirstSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
@@ -314,6 +316,18 @@
         <Picker Grid.Row="12" Grid.Column="9" ItemsSource="{Binding FourthSet.LoopTotalTimeList}" SelectedItem="{Binding FourthSet.LoopTotalTime.Value}"/>
         <Label Grid.Row="13" Grid.Column="8" Text="ボタン名称" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
         <Entry Grid.Row="13" Grid.Column="9" Text="{Binding FourthSet.RanCommandButtonText.Value}" />
+        <TableView Grid.Row="0" Grid.RowSpan="14" Grid.Column="10" >
+            <TableRoot>
+                <TableSection Title="初期化">
+                    <ViewCell>
+                        <StackLayout>
+                            <Button Text = "乱屍" Command="{Binding InitializationCommand}" CommandParameter="乱屍" />
+                            <Button Text = "乱メモ" Command="{Binding InitializationCommand}" CommandParameter="乱メモ"/>
+                        </StackLayout>
+                    </ViewCell>
+                </TableSection>
+            </TableRoot>
+        </TableView>
     </Grid>
 
 </ContentPage>

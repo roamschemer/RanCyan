@@ -68,7 +68,7 @@ namespace RanCyan.Models
         /// <summary>
         /// リスト
         /// </summary>
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<Item> Items { get; private set; }
 
         /// <summary>
         /// ループする回数(回)
@@ -149,17 +149,34 @@ namespace RanCyan.Models
         /// </summary>
         /// <param name="dbPath">DBテーブル名</param>
         /// <param name="items">ループリスト</param>
-        public RandomList(List<Item> items)
+        public RandomList(ObservableCollection<Item> items)
         {
             Items = new ObservableCollection<Item>(items);
         }
 
-        public void SetDbPath(string dbPath)
+        /// <summary>
+        /// 初期化
+        /// </summary>
+        /// <param name="items"></param>
+        public async void Initialization(ObservableCollection<Item> items)
+        {
+            await DbDeleteAll();
+            await DbInsert(items);
+            await DbLoad();
+        }
+
+        /// <summary>
+        /// 初期情報の呼び出し
+        /// </summary>
+        /// <param name="dbPath"></param>
+        /// <param name="buttonText"></param>
+        public void SetStartInfo(string dbPath,string buttonText)
         {
             this.dbPath = dbPath;
             if (Application.Current.Properties.ContainsKey(dbPath + "loopTimes")) LoopTimes = int.Parse(Application.Current.Properties[dbPath + "loopTimes"].ToString());
             if (Application.Current.Properties.ContainsKey(dbPath + "loopTotalTime")) LoopTotalTime = int.Parse(Application.Current.Properties[dbPath + "loopTotalTime"].ToString());
             if (Application.Current.Properties.ContainsKey(dbPath + "ranCommandButtonText")) RanCommandButtonText = Application.Current.Properties[dbPath + "ranCommandButtonText"].ToString();
+            if (RanCommandButtonText == null) RanCommandButtonText = buttonText;
         }
 
         /// <summary>
@@ -167,14 +184,7 @@ namespace RanCyan.Models
         /// </summary>
         public async void DbDataRead()
         {
-            var items = new ObservableCollection<Item>(Items);
             await DbLoad();
-            if (Items.Count == 0)
-            {
-                await DbDeleteAll();
-                await DbInsert(items);
-                await DbLoad();
-            }
         }
 
         /// <summary>
@@ -325,7 +335,7 @@ namespace RanCyan.Models
         /// </summary>
         public async void RandomAction()
         {
-            if (InRundom) return;//抽選中は抜ける
+            //if (InRundom) return;//抽選中は抜ける
             var RaitoSum = Items.Where(x => !x.IsSelected)  //選択している奴は除外した
                                 .Sum(x => x.Ratio);         //Ratioの合計値
             if (RaitoSum == 0) return; //レートが0の場合は抽選を回避する
