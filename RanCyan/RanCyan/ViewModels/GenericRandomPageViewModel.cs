@@ -41,28 +41,35 @@ namespace RanCyan.ViewModels
             SecondSet.RandomList = new RandomList(new ObservableCollection<Item>());
             ThirdSet.RandomList = new RandomList(new ObservableCollection<Item>());
             FourthSet.RandomList = new RandomList(new ObservableCollection<Item>());
+            var set = new[] { FirstSet, SecondSet, ThirdSet, FourthSet };
 
-            //WPFはGifが動かない
-            if (Device.RuntimePlatform == Device.UWP)
+            var ranCyanImageItems = new List<string>
             {
-                var ranCyanImageItems = new List<string>
+                "RanCyan.Images.3D_Taiki2.gif",
+                "RanCyan.Images.3D_Taiki5.gif",
+                "RanCyan.Images.3D_Taiki6.gif",
+                "RanCyan.Images.3D_Taiki7.gif",
+                "RanCyan.Images.3D_Taiki8.gif",
+            };
+            var timer1 = new ReactiveTimer(TimeSpan.FromSeconds(60)); // 秒スパンのタイマー
+            var timer2 = new ReactiveTimer(TimeSpan.FromSeconds(3)); // 秒スパンのタイマー
+
+            if (Device.RuntimePlatform == Device.UWP) //WPFはGifが動かない
+            {
+                timer1.Subscribe(x =>
                 {
-                    "RanCyan.Images.3D_Taiki1.gif",
-                    "RanCyan.Images.3D_Taiki2.gif",
-                    "RanCyan.Images.3D_Taiki5.gif",
-                    "RanCyan.Images.3D_Taiki6.gif",
-                    "RanCyan.Images.3D_Taiki8.gif",
-                };
-                var timer = new ReactiveTimer(TimeSpan.FromSeconds(20)); // 秒スパンのタイマー
-                timer.Subscribe(x => {
                     int seed = Environment.TickCount;
                     Random rnd = new System.Random(seed);
                     RanCyanMainImage.Value = ranCyanImageItems[rnd.Next(ranCyanImageItems.Count)];
                 });
-                timer.Start();
+                timer1.Start();
+                timer2.Subscribe(x =>
+                {
+                    timer1.Start(TimeSpan.FromSeconds(0));
+                    timer2.Stop();
+                });
             }
 
-            var set = new[] { FirstSet, SecondSet, ThirdSet, FourthSet };
             foreach (var s in set)
             {
                 //レートリスト
@@ -85,6 +92,12 @@ namespace RanCyan.ViewModels
                 });
                 s.RanCommand.Where(_ => !s.RandomList.InRundom).Subscribe(_ =>
                 {
+                    if (Device.RuntimePlatform == Device.UWP) //WPFはGifが動かない
+                    {
+                        RanCyanMainImage.Value = "RanCyan.Images.3D_Jamp1.gif";
+                        timer2.Start(TimeSpan.FromSeconds(2.5));
+                        timer1.Stop();
+                    }
                     set.Select(x => x.IsVisible.Value = false).ToList();
                     s.IsVisible.Value = true;
                     s.RandomList.RandomAction();
@@ -102,6 +115,7 @@ namespace RanCyan.ViewModels
                     var select = await Application.Current.MainPage.DisplayAlert("全消去", "リストを全て消去するけど構わない？", "いいよ", "待った");
                     if (select) s.RandomList.AllDelete();
                 });
+
             }
             InitializationCommand.Subscribe(async x => await InitializationAsync(x));
         }

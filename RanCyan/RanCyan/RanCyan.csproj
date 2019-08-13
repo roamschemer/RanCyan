@@ -9,10 +9,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Images\3D_Taiki1.gif" />
+    <None Remove="Images\3D_Jamp1.gif" />
     <None Remove="Images\3D_Taiki2.gif" />
     <None Remove="Images\3D_Taiki5.gif" />
     <None Remove="Images\3D_Taiki6.gif" />
+    <None Remove="Images\3D_Taiki7.gif" />
     <None Remove="Images\3D_Taiki8.gif" />
     <None Remove="Images\MainRanCyan.png" />
     <None Remove="Images\MiniKowashiyaRanCyan.png" />
@@ -24,10 +25,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Images\3D_Taiki1.gif" />
+    <EmbeddedResource Include="Images\3D_Jamp1.gif" />
     <EmbeddedResource Include="Images\3D_Taiki2.gif" />
     <EmbeddedResource Include="Images\3D_Taiki5.gif" />
     <EmbeddedResource Include="Images\3D_Taiki6.gif" />
+    <EmbeddedResource Include="Images\3D_Taiki7.gif" />
     <EmbeddedResource Include="Images\3D_Taiki8.gif" />
     <EmbeddedResource Include="Images\MainRanCyan.png" />
     <EmbeddedResource Include="Images\MiniKowashiyaRanCyan.png" />

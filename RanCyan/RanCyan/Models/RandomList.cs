@@ -142,6 +142,13 @@ namespace RanCyan.Models
         }
         private string labelColor;
 
+        public string RanCyanMainImage
+        {
+            get => ranCyanMainImage;
+            set => SetProperty(ref ranCyanMainImage, value);
+        }
+        private string ranCyanMainImage;
+
         private string dbPath;
 
         /// <summary>
@@ -335,7 +342,6 @@ namespace RanCyan.Models
         /// </summary>
         public async void RandomAction()
         {
-            //if (InRundom) return;//抽選中は抜ける
             var RaitoSum = Items.Where(x => !x.IsSelected)  //選択している奴は除外した
                                 .Sum(x => x.Ratio);         //Ratioの合計値
             if (RaitoSum == 0) return; //レートが0の場合は抽選を回避する
