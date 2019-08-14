@@ -320,14 +320,14 @@
             <TableRoot>
                 <TableSection Title="初期化">
                     <ViewCell>
-                        <StackLayout>
-                            <Button Text = "乱屍" Command="{Binding InitializationCommand}" CommandParameter="乱屍" />
-                            <Button Text = "乱メモ" Command="{Binding InitializationCommand}" CommandParameter="乱メモ"/>
-                        </StackLayout>
+                        <Button Text = "乱屍" Command="{Binding InitializationCommand}" CommandParameter="乱屍" />
+                    </ViewCell>
+                    <ViewCell>
+                        <Button Text = "乱メモ" Command="{Binding InitializationCommand}" CommandParameter="乱メモ"/>
                     </ViewCell>
                 </TableSection>
             </TableRoot>
         </TableView>
     </Grid>
-
+    
 </ContentPage>

@@ -8,6 +8,391 @@
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
              x:Name="Base"
-             Title="汎用ランダム">
-  
+             Title="{Binding Title.Value}" >
+
+    <TabbedPage.Padding>
+        <OnPlatform x:TypeArguments="Thickness">
+            <On Platform="iOS">0,20,0,0</On>
+        </OnPlatform>
+    </TabbedPage.Padding>
+
+    <TabbedPage.Resources>
+        <ResourceDictionary>
+            <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
+            <Style TargetType="controls:ToggleButton">
+                <Setter Property="TextColor" Value="Black"/>
+                <Setter Property="BackgroundColor" Value="AliceBlue"/>
+                <Style.Triggers>
+                    <Trigger TargetType="controls:ToggleButton" Property="IsSelected" Value="True">
+                        <Setter Property="TextColor" Value="Gainsboro"/>
+                    </Trigger>
+                    <Trigger TargetType="controls:ToggleButton" Property="IsHited" Value="True">
+                        <Setter Property="BackgroundColor" Value="Red"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+            <Style x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="80"/>
+                <Setter Property="VerticalOptions" Value="FillAndExpand"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+        </ResourceDictionary>
+    </TabbedPage.Resources>
+
+    <ContentPage Title="{Binding FirstSet.RanCommandButtonText.Value}">
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
+                   Text="{Binding FirstSet.Label.Value}" TextColor="{Binding FirstSet.Color.Value}" />
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FirstSet.RanCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FirstSet.Items}" ColumnWidth="40" Spacing="4" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ai:ContentCell>
+                                <controls:ToggleButton Command="{Binding BindingContext.FirstSet.ItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                            </ai:ContentCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ai:HCollectionView>
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding FirstSet.Items}" SelectedItem="{Binding FirstSet.SelectedItem.Value}" >
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="Name" LineBreakMode = "NoWrap" />
+                            <Label Grid.Column="1" Text="Ratio" LineBreakMode = "NoWrap" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Name}" LineBreakMode = "NoWrap" />
+                                    <Label Grid.Column="1" Text="{Binding Ratio}" LineBreakMode = "NoWrap" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Grid.Row="3" Grid.Column="1" Text="Name" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="3" Grid.Column="2" Text="{Binding FirstSet.InputName.Value}" />
+                <Label Grid.Row="4" Grid.Column="1" Text="Ratio" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="4" Grid.Column="2" ItemsSource="{Binding FirstSet.RatioList}" SelectedItem="{Binding FirstSet.InputRatio.Value}"/>
+                <Button Grid.Row="5" Grid.Column="1" Text="追加" Command="{Binding FirstSet.InsertTapped}" />
+                <Button Grid.Row="5" Grid.Column="2" Text="変更" Command="{Binding FirstSet.UpDateTapped}" />
+                <Button Grid.Row="6" Grid.Column="1" Text="削除" Command="{Binding FirstSet.DeleteTapped}" />
+                <Button Grid.Row="6" Grid.Column="2" Text="全消" Command="{Binding FirstSet.AllDeleteTapped}" />
+                <Label Grid.Row="7" Grid.Column="1" Text="ループ回数" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="7" Grid.Column="2" ItemsSource="{Binding FirstSet.LoopTimesList}" SelectedItem="{Binding FirstSet.LoopTimes.Value}"/>
+                <Label Grid.Row="8" Grid.Column="1" Text="時間(msec)" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="8" Grid.Column="2" ItemsSource="{Binding FirstSet.LoopTotalTimeList}" SelectedItem="{Binding FirstSet.LoopTotalTime.Value}"/>
+                <Label Grid.Row="9" Grid.Column="1" Text="タブ名称" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="9" Grid.Column="2" Text="{Binding FirstSet.RanCommandButtonText.Value}" />
+            </Grid>
+        </ScrollView>
+    </ContentPage>
+
+    <ContentPage Title="{Binding SecondSet.RanCommandButtonText.Value}">
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
+                   Text="{Binding SecondSet.Label.Value}" TextColor="{Binding SecondSet.Color.Value}" />
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SecondSet.RanCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding SecondSet.Items}" ColumnWidth="40" Spacing="4" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ai:ContentCell>
+                                <controls:ToggleButton Command="{Binding BindingContext.SecondSet.ItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                            </ai:ContentCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ai:HCollectionView>
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding SecondSet.Items}" SelectedItem="{Binding SecondSet.SelectedItem.Value}" >
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="Name" LineBreakMode = "NoWrap" />
+                            <Label Grid.Column="1" Text="Ratio" LineBreakMode = "NoWrap" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Name}" LineBreakMode = "NoWrap" />
+                                    <Label Grid.Column="1" Text="{Binding Ratio}" LineBreakMode = "NoWrap" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Grid.Row="3" Grid.Column="1" Text="Name" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="3" Grid.Column="2" Text="{Binding SecondSet.InputName.Value}" />
+                <Label Grid.Row="4" Grid.Column="1" Text="Ratio" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="4" Grid.Column="2" ItemsSource="{Binding SecondSet.RatioList}" SelectedItem="{Binding SecondSet.InputRatio.Value}"/>
+                <Button Grid.Row="5" Grid.Column="1" Text="追加" Command="{Binding SecondSet.InsertTapped}" />
+                <Button Grid.Row="5" Grid.Column="2" Text="変更" Command="{Binding SecondSet.UpDateTapped}" />
+                <Button Grid.Row="6" Grid.Column="1" Text="削除" Command="{Binding SecondSet.DeleteTapped}" />
+                <Button Grid.Row="6" Grid.Column="2" Text="全消" Command="{Binding SecondSet.AllDeleteTapped}" />
+                <Label Grid.Row="7" Grid.Column="1" Text="ループ回数" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="7" Grid.Column="2" ItemsSource="{Binding SecondSet.LoopTimesList}" SelectedItem="{Binding SecondSet.LoopTimes.Value}"/>
+                <Label Grid.Row="8" Grid.Column="1" Text="時間(msec)" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="8" Grid.Column="2" ItemsSource="{Binding SecondSet.LoopTotalTimeList}" SelectedItem="{Binding SecondSet.LoopTotalTime.Value}"/>
+                <Label Grid.Row="9" Grid.Column="1" Text="タブ名称" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="9" Grid.Column="2" Text="{Binding SecondSet.RanCommandButtonText.Value}" />
+            </Grid>
+        </ScrollView>
+    </ContentPage>
+
+    <ContentPage Title="{Binding ThirdSet.RanCommandButtonText.Value}">
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
+                   Text="{Binding ThirdSet.Label.Value}" TextColor="{Binding ThirdSet.Color.Value}" />
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding ThirdSet.RanCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding ThirdSet.Items}" ColumnWidth="40" Spacing="4" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ai:ContentCell>
+                                <controls:ToggleButton Command="{Binding BindingContext.ThirdSet.ItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                            </ai:ContentCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ai:HCollectionView>
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding ThirdSet.Items}" SelectedItem="{Binding ThirdSet.SelectedItem.Value}" >
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="Name" LineBreakMode = "NoWrap" />
+                            <Label Grid.Column="1" Text="Ratio" LineBreakMode = "NoWrap" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Name}" LineBreakMode = "NoWrap" />
+                                    <Label Grid.Column="1" Text="{Binding Ratio}" LineBreakMode = "NoWrap" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Grid.Row="3" Grid.Column="1" Text="Name" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="3" Grid.Column="2" Text="{Binding ThirdSet.InputName.Value}" />
+                <Label Grid.Row="4" Grid.Column="1" Text="Ratio" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="4" Grid.Column="2" ItemsSource="{Binding ThirdSet.RatioList}" SelectedItem="{Binding ThirdSet.InputRatio.Value}"/>
+                <Button Grid.Row="5" Grid.Column="1" Text="追加" Command="{Binding ThirdSet.InsertTapped}" />
+                <Button Grid.Row="5" Grid.Column="2" Text="変更" Command="{Binding ThirdSet.UpDateTapped}" />
+                <Button Grid.Row="6" Grid.Column="1" Text="削除" Command="{Binding ThirdSet.DeleteTapped}" />
+                <Button Grid.Row="6" Grid.Column="2" Text="全消" Command="{Binding ThirdSet.AllDeleteTapped}" />
+                <Label Grid.Row="7" Grid.Column="1" Text="ループ回数" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="7" Grid.Column="2" ItemsSource="{Binding ThirdSet.LoopTimesList}" SelectedItem="{Binding ThirdSet.LoopTimes.Value}"/>
+                <Label Grid.Row="8" Grid.Column="1" Text="時間(msec)" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="8" Grid.Column="2" ItemsSource="{Binding ThirdSet.LoopTotalTimeList}" SelectedItem="{Binding ThirdSet.LoopTotalTime.Value}"/>
+                <Label Grid.Row="9" Grid.Column="1" Text="タブ名称" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="9" Grid.Column="2" Text="{Binding ThirdSet.RanCommandButtonText.Value}" />
+            </Grid>
+        </ScrollView>
+    </ContentPage>
+
+    <ContentPage Title="{Binding FourthSet.RanCommandButtonText.Value}">
+        <ScrollView>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="300" />
+                    <RowDefinition Height="100" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                    <RowDefinition Height="50" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
+                   Text="{Binding FourthSet.Label.Value}" TextColor="{Binding FourthSet.Color.Value}" />
+                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding FourthSet.RanCommand}" />
+                    </Image.GestureRecognizers>
+                </Image>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FourthSet.Items}" ColumnWidth="40" Spacing="4" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ai:ContentCell>
+                                <controls:ToggleButton Command="{Binding BindingContext.FourthSet.ItemTapped, Source={x:Reference Base}}"
+                                   CommandParameter="{Binding}"
+                                   Text="{Binding Name}"
+                                   IsSelected="{Binding IsSelected}"
+                                   IsHited="{Binding IsHited}"/>
+                            </ai:ContentCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ai:HCollectionView>
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding FourthSet.Items}" SelectedItem="{Binding FourthSet.SelectedItem.Value}" >
+                    <ListView.Header>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" Text="Name" LineBreakMode = "NoWrap" />
+                            <Label Grid.Column="1" Text="Ratio" LineBreakMode = "NoWrap" />
+                        </Grid>
+                    </ListView.Header>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="0" Text="{Binding Name}" LineBreakMode = "NoWrap" />
+                                    <Label Grid.Column="1" Text="{Binding Ratio}" LineBreakMode = "NoWrap" />
+                                </Grid>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Label Grid.Row="3" Grid.Column="1" Text="Name" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="3" Grid.Column="2" Text="{Binding FourthSet.InputName.Value}" />
+                <Label Grid.Row="4" Grid.Column="1" Text="Ratio" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="4" Grid.Column="2" ItemsSource="{Binding FourthSet.RatioList}" SelectedItem="{Binding FourthSet.InputRatio.Value}"/>
+                <Button Grid.Row="5" Grid.Column="1" Text="追加" Command="{Binding FourthSet.InsertTapped}" />
+                <Button Grid.Row="5" Grid.Column="2" Text="変更" Command="{Binding FourthSet.UpDateTapped}" />
+                <Button Grid.Row="6" Grid.Column="1" Text="削除" Command="{Binding FourthSet.DeleteTapped}" />
+                <Button Grid.Row="6" Grid.Column="2" Text="全消" Command="{Binding FourthSet.AllDeleteTapped}" />
+                <Label Grid.Row="7" Grid.Column="1" Text="ループ回数" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="7" Grid.Column="2" ItemsSource="{Binding FourthSet.LoopTimesList}" SelectedItem="{Binding FourthSet.LoopTimes.Value}"/>
+                <Label Grid.Row="8" Grid.Column="1" Text="時間(msec)" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Picker Grid.Row="8" Grid.Column="2" ItemsSource="{Binding FourthSet.LoopTotalTimeList}" SelectedItem="{Binding FourthSet.LoopTotalTime.Value}"/>
+                <Label Grid.Row="9" Grid.Column="1" Text="タブ名称" HorizontalTextAlignment = "Center" VerticalTextAlignment = "Center" />
+                <Entry Grid.Row="9" Grid.Column="2" Text="{Binding FourthSet.RanCommandButtonText.Value}" />
+            </Grid>
+        </ScrollView>
+    </ContentPage>
+    
+    <ContentPage Title="設定">
+        <StackLayout>
+            <TableView>
+                <TableRoot>
+                    <TableSection Title="初期化">
+                        <ViewCell>
+                            <Button Text = "乱屍" Command="{Binding InitializationCommand}" CommandParameter="乱屍" />
+                        </ViewCell>
+                        <ViewCell>
+                            <Button Text = "乱メモ" Command="{Binding InitializationCommand}" CommandParameter="乱メモ" />
+                        </ViewCell>
+                    </TableSection>
+                </TableRoot>
+            </TableView>
+            <Image Aspect = "AspectFit" Source="{Binding TalkRanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+        </StackLayout>
+    </ContentPage>
+
 </TabbedPage>

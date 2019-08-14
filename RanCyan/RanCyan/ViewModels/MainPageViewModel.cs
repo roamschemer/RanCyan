@@ -38,7 +38,7 @@ namespace RanCyan.ViewModels
             var genericRandomPage = genericRandomPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
-                new MenuItem {Title="説明",Target="",Image="RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="取説(外部ページへ飛びます)",Target="https://www.gunshi.info/",Image="RanCyan.Images.Ranshika.png" },
                 new MenuItem {Title="Project01", Target=genericRandomPage, Id="01", Image="RanCyan.Images.MiniMikoRanCyan.png" },
                 new MenuItem {Title="Project02", Target=genericRandomPage, Id="02", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
                 new MenuItem {Title="Project03", Target=genericRandomPage, Id="03", Image="RanCyan.Images.MiniMikoRanCyan.png" },
@@ -54,12 +54,19 @@ namespace RanCyan.ViewModels
 
             ListTapped.Subscribe(async (x) =>
             {
-                ShowBanner();
-                var p = new NavigationParameters
+                if (x.Target.Substring(0, 4) == "http")
                 {
-                    {"Id", x.Id},
-                };
-                await navigationService.NavigateAsync(x.Target, p);
+                    Device.OpenUri(new Uri(x.Target));
+                }
+                else
+                {
+                    ShowBanner();
+                    var p = new NavigationParameters
+                    {
+                        {"Id", x.Id},
+                    };
+                    await navigationService.NavigateAsync(x.Target, p);
+                }
             });
 
         }

@@ -21,13 +21,13 @@ namespace RanCyan.ViewModels
         public ReactiveProperty<string> RanCyanKowashiyaImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
         public ReactiveProperty<string> RanCyanMikoImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
         public ReactiveProperty<string> RanCyanMainImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MainRanCyan.png");
+        public ReactiveProperty<string> TalkRanCyanImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.TalkRanCyan.png");
 
         public RandomSet FirstSet { get; } = new RandomSet();
         public RandomSet SecondSet { get; } = new RandomSet();
         public RandomSet ThirdSet { get; } = new RandomSet();
         public RandomSet FourthSet { get; } = new RandomSet();
 
-        public ReactiveProperty<string> GenericLabel { get; set; } = new ReactiveProperty<string>();
         public ReactiveProperty<string> Title { get; set; } = new ReactiveProperty<string>();
 
         private string id;
