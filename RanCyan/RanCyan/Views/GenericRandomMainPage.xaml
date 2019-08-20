@@ -7,6 +7,7 @@
              xmlns:controls="clr-namespace:RanCyan.Controls"
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Name="Base"
              Title="{Binding Title.Value}" >
 
@@ -63,12 +64,12 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
                    Text="{Binding FirstSet.Label.Value}" TextColor="{Binding FirstSet.Color.Value}" />
-                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
-                    <Image.GestureRecognizers>
+                <ff:CachedImage  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" Aspect = "AspectFit" >
+                    <ff:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FirstSet.RanCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
-                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FirstSet.Items}" ColumnWidth="40" Spacing="4" >
+                    </ff:CachedImage.GestureRecognizers>
+                </ff:CachedImage>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FirstSet.Items ,Mode = OneWay}" ColumnWidth="40" Spacing="4" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ai:ContentCell>
@@ -81,7 +82,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ai:HCollectionView>
-                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding FirstSet.Items}" SelectedItem="{Binding FirstSet.SelectedItem.Value}" >
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding FirstSet.Items ,Mode = OneWay}" SelectedItem="{Binding FirstSet.SelectedItem.Value}" >
                     <ListView.Header>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -147,12 +148,12 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
                    Text="{Binding SecondSet.Label.Value}" TextColor="{Binding SecondSet.Color.Value}" />
-                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
-                    <Image.GestureRecognizers>
+                <ff:CachedImage  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="resource://RanCyan.Images.MiniMikoRanCyan.png" Aspect = "AspectFit" >
+                    <ff:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding SecondSet.RanCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
-                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding SecondSet.Items}" ColumnWidth="40" Spacing="4" >
+                    </ff:CachedImage.GestureRecognizers>
+                </ff:CachedImage>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding SecondSet.Items,Mode = OneWay}" ColumnWidth="40" Spacing="4" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ai:ContentCell>
@@ -165,7 +166,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ai:HCollectionView>
-                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding SecondSet.Items}" SelectedItem="{Binding SecondSet.SelectedItem.Value}" >
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding SecondSet.Items,Mode = OneWay}" SelectedItem="{Binding SecondSet.SelectedItem.Value}" >
                     <ListView.Header>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -231,12 +232,12 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
                    Text="{Binding ThirdSet.Label.Value}" TextColor="{Binding ThirdSet.Color.Value}" />
-                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanKowashiyaImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
-                    <Image.GestureRecognizers>
+                <ff:CachedImage  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" Aspect = "AspectFit" >
+                    <ff:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding ThirdSet.RanCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
-                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding ThirdSet.Items}" ColumnWidth="40" Spacing="4" >
+                    </ff:CachedImage.GestureRecognizers>
+                </ff:CachedImage>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding ThirdSet.Items,Mode = OneWay}" ColumnWidth="40" Spacing="4" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ai:ContentCell>
@@ -249,7 +250,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ai:HCollectionView>
-                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding ThirdSet.Items}" SelectedItem="{Binding ThirdSet.SelectedItem.Value}" >
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding ThirdSet.Items,Mode = OneWay}" SelectedItem="{Binding ThirdSet.SelectedItem.Value}" >
                     <ListView.Header>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -315,12 +316,12 @@
                 </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource LabelStyle}"
                    Text="{Binding FourthSet.Label.Value}" TextColor="{Binding FourthSet.Color.Value}" />
-                <Image Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="{Binding RanCyanMikoImage.Value, Converter={StaticResource ImageSourceConverter}}" Aspect = "AspectFit" >
-                    <Image.GestureRecognizers>
+                <ff:CachedImage  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Source="resource://RanCyan.Images.MiniMikoRanCyan.png" Aspect = "AspectFit" >
+                    <ff:CachedImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding FourthSet.RanCommand}" />
-                    </Image.GestureRecognizers>
-                </Image>
-                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FourthSet.Items}" ColumnWidth="40" Spacing="4" >
+                    </ff:CachedImage.GestureRecognizers>
+                </ff:CachedImage>
+                <ai:HCollectionView Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" ItemsSource="{Binding FourthSet.Items,Mode = OneWay}" ColumnWidth="40" Spacing="4" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ai:ContentCell>
@@ -333,7 +334,7 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ai:HCollectionView>
-                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding FourthSet.Items}" SelectedItem="{Binding FourthSet.SelectedItem.Value}" >
+                <ListView Grid.Row="3" Grid.RowSpan="7" Grid.Column="0" ItemsSource="{Binding FourthSet.Items,Mode = OneWay}" SelectedItem="{Binding FourthSet.SelectedItem.Value}" >
                     <ListView.Header>
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -376,7 +377,7 @@
             </Grid>
         </ScrollView>
     </ContentPage>
-    
+
     <ContentPage Title="設定">
         <StackLayout>
             <TableView>
@@ -388,10 +389,13 @@
                         <ViewCell>
                             <Button Text = "乱メモ" Command="{Binding InitializationCommand}" CommandParameter="乱メモ" />
                         </ViewCell>
+                        <ViewCell>
+                            <Button Text = "サイコロ" Command="{Binding InitializationCommand}" CommandParameter="サイコロ" />
+                        </ViewCell>
                     </TableSection>
                 </TableRoot>
             </TableView>
-            <Image Aspect = "AspectFit" Source="{Binding TalkRanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+            <ff:CachedImage Aspect = "AspectFit" Source="resource://RanCyan.Images.TalkRanCyan.png"  />
         </StackLayout>
     </ContentPage>
 

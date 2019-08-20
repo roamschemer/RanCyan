@@ -10,6 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
@@ -121,6 +122,7 @@ namespace RanCyan.ViewModels
         }
         public override void Destroy()
         {
+            Thread.Sleep(100);
             this.Disposable.Dispose();
         }
         public async Task InitializationAsync(string ranType)
@@ -232,6 +234,46 @@ namespace RanCyan.ViewModels
                     FourthSet.LoopTimes.Value = 10;
                     FourthSet.LoopTotalTime.Value = 1000;
                     FourthSet.RanCommandButtonText.Value = "-";
+                }
+                if (ranType == "サイコロ")
+                {
+                    ObservableCollection<Item> items;
+                    items = new ObservableCollection<Item>();
+                    foreach (var i in Enumerable.Range(1, 6))
+                    {
+                        items.Add(new Item { Name = i.ToString(), Ratio = 1 });
+                    }
+                    FirstSet.RandomList.Initialization(items);
+                    FirstSet.LoopTimes.Value = 10;
+                    FirstSet.LoopTotalTime.Value = 1000;
+                    FirstSet.RanCommandButtonText.Value = "6マス";
+                    items = new ObservableCollection<Item>();
+                    foreach (var i in Enumerable.Range(1, 8))
+                    {
+                        items.Add(new Item { Name = i.ToString(), Ratio = 1 });
+                    }
+                    SecondSet.RandomList.Initialization(items);
+                    SecondSet.LoopTimes.Value = 10;
+                    SecondSet.LoopTotalTime.Value = 1000;
+                    SecondSet.RanCommandButtonText.Value = "8マス";
+                    items = new ObservableCollection<Item>();
+                    foreach (var i in Enumerable.Range(1, 12))
+                    {
+                        items.Add(new Item { Name = i.ToString(), Ratio = 1 });
+                    }
+                    ThirdSet.RandomList.Initialization(items);
+                    ThirdSet.LoopTimes.Value = 10;
+                    ThirdSet.LoopTotalTime.Value = 1000;
+                    ThirdSet.RanCommandButtonText.Value = "12マス";
+                    items = new ObservableCollection<Item>();
+                    foreach (var i in Enumerable.Range(1, 20))
+                    {
+                        items.Add(new Item { Name = i.ToString(), Ratio = 1 });
+                    }
+                    FourthSet.RandomList.Initialization(items);
+                    FourthSet.LoopTimes.Value = 10;
+                    FourthSet.LoopTotalTime.Value = 1000;
+                    FourthSet.RanCommandButtonText.Value = "20マス";
                 }
             }
         }

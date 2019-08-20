@@ -38,17 +38,17 @@ namespace RanCyan.ViewModels
             var genericRandomPage = genericRandomPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
-                new MenuItem {Title="取説(外部ページへ飛びます)",Target="https://www.gunshi.info/",Image="RanCyan.Images.Ranshika.png" },
-                new MenuItem {Title="Project01", Target=genericRandomPage, Id="01", Image="RanCyan.Images.MiniMikoRanCyan.png" },
-                new MenuItem {Title="Project02", Target=genericRandomPage, Id="02", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
-                new MenuItem {Title="Project03", Target=genericRandomPage, Id="03", Image="RanCyan.Images.MiniMikoRanCyan.png" },
-                new MenuItem {Title="Project04", Target=genericRandomPage, Id="04", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
-                new MenuItem {Title="Project05", Target=genericRandomPage, Id="05", Image="RanCyan.Images.MiniMikoRanCyan.png" },
-                new MenuItem {Title="Project06", Target=genericRandomPage, Id="06", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
-                new MenuItem {Title="Project07", Target=genericRandomPage, Id="07", Image="RanCyan.Images.MiniMikoRanCyan.png" },
-                new MenuItem {Title="Project08", Target=genericRandomPage, Id="08", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
-                new MenuItem {Title="Project09", Target=genericRandomPage, Id="09", Image="RanCyan.Images.MiniMikoRanCyan.png" },
-                new MenuItem {Title="Project10", Target=genericRandomPage, Id="10", Image="RanCyan.Images.MiniKowashiyaRanCyan.png" },
+                new MenuItem {Title="取説(外部ページへ飛びます)",Target="https://www.gunshi.info/",Image="resource://RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="Project01", Target=genericRandomPage, Id="01", Image="resource://RanCyan.Images.MiniMikoRanCyan.png" },
+                new MenuItem {Title="Project02", Target=genericRandomPage, Id="02", Image="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" },
+                new MenuItem {Title="Project03", Target=genericRandomPage, Id="03", Image="resource://RanCyan.Images.MiniMikoRanCyan.png" },
+                new MenuItem {Title="Project04", Target=genericRandomPage, Id="04", Image="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" },
+                new MenuItem {Title="Project05", Target=genericRandomPage, Id="05", Image="resource://RanCyan.Images.MiniMikoRanCyan.png" },
+                new MenuItem {Title="Project06", Target=genericRandomPage, Id="06", Image="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" },
+                new MenuItem {Title="Project07", Target=genericRandomPage, Id="07", Image="resource://RanCyan.Images.MiniMikoRanCyan.png" },
+                new MenuItem {Title="Project08", Target=genericRandomPage, Id="08", Image="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" },
+                new MenuItem {Title="Project09", Target=genericRandomPage, Id="09", Image="resource://RanCyan.Images.MiniMikoRanCyan.png" },
+                new MenuItem {Title="Project10", Target=genericRandomPage, Id="10", Image="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" },
                 //new MenuItem {Title="著作権情報",Target="RanMemoMainPage",Image="RanCyan.Images.Ranshika.png" },
             };
 
