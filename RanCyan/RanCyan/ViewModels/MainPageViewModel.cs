@@ -38,7 +38,7 @@ namespace RanCyan.ViewModels
             var genericRandomPage = genericRandomPageGet();
             ListView = new ReactiveCollection<MenuItem>
             {
-                new MenuItem {Title="取説(外部ページへ飛びます)",Target="https://www.gunshi.info/",Image="resource://RanCyan.Images.Ranshika.png" },
+                new MenuItem {Title="取説(外部ページへ飛びます)",Target="https://www.gunshi.info/rancyanproject",Image="resource://RanCyan.Images.Ranshika.png" },
                 new MenuItem {Title="Project01", Target=genericRandomPage, Id="01", Image="resource://RanCyan.Images.MiniMikoRanCyan.png" },
                 new MenuItem {Title="Project02", Target=genericRandomPage, Id="02", Image="resource://RanCyan.Images.MiniKowashiyaRanCyan.png" },
                 new MenuItem {Title="Project03", Target=genericRandomPage, Id="03", Image="resource://RanCyan.Images.MiniMikoRanCyan.png" },
