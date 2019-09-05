@@ -34,6 +34,8 @@ namespace RanCyan.ViewModels
         private string id;
 
         public ReactiveCommand<string> InitializationCommand { get; set; } = new ReactiveCommand<string>();
+        public ReactiveProperty<int> ImageGridWidth { get; set; } = new ReactiveProperty<int>(180);
+        public ReactiveProperty<int> ImageMinimumWidth { get; set; } = new ReactiveProperty<int>(90);
 
         public GenericRandomPageViewModel(INavigationService navigationService) : base(navigationService)
         {
@@ -174,10 +176,10 @@ namespace RanCyan.ViewModels
                         new Item { Name = "鳥居" , Ratio=1 },
                         new Item { Name = "相翼院" , Ratio=1 },
                         new Item { Name = "九重楼" , Ratio=1 },
-                        new Item { Name = "白骨城" , Ratio=1 },
-                        new Item { Name = "流水道" , Ratio=1 },
-                        new Item { Name = "鎮魂墓" , Ratio=1 },
-                        new Item { Name = "紅蓮" , Ratio=1 },
+                        new Item { Name = "白骨城" , Ratio=1 ,IsSelected=true},
+                        new Item { Name = "流水道" , Ratio=1 ,IsSelected=true},
+                        new Item { Name = "鎮魂墓" , Ratio=1 ,IsSelected=true},
+                        new Item { Name = "紅蓮" , Ratio=1 ,IsSelected=true},
                         new Item { Name = "大江山" , Ratio=1 ,IsSelected=true },
                         new Item { Name = "地獄" , Ratio=1 ,IsSelected=true },
                     };
@@ -186,7 +188,7 @@ namespace RanCyan.ViewModels
                     FourthSet.LoopTotalTime.Value = 10000;
                     FourthSet.RanCommandButtonText.Value = "討伐先";
                 }
-                if (ranType == "乱メモ")
+                if (ranType == "乱メモ1")
                 {
                     ObservableCollection<Item> items;
                     items = new ObservableCollection<Item>()
@@ -229,11 +231,86 @@ namespace RanCyan.ViewModels
                     ThirdSet.LoopTimes.Value = 10;
                     ThirdSet.LoopTotalTime.Value = 1000;
                     ThirdSet.RanCommandButtonText.Value = "下校判定";
-                    items = new ObservableCollection<Item>();
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "藤崎詩織" , Ratio=1 },
+                        new Item { Name = "如月未緒" , Ratio=1 },
+                        new Item { Name = "紐緒結奈" , Ratio=1 },
+                        new Item { Name = "片桐彩子" , Ratio=1 },
+                        new Item { Name = "虹野沙希" , Ratio=1 },
+                        new Item { Name = "古式ゆかり" , Ratio=1 },
+                        new Item { Name = "清川望" , Ratio=1 },
+                        new Item { Name = "鏡魅羅" , Ratio=1 },
+                        new Item { Name = "朝日奈夕子" , Ratio=1 },
+                        new Item { Name = "美樹原愛" , Ratio=1 },
+                        new Item { Name = "早乙女優美" , Ratio=1 },
+                        new Item { Name = "館林見晴" , Ratio=1 },
+                        new Item { Name = "伊集院レイ" , Ratio=1 ,IsSelected=true},
+                    };
                     FourthSet.RandomList.Initialization(items);
-                    FourthSet.LoopTimes.Value = 10;
-                    FourthSet.LoopTotalTime.Value = 1000;
-                    FourthSet.RanCommandButtonText.Value = "-";
+                    FourthSet.LoopTimes.Value = 40;
+                    FourthSet.LoopTotalTime.Value = 10000;
+                    FourthSet.RanCommandButtonText.Value = "攻略対象";
+                }
+                if (ranType == "乱メモ2")
+                {
+                    ObservableCollection<Item> items;
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "文学" , Ratio=1 },
+                        new Item { Name = "理学" , Ratio=1 },
+                        new Item { Name = "芸術" , Ratio=1 },
+                        new Item { Name = "運動" , Ratio=1 },
+                        new Item { Name = "部活" , Ratio=1 },
+                        new Item { Name = "遊び" , Ratio=1 },
+                        new Item { Name = "容姿" , Ratio=1 },
+                        new Item { Name = "休憩" , Ratio=2 },
+                    };
+                    FirstSet.RandomList.Initialization(items);
+                    FirstSet.LoopTimes.Value = 10;
+                    FirstSet.LoopTotalTime.Value = 1000;
+                    FirstSet.RanCommandButtonText.Value = "平日";
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "文学" , Ratio=1 },
+                        new Item { Name = "理学" , Ratio=1 },
+                        new Item { Name = "芸術" , Ratio=1 },
+                        new Item { Name = "運動" , Ratio=1 },
+                        new Item { Name = "部活" , Ratio=1 },
+                        new Item { Name = "遊び" , Ratio=1 },
+                        new Item { Name = "容姿" , Ratio=1 },
+                        new Item { Name = "休憩" , Ratio=1 },
+                        new Item { Name = "電話" , Ratio=2 },
+                    };
+                    SecondSet.RandomList.Initialization(items);
+                    SecondSet.LoopTimes.Value = 10;
+                    SecondSet.LoopTotalTime.Value = 1000;
+                    SecondSet.RanCommandButtonText.Value = "休日";
+                    items = new ObservableCollection<Item>();
+                    ThirdSet.RandomList.Initialization(items);
+                    ThirdSet.LoopTimes.Value = 10;
+                    ThirdSet.LoopTotalTime.Value = 1000;
+                    ThirdSet.RanCommandButtonText.Value = "-";
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "陽ノ下光" , Ratio=1 },
+                        new Item { Name = "水無月琴子" , Ratio=1 },
+                        new Item { Name = "寿美幸" , Ratio=1 },
+                        new Item { Name = "一文字茜" , Ratio=1 },
+                        new Item { Name = "白雪美帆" , Ratio=1 },
+                        new Item { Name = "赤井ほむら" , Ratio=1 },
+                        new Item { Name = "八重花桜梨" , Ratio=1 },
+                        new Item { Name = "佐倉楓子" , Ratio=1 },
+                        new Item { Name = "伊集院メイ" , Ratio=1 },
+                        new Item { Name = "麻生華澄" , Ratio=1 },
+                        new Item { Name = "白雪真帆" , Ratio=1 },
+                        new Item { Name = "九段下舞佳" , Ratio=1 },
+                        new Item { Name = "野咲すみれ" , Ratio=1 ,IsSelected=true},
+                    };
+                    FourthSet.RandomList.Initialization(items);
+                    FourthSet.LoopTimes.Value = 40;
+                    FourthSet.LoopTotalTime.Value = 10000;
+                    FourthSet.RanCommandButtonText.Value = "攻略対象";
                 }
                 if (ranType == "サイコロ")
                 {

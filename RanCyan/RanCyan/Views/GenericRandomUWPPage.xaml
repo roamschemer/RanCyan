@@ -8,6 +8,7 @@
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
              x:Name="Base"
+             NavigationPage.HasNavigationBar="false"
              Title="{Binding Title.Value}" >
 
     <ContentPage.Resources>
@@ -25,14 +26,12 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-            <Style x:Key="LabelStyle" TargetType="Button">
+            <Style  x:Key="LabelStyle" TargetType="Label">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+                <Setter Property="HorizontalTextAlignment" Value="Center"/>
+                <Setter Property="VerticalTextAlignment" Value="Center"/>
                 <Setter Property="FontAttributes" Value="Bold"/>
                 <Setter Property="FontSize" Value="40"/>
-                <Setter Property="TextColor" Value="Black" />
-                <Setter Property="BackgroundColor" Value="Transparent" />
-                <Setter Property="BorderColor" Value="Green" />
-                <Setter Property="BorderWidth" Value="2" />
-                <Setter Property="BorderRadius" Value="10" />
             </Style>
             <Style x:Key="BoxViewStyle" TargetType="BoxView">
                 <Setter Property="BackgroundColor" Value="White"/>
@@ -42,6 +41,9 @@
 
     <Grid BackgroundColor="LightPink">
         <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -50,16 +52,13 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
+            <RowDefinition Height="40" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="90"/>
-            <ColumnDefinition Width="90"/>
+            <ColumnDefinition Width="{Binding ImageGridWidth.Value}"/>
+            <ColumnDefinition Width="{Binding ImageGridWidth.Value}"/>
             <ColumnDefinition Width="90"/>
             <ColumnDefinition Width="90"/>
             <ColumnDefinition Width="*"/>
@@ -77,33 +76,34 @@
         <BoxView Grid.Row="7" Grid.RowSpan="7" Grid.Column="7" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="7" Grid.RowSpan="7" Grid.Column="7" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="0" Grid.RowSpan="14" Grid.Column="10" Grid.ColumnSpan="1" Style="{StaticResource BoxViewStyle}" />
-        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="{Binding FirstSet.Label.Value}" IsVisible="{Binding FirstSet.IsVisible.Value}"
-                TextColor="{Binding FirstSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
-        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="{Binding SecondSet.Label.Value}" IsVisible="{Binding SecondSet.IsVisible.Value}"
-                TextColor="{Binding SecondSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
-        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="{Binding ThirdSet.Label.Value}" IsVisible="{Binding ThirdSet.IsVisible.Value}"
-                TextColor="{Binding ThirdSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
-        <Button Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="{Binding FourthSet.Label.Value}" IsVisible="{Binding FourthSet.IsVisible.Value}"
-                TextColor="{Binding FourthSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
-        <Image Grid.Row="2" Grid.RowSpan="8" Grid.Column="0" Grid.ColumnSpan="2"
+        <Image Grid.Row="0" Grid.RowSpan="14" Grid.Column="0" Grid.ColumnSpan="2"
                Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
                Source="{Binding RanCyanMainImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="{Binding FirstSet.Label.Value}" IsVisible="{Binding FirstSet.IsVisible.Value}"
+                TextColor="{Binding FirstSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="{Binding SecondSet.Label.Value}" IsVisible="{Binding SecondSet.IsVisible.Value}"
+                TextColor="{Binding SecondSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="{Binding ThirdSet.Label.Value}" IsVisible="{Binding ThirdSet.IsVisible.Value}"
+                TextColor="{Binding ThirdSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
+        <Label Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2"
+                Text="{Binding FourthSet.Label.Value}" IsVisible="{Binding FourthSet.IsVisible.Value}"
+                TextColor="{Binding FourthSet.Color.Value}" Style="{StaticResource LabelStyle}"/>
         <Button Text="{Binding FirstSet.RanCommandButtonText.Value}"
-                Grid.Row="10" Grid.RowSpan="2" Grid.Column="0" 
-                Command="{Binding FirstSet.RanCommand}" />
+                Grid.Row="11" Grid.Column="0" 
+                Command="{Binding FirstSet.RanCommand}"/>
         <Button Text="{Binding SecondSet.RanCommandButtonText.Value}"
-                Grid.Row="12" Grid.RowSpan="2" Grid.Column="0" 
+                Grid.Row="12" Grid.Column="0" 
                 Command="{Binding SecondSet.RanCommand}" />
         <Button Text="{Binding ThirdSet.RanCommandButtonText.Value}"
-                Grid.Row="10" Grid.RowSpan="2" Grid.Column="1" 
+                Grid.Row="11" Grid.Column="1" 
                 Command="{Binding ThirdSet.RanCommand}" />
         <Button Text="{Binding FourthSet.RanCommandButtonText.Value}"
-                Grid.Row="12" Grid.RowSpan="2" Grid.Column="1" 
+                Grid.Row="12" Grid.Column="1" 
                 Command="{Binding FourthSet.RanCommand}" />
+        <Slider Value = "{Binding ImageGridWidth.Value}" Minimum="{Binding ImageMinimumWidth.Value}" Maximum="270" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="2" />
         <ListView Grid.Row="0" Grid.RowSpan="7" Grid.Column="2" ItemsSource="{Binding FirstSet.Items}" >
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -323,7 +323,10 @@
                         <Button Text = "乱屍" Command="{Binding InitializationCommand}" CommandParameter="乱屍" />
                     </ViewCell>
                     <ViewCell>
-                        <Button Text = "乱メモ" Command="{Binding InitializationCommand}" CommandParameter="乱メモ"/>
+                        <Button Text = "乱メモ1" Command="{Binding InitializationCommand}" CommandParameter="乱メモ1"/>
+                    </ViewCell>
+                    <ViewCell>
+                        <Button Text = "乱メモ2" Command="{Binding InitializationCommand}" CommandParameter="乱メモ2"/>
                     </ViewCell>
                     <ViewCell>
                         <Button Text = "サイコロ" Command="{Binding InitializationCommand}" CommandParameter="サイコロ" />
