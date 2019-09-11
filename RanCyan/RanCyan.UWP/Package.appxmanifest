@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="19990435D2A7B.Project" Publisher="CN=66051133-DECA-4995-A1BA-EC8A9672F060" Version="2.0.1.0" />
+  <Identity Name="19990435D2A7B.Project" Publisher="CN=66051133-DECA-4995-A1BA-EC8A9672F060" Version="2.0.2.0" />
   <mp:PhoneIdentity PhoneProductId="0b6b4120-a189-4b41-afd3-13d6d4eb42bb" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>乱ちゃんProject</DisplayName>
@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="App1.App">
-      <uap:VisualElements DisplayName="乱ちゃんProject" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="ゲームをちょっとだけ楽しくするアプリです。" BackgroundColor="#e0ffff">
+      <uap:VisualElements DisplayName="乱ちゃんProject" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="VTuberのような抽選アプリケーションです。" BackgroundColor="#e0ffff">
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" Square71x71Logo="Assets\SmallTile.png" Square310x310Logo="Assets\LargeTile.png" ShortName="乱ちゃん">
           <uap:ShowNameOnTiles>
             <uap:ShowOn Tile="square150x150Logo"/>
