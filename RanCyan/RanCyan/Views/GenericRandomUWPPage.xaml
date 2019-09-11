@@ -9,7 +9,7 @@
              xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
              x:Name="Base"
              NavigationPage.HasNavigationBar="false"
-             Title="{Binding Title.Value}" >
+             Title="{Binding Title.Value}">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -69,7 +69,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <BoxView Grid.Row="0" Grid.RowSpan="14" Grid.Column="0" Grid.ColumnSpan="4" Style="{StaticResource BoxViewStyle}" />
+        <BoxView Grid.Row="0" Grid.RowSpan="14" Grid.Column="0" Grid.ColumnSpan="4" BackgroundColor="{Binding ImageBackColor.Value}" />
         <BoxView Grid.Row="0" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="7" Grid.RowSpan="7" Grid.Column="4" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
         <BoxView Grid.Row="0" Grid.RowSpan="7" Grid.Column="7" Grid.ColumnSpan="3" Style="{StaticResource BoxViewStyle}" />
@@ -330,6 +330,11 @@
                     </ViewCell>
                     <ViewCell>
                         <Button Text = "サイコロ" Command="{Binding InitializationCommand}" CommandParameter="サイコロ" />
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="背景色">
+                    <ViewCell>
+                        <Picker ItemsSource="{Binding ImageBackColorList}" SelectedItem="{Binding ImageBackColor.Value}"/>
                     </ViewCell>
                 </TableSection>
             </TableRoot>

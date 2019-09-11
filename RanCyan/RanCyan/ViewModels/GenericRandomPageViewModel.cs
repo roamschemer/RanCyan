@@ -37,9 +37,12 @@ namespace RanCyan.ViewModels
         public ReactiveProperty<int> ImageGridWidth { get; set; } = new ReactiveProperty<int>(180);
         public ReactiveProperty<int> ImageMinimumWidth { get; set; } = new ReactiveProperty<int>(90);
 
+        public ReactiveProperty<string> ImageBackColor { get; set; } = new ReactiveProperty<string>("White");
+        public ObservableCollection<string> ImageBackColorList { get; set; }
+
         public GenericRandomPageViewModel(INavigationService navigationService) : base(navigationService)
         {
-
+            ImageBackColorList = new ObservableCollection<string> { "White", "Blue", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" };
             FirstSet.RandomList = new RandomList(new ObservableCollection<Item>());
             SecondSet.RandomList = new RandomList(new ObservableCollection<Item>());
             ThirdSet.RandomList = new RandomList(new ObservableCollection<Item>());
@@ -98,7 +101,7 @@ namespace RanCyan.ViewModels
                     if (Device.RuntimePlatform == Device.UWP) //WPFはGifが動かない
                     {
                         RanCyanMainImage.Value = "RanCyan.Images.3D_Jamp1.gif";
-                        timer2.Start(TimeSpan.FromSeconds(2.5));
+                        timer2.Start(TimeSpan.FromSeconds(4));
                         timer1.Stop();
                     }
                     set.Select(x => x.IsVisible.Value = false).ToList();

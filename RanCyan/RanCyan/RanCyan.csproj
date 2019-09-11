@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <None Remove="Images\3D_Jamp1.gif" />
+    <None Remove="Images\3D_Taiki1.gif" />
     <None Remove="Images\3D_Taiki2.gif" />
     <None Remove="Images\3D_Taiki5.gif" />
     <None Remove="Images\3D_Taiki6.gif" />
