@@ -28,9 +28,6 @@
           <uap:Rotation Preference="portrait"/>
           <uap:Rotation Preference="landscape"/></uap:InitialRotationPreference>
       </uap:VisualElements>
-      <uap:ApplicationContentUriRules>
-        <uap:Rule Type="include" Match="https://www.gunshi.info/" WindowsRuntimeAccess="none"/>
-      </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
   <Capabilities>
