@@ -355,6 +355,94 @@ namespace RanCyan.ViewModels
                     FourthSet.LoopTotalTime.Value = 1000;
                     FourthSet.RanCommandButtonText.Value = "20マス";
                 }
+                if (ranType == "乱サガ３")
+                {
+                    ObservableCollection<Item> items;
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "ユリアン" , Ratio=1 },
+                        new Item { Name = "エレン" , Ratio=1 },
+                        new Item { Name = "サラ" , Ratio=1 },
+                        new Item { Name = "トーマス" , Ratio=1 },
+                        new Item { Name = "ハリード" , Ratio=1 },
+                        new Item { Name = "ミカエル" , Ratio=1 },
+                        new Item { Name = "モニカ" , Ratio=1 },
+                        new Item { Name = "カタリナ" , Ratio=1 },
+                        new Item { Name = "レオニード" , Ratio=1 },
+                        new Item { Name = "少年" , Ratio=1 },
+                        new Item { Name = "ティベリウス" , Ratio=1 },
+                        new Item { Name = "ウォード" , Ratio=1 },
+                        new Item { Name = "ポール" , Ratio=1 },
+                        new Item { Name = "ロビン(細)" , Ratio=1 },
+                        new Item { Name = "ロビン(太)" , Ratio=1 },
+                        new Item { Name = "ミューズ" , Ratio=1 },
+                        new Item { Name = "シャール" , Ratio=1 },
+                        new Item { Name = "詩人" , Ratio=1 },
+                        new Item { Name = "タチアナ" , Ratio=1 },
+                        new Item { Name = "ヤンファン" , Ratio=1 },
+                        new Item { Name = "ウンディーネ" , Ratio=1 },
+                        new Item { Name = "ツィーリン" , Ratio=1 },
+                        new Item { Name = "ハーマン" , Ratio=1 },
+                        new Item { Name = "フルブライト" , Ratio=1 },
+                        new Item { Name = "バイメイニャン" , Ratio=1 },
+                        new Item { Name = "ノーラ" , Ratio=1 },
+                        new Item { Name = "ブラック" , Ratio=1 },
+                        new Item { Name = "ようせい" , Ratio=1 },
+                        new Item { Name = "ボストン" , Ratio=1 },
+                        new Item { Name = "ぞう" , Ratio=1 },
+                        new Item { Name = "ゆきだるま" , Ratio=1 },
+                    };
+                    FirstSet.RandomList.Initialization(items);
+                    FirstSet.LoopTimes.Value = 20;
+                    FirstSet.LoopTotalTime.Value = 5000;
+                    FirstSet.RanCommandButtonText.Value = "キャラ";
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "剣" , Ratio=1 },
+                        new Item { Name = "大剣" , Ratio=1 },
+                        new Item { Name = "斧" , Ratio=1 },
+                        new Item { Name = "棍棒" , Ratio=1 },
+                        new Item { Name = "小剣" , Ratio=1 },
+                        new Item { Name = "槍" , Ratio=1 },
+                        new Item { Name = "弓" , Ratio=1 },
+                        new Item { Name = "素手" , Ratio=1 },
+                        new Item { Name = "術" , Ratio=1 },
+                    };
+                    SecondSet.RandomList.Initialization(items);
+                    SecondSet.LoopTimes.Value = 20;
+                    SecondSet.LoopTotalTime.Value = 5000;
+                    SecondSet.RanCommandButtonText.Value = "武器";
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "歳星(狩人)" , Ratio=1 },
+                        new Item { Name = "螢惑(学者)" , Ratio=1 },
+                        new Item { Name = "鎮星(王者)" , Ratio=1 },
+                        new Item { Name = "太白(武人)" , Ratio=1 },
+                        new Item { Name = "辰星(商人)" , Ratio=1 },
+                    };
+                    ThirdSet.RandomList.Initialization(items);
+                    ThirdSet.LoopTimes.Value = 20;
+                    ThirdSet.LoopTotalTime.Value = 5000;
+                    ThirdSet.RanCommandButtonText.Value = "宿星";
+                    items = new ObservableCollection<Item>()
+                    {
+                        new Item { Name = "フリーファイト" , Ratio=1 },
+                        new Item { Name = "スペキュレイション" , Ratio=1 },
+                        new Item { Name = "ワールウィンド" , Ratio=1 },
+                        new Item { Name = "鳳天舞の陣" , Ratio=1 },
+                        new Item { Name = "玄武陣" , Ratio=1 },
+                        new Item { Name = "パワーレイズ" , Ratio=1 },
+                        new Item { Name = "龍陣" , Ratio=1 },
+                        new Item { Name = "トライアンカー" , Ratio=1  },
+                        new Item { Name = "虎穴陣" , Ratio=1 },
+                        new Item { Name = "ハンターシフト" , Ratio=1 },
+                        new Item { Name = "デザートランス" , Ratio=1 },
+                    };
+                    FourthSet.RandomList.Initialization(items);
+                    FourthSet.LoopTimes.Value = 40;
+                    FourthSet.LoopTotalTime.Value = 10000;
+                    FourthSet.RanCommandButtonText.Value = "陣形";
+                }
             }
         }
         public override void OnNavigatedTo(INavigationParameters parameters)

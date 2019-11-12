@@ -393,6 +393,9 @@
                             <Button Text = "乱メモ2" Command="{Binding InitializationCommand}" CommandParameter="乱メモ2"/>
                         </ViewCell>
                         <ViewCell>
+                            <Button Text = "乱サガ３" Command="{Binding InitializationCommand}" CommandParameter="乱サガ３" />
+                        </ViewCell>
+                        <ViewCell>
                             <Button Text = "サイコロ" Command="{Binding InitializationCommand}" CommandParameter="サイコロ" />
                         </ViewCell>
                     </TableSection>
