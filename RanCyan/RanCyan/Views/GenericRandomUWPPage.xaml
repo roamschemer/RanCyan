@@ -317,6 +317,16 @@
         <Entry Grid.Row="13" Grid.Column="9" Text="{Binding FourthSet.RanCommandButtonText.Value}" />
         <TableView Grid.Row="0" Grid.RowSpan="14" Grid.Column="10" >
             <TableRoot>
+                <TableSection Title="ページ名称">
+                    <ViewCell>
+                        <Entry Text="{Binding Title.Value}" />
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="背景色">
+                    <ViewCell>
+                        <Picker ItemsSource="{Binding ImageBackColorList}" SelectedItem="{Binding ImageBackColor.Value}"/>
+                    </ViewCell>
+                </TableSection>
                 <TableSection Title="初期化">
                     <ViewCell>
                         <Button Text = "乱屍" Command="{Binding InitializationCommand}" CommandParameter="乱屍" />
@@ -332,16 +342,6 @@
                     </ViewCell>
                     <ViewCell>
                         <Button Text = "サイコロ" Command="{Binding InitializationCommand}" CommandParameter="サイコロ" />
-                    </ViewCell>
-                </TableSection>
-                <TableSection Title="背景色">
-                    <ViewCell>
-                        <Picker ItemsSource="{Binding ImageBackColorList}" SelectedItem="{Binding ImageBackColor.Value}"/>
-                    </ViewCell>
-                </TableSection>
-                <TableSection Title="ページ名称">
-                    <ViewCell>
-                        <Entry Text="{Binding Title.Value}" />
                     </ViewCell>
                 </TableSection>
             </TableRoot>
