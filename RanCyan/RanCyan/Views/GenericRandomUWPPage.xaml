@@ -8,7 +8,6 @@
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ai="clr-namespace:AiForms.Renderers;assembly=CollectionView"
              x:Name="Base"
-             NavigationPage.HasNavigationBar="false"
              Title="{Binding Title.Value}">
 
     <ContentPage.Resources>
@@ -338,6 +337,11 @@
                 <TableSection Title="背景色">
                     <ViewCell>
                         <Picker ItemsSource="{Binding ImageBackColorList}" SelectedItem="{Binding ImageBackColor.Value}"/>
+                    </ViewCell>
+                </TableSection>
+                <TableSection Title="ページ名称">
+                    <ViewCell>
+                        <Entry Text="{Binding Title.Value}" />
                     </ViewCell>
                 </TableSection>
             </TableRoot>

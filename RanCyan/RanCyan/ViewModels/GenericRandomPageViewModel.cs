@@ -14,10 +14,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 
-namespace RanCyan.ViewModels
-{
-    public class GenericRandomPageViewModel : ViewModelBase
-    {
+namespace RanCyan.ViewModels {
+    public class GenericRandomPageViewModel : ViewModelBase {
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
         public ReactiveProperty<string> RanCyanKowashiyaImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
         public ReactiveProperty<string> RanCyanMikoImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniMikoRanCyan.png");
@@ -28,6 +26,9 @@ namespace RanCyan.ViewModels
         public RandomSet SecondSet { get; } = new RandomSet();
         public RandomSet ThirdSet { get; } = new RandomSet();
         public RandomSet FourthSet { get; } = new RandomSet();
+
+        public PageInfomation PageInfo { get; set; } = new PageInfomation(0);
+        public AllPageInfomation AllPageInfo { get; } = new AllPageInfomation();
 
         public ReactiveProperty<string> Title { get; set; } = new ReactiveProperty<string>();
 
@@ -40,8 +41,8 @@ namespace RanCyan.ViewModels
         public ReactiveProperty<string> ImageBackColor { get; set; } = new ReactiveProperty<string>("White");
         public ObservableCollection<string> ImageBackColorList { get; set; }
 
-        public GenericRandomPageViewModel(INavigationService navigationService) : base(navigationService)
-        {
+        public GenericRandomPageViewModel(INavigationService navigationService) : base(navigationService) {
+
             ImageBackColorList = new ObservableCollection<string> { "White", "Blue", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" };
             FirstSet.RandomList = new RandomList(new ObservableCollection<Item>());
             SecondSet.RandomList = new RandomList(new ObservableCollection<Item>());
@@ -62,22 +63,22 @@ namespace RanCyan.ViewModels
 
             if (Device.RuntimePlatform == Device.UWP) //WPFはGifが動かない
             {
-                timer1.Subscribe(x =>
-                {
+                timer1.Subscribe(x => {
                     int seed = Environment.TickCount;
                     Random rnd = new System.Random(seed);
                     RanCyanMainImage.Value = ranCyanImageItems[rnd.Next(ranCyanImageItems.Count)];
                 });
                 timer1.Start();
-                timer2.Subscribe(x =>
-                {
+                timer2.Subscribe(x => {
                     timer1.Start(TimeSpan.FromSeconds(0));
                     timer2.Stop();
                 });
             }
 
-            foreach (var s in set)
-            {
+            //ページ情報
+            Title = PageInfo.ToReactivePropertyAsSynchronized(x => x.PageTitle).AddTo(this.Disposable);
+
+            foreach (var s in set) {
                 //レートリスト
                 s.RatioList = new ObservableCollection<int>(Enumerable.Range(1, 100).ToList());
                 s.LoopTimesList = new ObservableCollection<int>(Enumerable.Range(1, 100).ToList());
@@ -91,13 +92,11 @@ namespace RanCyan.ViewModels
                 s.LoopTotalTime = s.RandomList.ToReactivePropertyAsSynchronized(x => x.LoopTotalTime).AddTo(this.Disposable);
                 s.RanCommandButtonText = s.RandomList.ToReactivePropertyAsSynchronized(x => x.RanCommandButtonText).AddTo(this.Disposable);
                 //Button
-                s.ItemTapped.Where(_ => !s.RandomList.InRundom).Subscribe(x =>
-                {
+                s.ItemTapped.Where(_ => !s.RandomList.InRundom).Subscribe(x => {
                     x.IsSelected = !x.IsSelected;
                     s.RandomList.DBDataWrite();
                 });
-                s.RanCommand.Where(_ => !s.RandomList.InRundom).Subscribe(_ =>
-                {
+                s.RanCommand.Where(_ => !s.RandomList.InRundom).Subscribe(_ => {
                     if (Device.RuntimePlatform == Device.UWP) //WPFはGifが動かない
                     {
                         RanCyanMainImage.Value = "RanCyan.Images.3D_Jamp1.gif";
@@ -108,16 +107,14 @@ namespace RanCyan.ViewModels
                     s.IsVisible.Value = true;
                     s.RandomList.RandomAction();
                 });
-                s.SelectedItem.Where(x => x != null).Subscribe(x =>
-                {
+                s.SelectedItem.Where(x => x != null).Subscribe(x => {
                     s.InputName.Value = x.Name;
                     s.InputRatio.Value = x.Ratio;
                 });
                 s.InsertTapped.Subscribe(_ => s.RandomList.Insert(s.InputName.Value, s.InputRatio.Value));
                 s.UpDateTapped.Subscribe(_ => s.RandomList.UpDate(s.SelectedItem.Value, s.InputName.Value, s.InputRatio.Value));
                 s.DeleteTapped.Subscribe(_ => s.RandomList.Delete(s.SelectedItem.Value));
-                s.AllDeleteTapped.Subscribe(async _ =>
-                {
+                s.AllDeleteTapped.Subscribe(async _ => {
                     var select = await Application.Current.MainPage.DisplayAlert("全消去", "リストを全て消去するけど構わない？", "いいよ", "待った");
                     if (select) s.RandomList.AllDelete();
                 });
@@ -125,18 +122,15 @@ namespace RanCyan.ViewModels
             }
             InitializationCommand.Subscribe(async x => await InitializationAsync(x));
         }
-        public override void Destroy()
-        {
+        public override void Destroy() {
             Thread.Sleep(100);
             this.Disposable.Dispose();
         }
-        public async Task InitializationAsync(string ranType)
-        {
+        public async Task InitializationAsync(string ranType) {
             var select = await Application.Current.MainPage.DisplayAlert("初期化", ranType + "に初期化するけど構わない？", "いいよ", "待った");
-            if (select)
-            {
-                if (ranType == "乱屍")
-                {
+            if (select) {
+                Title.Value = ranType;
+                if (ranType == "乱屍") {
                     ObservableCollection<Item> items;
                     items = new ObservableCollection<Item>()
                     {
@@ -191,8 +185,7 @@ namespace RanCyan.ViewModels
                     FourthSet.LoopTotalTime.Value = 10000;
                     FourthSet.RanCommandButtonText.Value = "討伐先";
                 }
-                if (ranType == "乱メモ1")
-                {
+                if (ranType == "乱メモ1") {
                     ObservableCollection<Item> items;
                     items = new ObservableCollection<Item>()
                     {
@@ -255,8 +248,7 @@ namespace RanCyan.ViewModels
                     FourthSet.LoopTotalTime.Value = 10000;
                     FourthSet.RanCommandButtonText.Value = "攻略対象";
                 }
-                if (ranType == "乱メモ2")
-                {
+                if (ranType == "乱メモ2") {
                     ObservableCollection<Item> items;
                     items = new ObservableCollection<Item>()
                     {
@@ -315,12 +307,10 @@ namespace RanCyan.ViewModels
                     FourthSet.LoopTotalTime.Value = 10000;
                     FourthSet.RanCommandButtonText.Value = "攻略対象";
                 }
-                if (ranType == "サイコロ")
-                {
+                if (ranType == "サイコロ") {
                     ObservableCollection<Item> items;
                     items = new ObservableCollection<Item>();
-                    foreach (var i in Enumerable.Range(1, 6))
-                    {
+                    foreach (var i in Enumerable.Range(1, 6)) {
                         items.Add(new Item { Name = i.ToString(), Ratio = 1 });
                     }
                     FirstSet.RandomList.Initialization(items);
@@ -328,8 +318,7 @@ namespace RanCyan.ViewModels
                     FirstSet.LoopTotalTime.Value = 1000;
                     FirstSet.RanCommandButtonText.Value = "6マス";
                     items = new ObservableCollection<Item>();
-                    foreach (var i in Enumerable.Range(1, 8))
-                    {
+                    foreach (var i in Enumerable.Range(1, 8)) {
                         items.Add(new Item { Name = i.ToString(), Ratio = 1 });
                     }
                     SecondSet.RandomList.Initialization(items);
@@ -337,8 +326,7 @@ namespace RanCyan.ViewModels
                     SecondSet.LoopTotalTime.Value = 1000;
                     SecondSet.RanCommandButtonText.Value = "8マス";
                     items = new ObservableCollection<Item>();
-                    foreach (var i in Enumerable.Range(1, 12))
-                    {
+                    foreach (var i in Enumerable.Range(1, 12)) {
                         items.Add(new Item { Name = i.ToString(), Ratio = 1 });
                     }
                     ThirdSet.RandomList.Initialization(items);
@@ -346,8 +334,7 @@ namespace RanCyan.ViewModels
                     ThirdSet.LoopTotalTime.Value = 1000;
                     ThirdSet.RanCommandButtonText.Value = "12マス";
                     items = new ObservableCollection<Item>();
-                    foreach (var i in Enumerable.Range(1, 20))
-                    {
+                    foreach (var i in Enumerable.Range(1, 20)) {
                         items.Add(new Item { Name = i.ToString(), Ratio = 1 });
                     }
                     FourthSet.RandomList.Initialization(items);
@@ -355,8 +342,7 @@ namespace RanCyan.ViewModels
                     FourthSet.LoopTotalTime.Value = 1000;
                     FourthSet.RanCommandButtonText.Value = "20マス";
                 }
-                if (ranType == "乱サガ３")
-                {
+                if (ranType == "乱サガ３") {
                     ObservableCollection<Item> items;
                     items = new ObservableCollection<Item>()
                     {
@@ -445,21 +431,24 @@ namespace RanCyan.ViewModels
                 }
             }
         }
-        public override void OnNavigatedTo(INavigationParameters parameters)
-        {
+        /// <summary>
+        /// 遷移してきて最初に通るとこ
+        /// </summary>
+        /// <param name="parameters"></param>
+        public override void OnNavigatedTo(INavigationParameters parameters) {
             id = (string)parameters["Id"];
-            Title.Value = "乱ちゃんProject" + id;
             var set = new[] { new { rSet = FirstSet, buttonText="", dbPath = "Generic" + id + "First" },
                               new { rSet = SecondSet, buttonText="", dbPath = "Generic" + id + "Second" },
                               new { rSet = ThirdSet, buttonText="", dbPath = "Generic" + id + "Third" },
                               new { rSet = FourthSet, buttonText="", dbPath = "Generic" + id + "Fourth" },
                             };
-            foreach (var s in set)
-            {
+            foreach (var s in set) {
                 //DB情報取得
                 s.rSet.RandomList.SetStartInfo(s.dbPath, s.buttonText);
                 s.rSet.RandomList.DbDataRead();
             }
+            //ページ設定
+            PageInfo.Number = int.Parse(id);
         }
     }
 }
