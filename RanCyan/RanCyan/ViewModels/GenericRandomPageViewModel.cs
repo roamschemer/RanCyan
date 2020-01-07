@@ -43,7 +43,7 @@ namespace RanCyan.ViewModels {
 
         public GenericRandomPageViewModel(INavigationService navigationService) : base(navigationService) {
 
-            ImageBackColorList = new ObservableCollection<string> { "White", "Blue", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" };
+            ImageBackColorList = new ObservableCollection<string> { "White", "Blue", "Lime", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" };
             FirstSet.RandomList = new RandomList(new ObservableCollection<Item>());
             SecondSet.RandomList = new RandomList(new ObservableCollection<Item>());
             ThirdSet.RandomList = new RandomList(new ObservableCollection<Item>());
