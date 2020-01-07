@@ -77,6 +77,8 @@ namespace RanCyan.ViewModels {
 
             //ページ情報
             Title = PageInfo.ToReactivePropertyAsSynchronized(x => x.PageTitle).AddTo(this.Disposable);
+            ImageBackColor = AllPageInfo.ToReactivePropertyAsSynchronized(x=>x.BackColor).AddTo(this.Disposable);
+            ImageGridWidth = AllPageInfo.ToReactivePropertyAsSynchronized(x=>x.ImageGridWidth).AddTo(this.Disposable);
 
             foreach (var s in set) {
                 //レートリスト
