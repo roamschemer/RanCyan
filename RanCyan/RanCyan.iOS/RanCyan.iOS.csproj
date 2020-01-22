@@ -208,10 +208,10 @@
       <Version>1.5.231</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading">
-      <Version>2.4.10.972</Version>
+      <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.FFImageLoading.Forms">
-      <Version>2.4.10.972</Version>
+      <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.1.0.673156" />
     <PackageReference Include="Xamarin.Forms.BehaviorsPack">
