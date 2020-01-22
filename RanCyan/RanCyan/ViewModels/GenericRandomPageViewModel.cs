@@ -68,7 +68,7 @@ namespace RanCyan.ViewModels {
                     Random rnd = new System.Random(seed);
                     RanCyanMainImage.Value = ranCyanImageItems[rnd.Next(ranCyanImageItems.Count)];
                 });
-                timer1.Start();
+                //timer1.Start();
                 timer2.Subscribe(x => {
                     timer1.Start(TimeSpan.FromSeconds(0));
                     timer2.Stop();
