@@ -43,8 +43,8 @@
   <ItemGroup>
     <PackageReference Include="AiForms.CollectionView" Version="0.3.10-pre" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
-    <PackageReference Include="Prism.DryIoc.Forms" Version="7.1.0" />
-    <PackageReference Include="ReactiveProperty" Version="5.2.0" />
+    <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
+    <PackageReference Include="ReactiveProperty" Version="6.2.0" />
     <PackageReference Include="sqlite-net-pcl" Version="1.5.231" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.10.972" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.10.972" />
