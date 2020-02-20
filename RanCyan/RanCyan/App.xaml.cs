@@ -1,6 +1,7 @@
 ﻿using Prism;
 using Prism.Ioc;
 using Prism.Mvvm;
+using RanCyan.Models;
 using RanCyan.ViewModels;
 using RanCyan.Views;
 using Xamarin.Forms;
@@ -29,6 +30,8 @@ namespace RanCyan
 
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
+            containerRegistry.RegisterSingleton<CoreModel>();
+
             containerRegistry.RegisterForNavigation<NavigationPage>();
             containerRegistry.RegisterForNavigation<MainPage, MainPageViewModel>();
             containerRegistry.RegisterForNavigation<GenericRandomMainPage, GenericRandomPageViewModel>();

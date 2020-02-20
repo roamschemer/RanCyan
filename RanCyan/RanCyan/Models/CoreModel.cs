@@ -1,6 +1,8 @@
 ﻿using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 
 namespace RanCyan.Models {
@@ -11,9 +13,20 @@ namespace RanCyan.Models {
         public string BackColor { get => backColor; set => SetProperty(ref backColor, value); }
         private string backColor;
 
-        /// <summary>乱ちゃん表示幅</summary>
-        public int ImageGridWidth { get => imageGridWidth; set => SetProperty(ref imageGridWidth, value); }
-        private int imageGridWidth;
-        
+        /// <summary>ページモデルのコレクション</summary>
+        public ObservableCollection<LotteryPageModel> LotteryPageModels { get; private set; }
+
+        /// <summary>コンストラクタ</summary>
+        public CoreModel() {
+            ResetModels();
+        }
+
+        /// <summary>
+        /// 見本作成する
+        /// </summary>
+        private void ResetModels() {
+            var items = Enumerable.Range(0, 1).Select(x => new LotteryPageModel() { Title = $"NewPage" });
+            LotteryPageModels = new ObservableCollection<LotteryPageModel>(items);
+        }
     }
 }
