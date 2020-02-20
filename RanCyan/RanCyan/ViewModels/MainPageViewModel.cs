@@ -1,29 +1,22 @@
-﻿using Prism.Commands;
-using Prism.Mvvm;
-using Prism.Navigation;
-using RanCyan.Interfaces;
+﻿using Prism.Navigation;
 using RanCyan.Models;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using Xamarin.Forms;
+using Xamarin.Essentials;
 
 namespace RanCyan.ViewModels {
     public class MainPageViewModel : ViewModelBase {
 
         public ReadOnlyReactiveCollection<MenuModel> MenuModels { get; }
         public AsyncReactiveCommand<MenuModel> Command { get; }
-        
-        public MainPageViewModel(INavigationService navigationService, MainPageModel mainPageModel,CoreModel coreModel) : base(navigationService) {
+
+        public MainPageViewModel(INavigationService navigationService, MainPageModel mainPageModel, CoreModel coreModel) : base(navigationService) {
             mainPageModel.CoreModelInjection(coreModel);
             MenuModels = mainPageModel.MenuModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             Command = new AsyncReactiveCommand<MenuModel>().WithSubscribe(async (x) => {
                 if (x.IsWebPage) {
-                    Device.OpenUri(new Uri(x.ViewAddress));
+                    //Device.OpenUri(new Uri(x.ViewAddress)); //←今は使われていないらしい
+                    await Browser.OpenAsync(x.ViewAddress, BrowserLaunchMode.SystemPreferred);
                     return;
                 }
                 if (x.LotteryPageIndex != null) {
