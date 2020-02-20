@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace RanCyan.ViewModels {
-    public class LotteryUwpPageViewModel : ViewModelBase {
+    public class LotteryPageViewModel : ViewModelBase {
         public ReactiveProperty<string> Title { get; }
-        public LotteryUwpPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
+        public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             var lotteryPageModel = coreModel.LotteryPageModel;
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
         }
