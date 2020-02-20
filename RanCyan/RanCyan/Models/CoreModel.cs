@@ -33,5 +33,17 @@ namespace RanCyan.Models {
             var items = Enumerable.Range(0, 5).Select(x => new LotteryPageModel() { Title = $"NewPage{x}" });
             LotteryPageModels = new ObservableCollection<LotteryPageModel>(items);
         }
+
+        /// <summary>
+        /// 新規にLotteryPageModelを追加する
+        /// </summary>
+        public void CleateNewLotteryPageModel() => LotteryPageModels.Add(new LotteryPageModel() { Title = $"NewPage{LotteryPageModels.Count()}" });
+
+        /// <summary>
+        /// 指定したindexのLotteryPageModelを削除する
+        /// </summary>
+        /// <param name="index">消去するモデルのindex</param>
+        public void DeleteLotteryPageModel(int index) => LotteryPageModels.RemoveAt(index);
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Prism.Mvvm;
 using RanCyan.Views;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -7,9 +8,13 @@ namespace RanCyan.Models {
     /// <summary>メインページクラス</summary>
     public class MainPageModel : BindableBase {
 
-
         /// <summary>メニューコレクション</summary>
         public ObservableCollection<MenuModel> MenuModels { get; }
+
+        private List<string> images = new List<string> {
+                "resource://RanCyan.Images.MiniMikoRanCyan.png",
+                "resource://RanCyan.Images.MiniKowashiyaRanCyan.png"
+            };
 
         public MainPageModel() {
             //コレクション化する
@@ -29,23 +34,37 @@ namespace RanCyan.Models {
         }
 
         /// <summary>
-        /// CoreModelをインジェクションしてリストに追加する
+        /// CoreModelを丸ごとメニューリストに追加する
         /// </summary>
         /// <param name="coreModel">CoreModel</param>
         public void CoreModelInjection(CoreModel coreModel) {
-            var images = new[] {
-                "resource://RanCyan.Images.MiniMikoRanCyan.png",
-                "resource://RanCyan.Images.MiniKowashiyaRanCyan.png"
-            };
-            var items = coreModel.LotteryPageModels.Select((x, i) => new MenuModel() {
-                Title = x.Title,
-                ViewAddress = nameof(LotteryUwpPage),
-                ImageAddress = images[i % images.Count()],
-                LotteryPageIndex = i
-            });
-            foreach (var x in items) {
-                MenuModels.Insert(MenuModels.Count() - 1, x);
+            foreach (var (x, i) in coreModel.LotteryPageModels.Select((x, i) => (x, i))) {
+                AddMenuModel(x, i);
             }
+        }
+
+        /// <summary>
+        /// CoreModelにLotteryPageModelを追加して、メニューにも追加する
+        /// </summary>
+        /// <param name="coreModel">coreModel</param>
+        public void LastAddLotteryPageMode(CoreModel coreModel) {
+            coreModel.CleateNewLotteryPageModel();
+            AddMenuModel(coreModel.LotteryPageModels.Last(), coreModel.LotteryPageModels.Count() - 1);
+        }
+
+        /// <summary>
+        /// lotteryPageModelをメニューに追加する
+        /// </summary>
+        /// <param name="lotteryPageModel">lotteryPageModel</param>
+        /// <param name="index">index</param>
+        private void AddMenuModel(LotteryPageModel lotteryPageModel, int index) {
+            var menuModel = new MenuModel() {
+                Title = lotteryPageModel.Title,
+                ViewAddress = nameof(LotteryUwpPage),
+                ImageAddress = images[index % images.Count()],
+                LotteryPageIndex = index
+            };
+            MenuModels.Insert(MenuModels.Count() - 1, menuModel);
         }
     }
 }

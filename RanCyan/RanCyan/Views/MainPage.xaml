@@ -2,7 +2,6 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:cv="clr-namespace:RanCyan.Converters"
-             xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="RanCyan.Views.MainPage"
              x:Name="Base"
@@ -19,46 +18,30 @@
       <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
     </ResourceDictionary>
   </ContentPage.Resources>
-
-  <!--<StackLayout>
-    <ListView ItemsSource="{Binding ListView}" HasUnevenRows="false" RowHeight="80" >
-      <ListView.Behaviors>
-        <behaviorsPack:SelectedItemBehavior Command="{Binding ListTapped}"/>
-      </ListView.Behaviors>
-      <ListView.ItemTemplate>
+  <StackLayout>
+    <CollectionView ItemsSource="{Binding MenuModels}" SelectionMode="Single">
+      <CollectionView.ItemTemplate>
         <DataTemplate>
-          <ViewCell>
-            <StackLayout Orientation="Horizontal" >
-              <ff:CachedImage Aspect = "AspectFit" Source="{Binding Image}" />
-              <Label Text="{Binding Title}" VerticalOptions = "Center"/>
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </StackLayout>-->
-
-  <CollectionView ItemsSource="{Binding MenuModels}" SelectionMode="Single">
-    <CollectionView.ItemTemplate>
-      <DataTemplate>
-        <Grid Padding="10">
-          <Grid.GestureRecognizers>
-            <TapGestureRecognizer 
+          <Grid Padding="10">
+            <Grid.GestureRecognizers>
+              <TapGestureRecognizer 
                 Command="{Binding BindingContext.Command, Source={x:Reference Base}}" 
                 CommandParameter="{Binding}"/>
-          </Grid.GestureRecognizers>
-          <Grid.RowDefinitions>
-            <RowDefinition Height="100" />
-          </Grid.RowDefinitions>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="4*" />
-          </Grid.ColumnDefinitions>
-          <ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding ImageAddress}" />
-          <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="CenterAndExpand"/>
-        </Grid>
-      </DataTemplate>
-    </CollectionView.ItemTemplate>
-  </CollectionView>
+            </Grid.GestureRecognizers>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+            <ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding ImageAddress}" />
+            <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="CenterAndExpand"/>
+          </Grid>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>
+    <Button Text="新しいページの追加" Command="{Binding CreateCommand}"/>
+  </StackLayout>
 
 </ContentPage>
