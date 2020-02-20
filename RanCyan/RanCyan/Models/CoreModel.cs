@@ -24,13 +24,13 @@ namespace RanCyan.Models {
 
         /// <summary>選択されたモデルを保有する</summary>
         /// <param name="i">選択するモデルのindex</param>
-        public void SelectionModel(int index) => LotteryPageModel = LotteryPageModels[index];
+        public void SelectModel(int index) => LotteryPageModel = LotteryPageModels[index];
 
         /// <summary>
         /// 見本作成する
         /// </summary>
         private void ResetModels() {
-            var items = Enumerable.Range(0, 1).Select(x => new LotteryPageModel() { Title = $"NewPage" });
+            var items = Enumerable.Range(0, 5).Select(x => new LotteryPageModel() { Title = $"NewPage{x}" });
             LotteryPageModels = new ObservableCollection<LotteryPageModel>(items);
         }
     }

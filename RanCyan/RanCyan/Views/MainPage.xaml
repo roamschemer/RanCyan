@@ -38,23 +38,27 @@
     </ListView>
   </StackLayout>-->
 
-  <CollectionView ItemsSource="{Binding ListView}">
+  <CollectionView ItemsSource="{Binding MenuModels}" SelectionMode="Single">
     <CollectionView.ItemTemplate>
       <DataTemplate>
         <Grid Padding="10">
           <Grid.GestureRecognizers>
             <TapGestureRecognizer 
-                Command="{Binding BindingContext.ListTapped, Source={x:Reference Base}}" 
+                Command="{Binding BindingContext.Command, Source={x:Reference Base}}" 
                 CommandParameter="{Binding}"/>
           </Grid.GestureRecognizers>
-          <StackLayout Orientation="Horizontal" >
-            <ff:CachedImage Aspect = "AspectFit" Source="{Binding Image}" />
-            <Label Text="{Binding Title}" />
-          </StackLayout>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="100" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="4*" />
+          </Grid.ColumnDefinitions>
+          <ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding ImageAddress}" />
+          <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="CenterAndExpand"/>
         </Grid>
       </DataTemplate>
     </CollectionView.ItemTemplate>
   </CollectionView>
-
 
 </ContentPage>

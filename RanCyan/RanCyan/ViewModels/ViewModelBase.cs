@@ -3,6 +3,7 @@ using Prism.Mvvm;
 using Prism.Navigation;
 using System;
 using System.Collections.Generic;
+using System.Reactive.Disposables;
 using System.Text;
 
 namespace RanCyan.ViewModels
@@ -10,6 +11,7 @@ namespace RanCyan.ViewModels
     public class ViewModelBase : BindableBase, INavigationAware, IDestructible
     {
         protected INavigationService NavigationService { get; private set; }
+        protected CompositeDisposable Disposable { get; } = new CompositeDisposable();
 
         public ViewModelBase(INavigationService navigationService)
         {
@@ -31,9 +33,6 @@ namespace RanCyan.ViewModels
 
         }
 
-        public virtual void Destroy()
-        {
-
-        }
+        public virtual void Destroy() => this.Disposable.Dispose();
     }
 }
