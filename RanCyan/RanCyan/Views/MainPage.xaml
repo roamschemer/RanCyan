@@ -5,36 +5,56 @@
              xmlns:behaviorsPack="clr-namespace:Xamarin.Forms.BehaviorsPack;assembly=Xamarin.Forms.BehaviorsPack"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="RanCyan.Views.MainPage"
+             x:Name="Base"
              Title="Menu">
 
-    <ContentPage.Padding>
-        <OnPlatform x:TypeArguments="Thickness">
-            <On Platform="iOS">0,20,0,0</On>
-        </OnPlatform>
-    </ContentPage.Padding>
+  <ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness">
+      <On Platform="iOS">0,20,0,0</On>
+    </OnPlatform>
+  </ContentPage.Padding>
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
 
-    <StackLayout>
-        <ListView ItemsSource="{Binding ListView}" HasUnevenRows="false" RowHeight="80" >
-            <ListView.Behaviors>
-                <behaviorsPack:SelectedItemBehavior Command="{Binding ListTapped}"/>
-            </ListView.Behaviors>
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout Orientation="Horizontal" >
-                            <ff:CachedImage Aspect = "AspectFit" Source="{Binding Image}" />
-                            <Label Text="{Binding Title}" VerticalOptions = "Center"/>
-                        </StackLayout>
-                    </ViewCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
-    </StackLayout>
+  <!--<StackLayout>
+    <ListView ItemsSource="{Binding ListView}" HasUnevenRows="false" RowHeight="80" >
+      <ListView.Behaviors>
+        <behaviorsPack:SelectedItemBehavior Command="{Binding ListTapped}"/>
+      </ListView.Behaviors>
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <ViewCell>
+            <StackLayout Orientation="Horizontal" >
+              <ff:CachedImage Aspect = "AspectFit" Source="{Binding Image}" />
+              <Label Text="{Binding Title}" VerticalOptions = "Center"/>
+            </StackLayout>
+          </ViewCell>
+        </DataTemplate>
+      </ListView.ItemTemplate>
+    </ListView>
+  </StackLayout>-->
+
+  <CollectionView ItemsSource="{Binding ListView}">
+    <CollectionView.ItemTemplate>
+      <DataTemplate>
+        <Grid Padding="10">
+          <Grid.GestureRecognizers>
+            <TapGestureRecognizer 
+                Command="{Binding BindingContext.ListTapped, Source={x:Reference Base}}" 
+                CommandParameter="{Binding}"/>
+          </Grid.GestureRecognizers>
+          <StackLayout Orientation="Horizontal" >
+            <ff:CachedImage Aspect = "AspectFit" Source="{Binding Image}" />
+            <Label Text="{Binding Title}" />
+          </StackLayout>
+        </Grid>
+      </DataTemplate>
+    </CollectionView.ItemTemplate>
+  </CollectionView>
+
 
 </ContentPage>
