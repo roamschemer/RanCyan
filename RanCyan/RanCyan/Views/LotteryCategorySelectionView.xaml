@@ -3,11 +3,46 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:RanCyan.Controls"
              mc:Ignorable="d"
-             x:Class="RanCyan.Views.LotteryCategorySelectionView">
-  <ContentView.Content>
-      <StackLayout>
-          <Label Text="Hello Xamarin.Forms!" />
-      </StackLayout>
-  </ContentView.Content>
+             x:Class="RanCyan.Views.LotteryCategorySelectionView"
+             x:Name="Base">
+
+  <ContentView.Resources>
+    <ResourceDictionary>
+      <Style TargetType="controls:ToggleButton">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="BackgroundColor" Value="AliceBlue"/>
+        <Style.Triggers>
+          <Trigger TargetType="controls:ToggleButton" Property="IsSelected" Value="True">
+            <Setter Property="TextColor" Value="Gainsboro"/>
+          </Trigger>
+          <Trigger TargetType="controls:ToggleButton" Property="IsHited" Value="True">
+            <Setter Property="BackgroundColor" Value="Red"/>
+          </Trigger>
+        </Style.Triggers>
+      </Style>
+    </ResourceDictionary>
+  </ContentView.Resources>
+
+  <CollectionView ItemsSource="{Binding LotteryModels}">
+    <CollectionView.ItemTemplate>
+      <DataTemplate>
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="50" />
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100" />
+          </Grid.ColumnDefinitions>
+          <controls:ToggleButton Command="{Binding BindingContext.ItemTapped, Source={x:Reference Base}}"
+                                 CommandParameter="{Binding}"
+                                 Text="{Binding Name}"
+                                 IsSelected="{Binding IsSelected}"
+                                 IsHited="{Binding IsHited}"
+                                 />
+        </Grid>
+      </DataTemplate>
+    </CollectionView.ItemTemplate>
+  </CollectionView>
 </ContentView>

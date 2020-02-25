@@ -26,5 +26,11 @@ namespace RanCyan.Models {
         public bool IsHited { get => isHited; set => SetProperty(ref isHited, value); }
         private bool isHited;
 
+        /// <summary>
+        /// 選択状態を切り替える
+        /// </summary>
+        public void SelectionState() {
+            IsSelected = !IsSelected;
+        }
     }
 }

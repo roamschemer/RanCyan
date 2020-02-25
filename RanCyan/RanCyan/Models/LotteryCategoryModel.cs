@@ -34,7 +34,7 @@ namespace RanCyan.Models {
         /// 見本生成
         /// </summary>
         private void ResetModels() {
-            var items = Enumerable.Range(0, 6).Select(x => new LotteryModel() { Id = x, Name=$"select{x}" });
+            var items = Enumerable.Range(0, 6).Select(x => new LotteryModel() { Id = x, Name = $"select{x}" });
             LotteryModels = new ObservableCollection<LotteryModel>(items);
         }
     }
