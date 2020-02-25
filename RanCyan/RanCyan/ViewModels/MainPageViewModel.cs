@@ -24,11 +24,11 @@ namespace RanCyan.ViewModels {
                 }
                 if (x.LotteryPageIndex != null) coreModel.SelectionModel((int)x.LotteryPageIndex);
                 await navigationService.NavigateAsync(x.ViewAddress);
-            });
+            }).AddTo(this.Disposable);
             CreateCommand = new AsyncReactiveCommand().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
                 if (select) mainPageModel.LastAddLotteryPageMode(coreModel);
-            });
+            }).AddTo(this.Disposable);
         }
     }
 }

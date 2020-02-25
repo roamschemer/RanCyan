@@ -22,7 +22,7 @@ namespace RanCyan.ViewModels {
             RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
             var lotteryPageModel = coreModel.LotteryPageModel;
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
-            LotteryCategorySelectionViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x));
+            LotteryCategorySelectionViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x)).AddTo(this.Disposable);
             SelectionViewWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x * 100).ToReactiveProperty().AddTo(this.Disposable);
         }
         public override void OnNavigatedTo(INavigationParameters parameters) {

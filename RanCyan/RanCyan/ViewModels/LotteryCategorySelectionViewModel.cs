@@ -4,6 +4,7 @@ using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Reactive.Disposables;
+using System.Reactive.Linq;
 using System.Text;
 
 namespace RanCyan.ViewModels {
@@ -20,13 +21,13 @@ namespace RanCyan.ViewModels {
         public LotteryCategorySelectionViewModel(CoreModel coreModel, LotteryCategoryModel lotteryCategoryModel) {
             //選択リスト
             LotteryModels = lotteryCategoryModel.LotteryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
-            SelectionCommand = new ReactiveCommand<LotteryModel>().WithSubscribe(x => x.SelectionState());
+            SelectionCommand = new ReactiveCommand<LotteryModel>().WithSubscribe(x => x.SelectionState()).AddTo(this.Disposable);
             //抽選ボタン
             CategoryTitle = lotteryCategoryModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             ToDrawCommand = new ReactiveCommand().WithSubscribe(_ => {
                 coreModel.LotteryRancyanImageAsync();
                 lotteryCategoryModel.ToDrawAsync();
-            });
+            }).AddTo(this.Disposable);
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
