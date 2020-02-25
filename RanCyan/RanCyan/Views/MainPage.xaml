@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              x:Class="RanCyan.Views.MainPage"
              x:Name="Base"
@@ -13,11 +12,6 @@
     </OnPlatform>
   </ContentPage.Padding>
 
-  <ContentPage.Resources>
-    <ResourceDictionary>
-      <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
-    </ResourceDictionary>
-  </ContentPage.Resources>
   <StackLayout>
     <CollectionView ItemsSource="{Binding MenuModels}" SelectionMode="Single">
       <CollectionView.ItemsLayout>

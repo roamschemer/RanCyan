@@ -3,22 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
              xmlns:views="clr-namespace:RanCyan.Views"
+             xmlns:cv="clr-namespace:RanCyan.Converters"
+             xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryUwpPage"
-             Title="{Binding Title.Value}"
-             WidthRequest="{Binding ContentPageWidth.Value, Mode = OneWayToSource}">
+             Title="{Binding Title.Value}">
+
+  <ContentPage.Resources>
+    <ResourceDictionary>
+      <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
+    </ResourceDictionary>
+  </ContentPage.Resources>
+  
   <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="*" />
-      <RowDefinition Height="4*" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="{Binding SelectionViewWidth.Value}" />
     </Grid.ColumnDefinitions>
+    <!-- 乱ちゃんの3Dgif画像 -->
+    <!--<ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding RanCyanImage.Value}" />-->
+    <Image Grid.Column="0" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+           Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
     <!-- 除外選択リストと抽選ボタン -->
-    <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
+    <CollectionView Grid.Column="1"
                     ItemsSource="{Binding LotteryCategorySelectionViewModels}"
                     ItemsLayout="HorizontalList">
       <CollectionView.ItemTemplate>

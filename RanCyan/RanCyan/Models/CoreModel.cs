@@ -1,6 +1,8 @@
 ﻿using Prism.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace RanCyan.Models {
     /// <summary>コアクラス</summary>
@@ -10,7 +12,11 @@ namespace RanCyan.Models {
         public string BackColor { get => backColor; set => SetProperty(ref backColor, value); }
         private string backColor;
 
-        /// <summary>選択されたモデル</summary>
+        /// <summary>乱ちゃんの表示画像</summary>
+        public string RanCyanImage { get => ranCyanImage; set => SetProperty(ref ranCyanImage, value); }
+        private string ranCyanImage;
+
+        /// <summary>選択された抽選ページ</summary>
         public LotteryPageModel LotteryPageModel { get => lotteryPageModel; set => SetProperty(ref lotteryPageModel, value); }
         private LotteryPageModel lotteryPageModel;
 
@@ -44,6 +50,30 @@ namespace RanCyan.Models {
         /// </summary>
         /// <param name="index">消去するモデルのindex</param>
         public void DeleteLotteryPageModel(int index) => LotteryPageModels.RemoveAt(index);
+
+        /// <summary>
+        /// 乱ちゃんの画像を抽選画像に差し替えた後、ちょっと待ってから待機画像に差し替える
+        /// </summary>
+        public async void LotteryRancyanImageAsync() {
+            RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
+            await Task.Delay(4000);
+            WaitingRancyanImage();
+        }
+
+        /// <summary>
+        /// 乱ちゃんの画像を待機画像に差し替える
+        /// </summary>
+        public void WaitingRancyanImage() {
+            var images = new[] {
+                "RanCyan.Images.3D_Taiki2.gif",
+                "RanCyan.Images.3D_Taiki5.gif",
+                "RanCyan.Images.3D_Taiki6.gif",
+                "RanCyan.Images.3D_Taiki7.gif",
+                "RanCyan.Images.3D_Taiki8.gif",
+            };
+            var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
+            RanCyanImage = images[rnd.Next(0, images.Count())];
+        }
 
     }
 }

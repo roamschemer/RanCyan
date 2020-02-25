@@ -25,9 +25,14 @@
     </ResourceDictionary>
   </ContentView.Resources>
 
-  <StackLayout>
-    <Button Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"/>
-    <Grid>
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="50" />
+    </Grid.RowDefinitions>
+    <Button Grid.Row="0" Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"/>
+    <Grid Grid.Row="1">
       <CollectionView ItemsSource="{Binding LotteryModels}">
         <CollectionView.ItemTemplate>
           <DataTemplate>
@@ -42,6 +47,6 @@
         </CollectionView.ItemTemplate>
       </CollectionView>
     </Grid>
-    <Button Text="設定" BackgroundColor="LightGray"/>
-  </StackLayout>
+    <Button Grid.Row="2" Text="設定" BackgroundColor="LightGray"/>
+  </Grid>
 </ContentView>

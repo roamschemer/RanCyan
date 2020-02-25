@@ -12,18 +12,22 @@ using System.Reactive.Linq;
 namespace RanCyan.ViewModels {
     /// <summary>(ViewModel)各抽選用ページ</summary>
     public class LotteryPageViewModel : ViewModelBase {
+        private readonly CoreModel coreModel;
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
-        public ReactiveProperty<int> ContentPageWidth { get; } = new ReactiveProperty<int>();
         public ReactiveProperty<int> SelectionViewWidth { get; }
-        public ReactiveProperty<int> ToDrawButtonWidth { get; }
+        public ReactiveProperty<string> RanCyanImage { get; }
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
+            this.coreModel = coreModel;
+            RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
             var lotteryPageModel = coreModel.LotteryPageModel;
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
-            LotteryCategorySelectionViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(x));
-
+            LotteryCategorySelectionViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x));
             SelectionViewWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x * 100).ToReactiveProperty().AddTo(this.Disposable);
-            //ToDrawButtonWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x / 400).ToReactiveProperty().AddTo(this.Disposable);
+        }
+        public override void OnNavigatedTo(INavigationParameters parameters) {
+            //何故か遷移後にgifを選択しないと動かない。Xamarinのバージョンを上げるとこうなった。
+            coreModel.WaitingRancyanImage();
         }
     }
 }
