@@ -9,8 +9,8 @@ namespace RanCyan.Models {
     public class LotteryCategoryModel : BindableBase {
 
         /// <summary>カテゴリ名称(ボタンの名称にも使用)</summary>
-        public string Name { get => name; set => SetProperty(ref name, value); }
-        private string name;
+        public string Title { get => title; set => SetProperty(ref title, value); }
+        private string title;
 
         /// <summary>ループする回数</summary>
         public int NumberOfLoops { get => numberOfLoops; set => SetProperty(ref numberOfLoops, value); }

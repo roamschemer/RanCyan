@@ -35,7 +35,7 @@
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
           </Grid.ColumnDefinitions>
-          <controls:ToggleButton Command="{Binding BindingContext.SelectionStateCommand, Source={x:Reference Base}}"
+          <controls:ToggleButton Command="{Binding BindingContext.Command, Source={x:Reference Base}}"
                                  CommandParameter="{Binding}"
                                  Text="{Binding Name}"
                                  IsSelected="{Binding IsSelected}"

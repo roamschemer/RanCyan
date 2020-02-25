@@ -5,7 +5,8 @@
              xmlns:views="clr-namespace:RanCyan.Views"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryUwpPage"
-             Title="{Binding Title.Value}">
+             Title="{Binding Title.Value}"
+             WidthRequest="{Binding ContentPageWidth.Value, Mode = OneWayToSource}">
  
   <Grid>
     <Grid.RowDefinitions>
@@ -17,16 +18,16 @@
       <ColumnDefinition Width="400" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
-                    ItemsSource="{Binding LotteryCategorySelectionViewModels}"
+    <CollectionView Grid.Row="2" Grid.Column="0"
+                    ItemsSource="{Binding LotteryCategoryToDrawViewModels}"
                     ItemsLayout="HorizontalList">
       <CollectionView.ItemTemplate>
         <DataTemplate>
           <Grid>
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="115" />
+              <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
-            <views:LotteryCategorySelectionView BindingContext="{Binding}"/>
+            <views:LotteryCategoryToDrawView BindingContext="{Binding}"/>
           </Grid>
         </DataTemplate>
       </CollectionView.ItemTemplate>

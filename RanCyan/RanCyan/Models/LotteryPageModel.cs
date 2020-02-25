@@ -13,8 +13,19 @@ namespace RanCyan.Models {
         public string Title { get => title; set => SetProperty(ref title, value); }
         private string title;
 
+        /// <summary>カテゴリーの数</summary>
+        public int CategoryModelsCount { get => categoryModelsCount; set => SetProperty(ref categoryModelsCount, value); }
+        private int categoryModelsCount;
+
         /// <summary>カテゴリーのリスト</summary>
-        public ObservableCollection<LotteryCategoryModel> CategoryModels { get; private set; }
+        public ObservableCollection<LotteryCategoryModel> CategoryModels {
+            get => categoryModels;
+            set {
+                SetProperty(ref categoryModels, value);
+                CategoryModelsCount = categoryModels.Count();
+            }
+        }
+        private ObservableCollection<LotteryCategoryModel> categoryModels;
 
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
@@ -25,8 +36,10 @@ namespace RanCyan.Models {
         /// 見本作成
         /// </summary>
         private void ResetModels() {
-            var items = Enumerable.Range(0, 4).Select(x => new LotteryCategoryModel() { Name = $"Category{x}" });
+            var items = Enumerable.Range(0, 4).Select(x => new LotteryCategoryModel() { Title = $"Category{x}" });
             CategoryModels = new ObservableCollection<LotteryCategoryModel>(items);
         }
+
+
     }
 }

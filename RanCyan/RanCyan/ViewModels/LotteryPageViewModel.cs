@@ -7,17 +7,22 @@ using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reactive.Linq;
 
 namespace RanCyan.ViewModels {
     /// <summary>(ViewModel)各抽選用ページ</summary>
     public class LotteryPageViewModel : ViewModelBase {
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
+        public ReadOnlyReactiveCollection<LotteryCategoryToDrawViewModel> LotteryCategoryToDrawViewModels { get; }
+        public ReactiveProperty<int> ToDrawButtonWidth { get; }
+        public ReactiveProperty<int> ContentPageWidth { get; }
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             var lotteryPageModel = coreModel.LotteryPageModel;
-            LotteryCategorySelectionViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(x));
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
-
+            LotteryCategorySelectionViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(x));
+            LotteryCategoryToDrawViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategoryToDrawViewModel(x));
+            //ToDrawButtonWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x / 400).ToReactiveProperty().AddTo(this.Disposable);
         }
     }
 }
