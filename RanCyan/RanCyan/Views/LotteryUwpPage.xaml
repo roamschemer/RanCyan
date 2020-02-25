@@ -15,23 +15,9 @@
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
-      <ColumnDefinition Width="400" />
+      <ColumnDefinition Width="{Binding SelectionViewWidth.Value}" />
     </Grid.ColumnDefinitions>
-      <!-- 抽選実施ボタン -->
-      <CollectionView Grid.Row="2" Grid.Column="0"
-                      ItemsSource="{Binding LotteryCategoryToDrawViewModels}">
-      <CollectionView.ItemsLayout>
-        <GridItemsLayout Orientation="Vertical" Span="4" />
-      </CollectionView.ItemsLayout>
-      <CollectionView.ItemTemplate>
-        <DataTemplate>
-          <Grid VerticalOptions="FillAndExpand">
-            <views:LotteryCategoryToDrawView BindingContext="{Binding}"/>
-          </Grid>
-        </DataTemplate>
-      </CollectionView.ItemTemplate>
-    </CollectionView>
-    <!-- 除外選択リスト -->
+    <!-- 除外選択リストと抽選ボタン -->
     <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
                     ItemsSource="{Binding LotteryCategorySelectionViewModels}"
                     ItemsLayout="HorizontalList">

@@ -64,7 +64,7 @@ namespace RanCyan.Models {
                 ImageAddress = images[index % images.Count()],
                 LotteryPageIndex = index
             };
-            MenuModels.Insert(MenuModels.Count() - 1, menuModel);
+            MenuModels.Add(menuModel);
         }
     }
 }

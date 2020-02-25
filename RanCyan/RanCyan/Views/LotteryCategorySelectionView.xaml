@@ -26,13 +26,13 @@
   </ContentView.Resources>
 
   <StackLayout>
-    <Button Text="設定" BackgroundColor="LightGray"/>
+    <Button Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"/>
     <Grid>
       <CollectionView ItemsSource="{Binding LotteryModels}">
         <CollectionView.ItemTemplate>
           <DataTemplate>
             <Grid>
-              <controls:ToggleButton Command="{Binding BindingContext.Command, Source={x:Reference Base}}"
+              <controls:ToggleButton Command="{Binding BindingContext.SelectionCommand, Source={x:Reference Base}}"
                                      CommandParameter="{Binding}"
                                      Text="{Binding Name}"
                                      IsSelected="{Binding IsSelected}"
@@ -42,5 +42,6 @@
         </CollectionView.ItemTemplate>
       </CollectionView>
     </Grid>
+    <Button Text="設定" BackgroundColor="LightGray"/>
   </StackLayout>
 </ContentView>

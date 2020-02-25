@@ -20,6 +20,9 @@
   </ContentPage.Resources>
   <StackLayout>
     <CollectionView ItemsSource="{Binding MenuModels}" SelectionMode="Single">
+      <CollectionView.ItemsLayout>
+        <GridItemsLayout Orientation="Vertical" Span="2" />
+      </CollectionView.ItemsLayout>
       <CollectionView.ItemTemplate>
         <DataTemplate>
           <Grid Padding="10">
@@ -29,11 +32,11 @@
                 CommandParameter="{Binding}"/>
             </Grid.GestureRecognizers>
             <Grid.RowDefinitions>
-              <RowDefinition Height="100" />
+              <RowDefinition Height="50" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="50" />
               <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
             <ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding ImageAddress}" />
             <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="CenterAndExpand"/>
