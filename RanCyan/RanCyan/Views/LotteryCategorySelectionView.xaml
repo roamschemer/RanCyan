@@ -24,24 +24,23 @@
       </Style>
     </ResourceDictionary>
   </ContentView.Resources>
-  
-  <Grid VerticalOptions="FillAndExpand">
-    <CollectionView ItemsSource="{Binding LotteryModels}">
-      <CollectionView.ItemTemplate>
-        <DataTemplate>
-          <Grid VerticalOptions="FillAndExpand">
-            <Grid.RowDefinitions>
-              <RowDefinition Height="50" />
-            </Grid.RowDefinitions>
-            <controls:ToggleButton Command="{Binding BindingContext.Command, Source={x:Reference Base}}"
-                                   CommandParameter="{Binding}"
-                                   Text="{Binding Name}"
-                                   IsSelected="{Binding IsSelected}"
-                                   IsHited="{Binding IsHited}"/>
-          </Grid>
-        </DataTemplate>
-      </CollectionView.ItemTemplate>
-    </CollectionView>
-  </Grid>
 
+  <StackLayout>
+    <Button Text="設定" BackgroundColor="LightGray"/>
+    <Grid>
+      <CollectionView ItemsSource="{Binding LotteryModels}">
+        <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Grid>
+              <controls:ToggleButton Command="{Binding BindingContext.Command, Source={x:Reference Base}}"
+                                     CommandParameter="{Binding}"
+                                     Text="{Binding Name}"
+                                     IsSelected="{Binding IsSelected}"
+                                     IsHited="{Binding IsHited}"/>
+            </Grid>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+    </Grid>
+  </StackLayout>
 </ContentView>
