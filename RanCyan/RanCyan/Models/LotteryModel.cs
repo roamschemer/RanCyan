@@ -29,8 +29,7 @@ namespace RanCyan.Models {
         /// <summary>
         /// 選択状態を切り替える
         /// </summary>
-        public void SelectionState() {
-            IsSelected = !IsSelected;
-        }
+        public void SelectionState() => IsSelected = !IsSelected;
+
     }
 }

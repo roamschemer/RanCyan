@@ -6,16 +6,32 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryUwpPage"
              Title="{Binding Title.Value}">
-
+ 
   <Grid>
     <Grid.RowDefinitions>
+      <RowDefinition Height="*" />
+      <RowDefinition Height="4*" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="400" />
       <ColumnDefinition Width="*" />
     </Grid.ColumnDefinitions>
-    <CollectionView Grid.Row="0" Grid.Column="1"
+    <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
+                    ItemsSource="{Binding LotteryCategorySelectionViewModels}"
+                    ItemsLayout="HorizontalList">
+      <CollectionView.ItemTemplate>
+        <DataTemplate>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="115" />
+            </Grid.ColumnDefinitions>
+            <views:LotteryCategorySelectionView BindingContext="{Binding}"/>
+          </Grid>
+        </DataTemplate>
+      </CollectionView.ItemTemplate>
+    </CollectionView>
+    <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
                     ItemsSource="{Binding LotteryCategorySelectionViewModels}"
                     ItemsLayout="HorizontalList">
       <CollectionView.ItemTemplate>

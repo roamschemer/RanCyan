@@ -35,12 +35,11 @@
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100" />
           </Grid.ColumnDefinitions>
-          <controls:ToggleButton Command="{Binding BindingContext.ItemTapped, Source={x:Reference Base}}"
+          <controls:ToggleButton Command="{Binding BindingContext.SelectionStateCommand, Source={x:Reference Base}}"
                                  CommandParameter="{Binding}"
                                  Text="{Binding Name}"
                                  IsSelected="{Binding IsSelected}"
-                                 IsHited="{Binding IsHited}"
-                                 />
+                                 IsHited="{Binding IsHited}" />
         </Grid>
       </DataTemplate>
     </CollectionView.ItemTemplate>

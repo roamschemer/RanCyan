@@ -7,6 +7,7 @@ using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace RanCyan.ViewModels {
+    /// <summary>(ViewModel)起動直後に展開するメインページ</summary>
     public class MainPageViewModel : ViewModelBase {
 
         public ReadOnlyReactiveCollection<MenuModel> MenuModels { get; }
@@ -18,7 +19,6 @@ namespace RanCyan.ViewModels {
             MenuModels = mainPageModel.MenuModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             Command = new AsyncReactiveCommand<MenuModel>().WithSubscribe(async (x) => {
                 if (x.IsWebPage) {
-                    //Device.OpenUri(new Uri(x.ViewAddress)); //←今は使われていないらしい
                     await Browser.OpenAsync(x.ViewAddress, BrowserLaunchMode.SystemPreferred);
                     return;
                 }

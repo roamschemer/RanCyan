@@ -63,6 +63,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Update="Views\LotteryCategorySelectionView.xaml.cs">
+      <DependentUpon>LotteryCategorySelectionView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
