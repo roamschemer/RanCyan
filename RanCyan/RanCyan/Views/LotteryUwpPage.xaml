@@ -7,7 +7,6 @@
              x:Class="RanCyan.Views.LotteryUwpPage"
              Title="{Binding Title.Value}"
              WidthRequest="{Binding ContentPageWidth.Value, Mode = OneWayToSource}">
- 
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="*" />
@@ -15,31 +14,32 @@
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="400" />
       <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="400" />
     </Grid.ColumnDefinitions>
-    <CollectionView Grid.Row="2" Grid.Column="0"
-                    ItemsSource="{Binding LotteryCategoryToDrawViewModels}"
-                    ItemsLayout="HorizontalList">
+      <!-- 抽選実施ボタン -->
+      <CollectionView Grid.Row="2" Grid.Column="0"
+                      ItemsSource="{Binding LotteryCategoryToDrawViewModels}">
+      <CollectionView.ItemsLayout>
+        <GridItemsLayout Orientation="Vertical" Span="4" />
+      </CollectionView.ItemsLayout>
       <CollectionView.ItemTemplate>
         <DataTemplate>
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
+          <Grid VerticalOptions="FillAndExpand">
             <views:LotteryCategoryToDrawView BindingContext="{Binding}"/>
           </Grid>
         </DataTemplate>
       </CollectionView.ItemTemplate>
     </CollectionView>
+    <!-- 除外選択リスト -->
     <CollectionView Grid.Row="0" Grid.Column="1" Grid.RowSpan="3"
                     ItemsSource="{Binding LotteryCategorySelectionViewModels}"
                     ItemsLayout="HorizontalList">
       <CollectionView.ItemTemplate>
         <DataTemplate>
-          <Grid>
+          <Grid VerticalOptions="FillAndExpand">
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="115" />
+              <ColumnDefinition Width="100" />
             </Grid.ColumnDefinitions>
             <views:LotteryCategorySelectionView BindingContext="{Binding}"/>
           </Grid>

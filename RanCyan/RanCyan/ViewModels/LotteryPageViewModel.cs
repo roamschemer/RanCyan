@@ -15,13 +15,15 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
         public ReadOnlyReactiveCollection<LotteryCategoryToDrawViewModel> LotteryCategoryToDrawViewModels { get; }
-        public ReactiveProperty<int> ToDrawButtonWidth { get; }
         public ReactiveProperty<int> ContentPageWidth { get; }
+        public ReactiveProperty<int> SelectionViewWidth { get; }
+        public ReactiveProperty<int> ToDrawButtonWidth { get; }
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             var lotteryPageModel = coreModel.LotteryPageModel;
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategorySelectionViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(x));
             LotteryCategoryToDrawViewModels = lotteryPageModel.CategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategoryToDrawViewModel(x));
+            SelectionViewWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x * 100).ToReactiveProperty().AddTo(this.Disposable);
             //ToDrawButtonWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x / 400).ToReactiveProperty().AddTo(this.Disposable);
         }
     }

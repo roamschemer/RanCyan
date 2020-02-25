@@ -5,5 +5,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="RanCyan.Views.LotteryCategoryToDrawView">
-  <Button Text="{Binding Title.Value}" Command="{Binding Command}" />
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="50" />
+    </Grid.RowDefinitions>
+    <Button Text="{Binding Title.Value}" Command="{Binding Command}"/>
+  </Grid>
 </ContentView>
