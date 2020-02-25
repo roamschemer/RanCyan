@@ -24,7 +24,7 @@ namespace RanCyan.Models {
 
         /// <summary>選択されたモデルを保有する</summary>
         /// <param name="i">選択するモデルのindex</param>
-        public void SelectModel(int index) => LotteryPageModel = LotteryPageModels[index];
+        public void SelectionModel(int index) => LotteryPageModel = LotteryPageModels[index];
 
         /// <summary>
         /// 見本作成する
