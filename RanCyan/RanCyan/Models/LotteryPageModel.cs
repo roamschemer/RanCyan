@@ -31,6 +31,10 @@ namespace RanCyan.Models {
         public LotteryCategoryModel SelectionLotteryCategoryModel { get => selectionLotteryCategoryModel; set => SetProperty(ref selectionLotteryCategoryModel, value); }
         private LotteryCategoryModel selectionLotteryCategoryModel;
 
+        /// <summary>抽選中のLotteryModel(表示文字などに使用)</summary>
+        public LotteryModel ViewLotteryModel { get => viewLotteryModel; set => SetProperty(ref viewLotteryModel, value); }
+        private LotteryModel viewLotteryModel;
+
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
             ResetModels();

@@ -28,7 +28,7 @@ namespace RanCyan.ViewModels {
             ToDrawCommand.Where(_ => !lotteryCategoryModel.InLottery).Subscribe(_ => {
                 //coreModel.SelectionLotteryPageModel.SelectModel(lotteryCategoryModel);
                 coreModel.LotteryRancyanImageAsync();
-                lotteryCategoryModel.ToDrawAsync();
+                lotteryCategoryModel.ToDrawAsync(coreModel.SelectionLotteryPageModel);
             }).AddTo(this.Disposable);
         }
         //後始末

@@ -17,8 +17,6 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
         public ReactiveProperty<int> SelectionViewWidth { get; }
         public ReactiveProperty<string> RanCyanImage { get; }
-        public ReactiveProperty<LotteryCategoryModel> LotteryCategoryModel { get; }
-        public ReactiveProperty<LotteryModel> LotteryModel { get; }
         public ReactiveProperty<string> LotteryLabel { get; }
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             this.coreModel = coreModel;
@@ -27,6 +25,7 @@ namespace RanCyan.ViewModels {
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategorySelectionViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x)).AddTo(this.Disposable);
             SelectionViewWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x * 100).ToReactiveProperty().AddTo(this.Disposable);
+            LotteryLabel = lotteryPageModel.ObserveProperty(x => x.ViewLotteryModel).Where(x => x != null).Select(x => x.Name).ToReactiveProperty().AddTo(this.Disposable);
         }
         public override void OnNavigatedTo(INavigationParameters parameters) {
             //何故か遷移後にgifを選択しないと動かない。Xamarinのバージョンを上げるとこうなった。

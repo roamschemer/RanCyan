@@ -44,14 +44,10 @@ namespace RanCyan.Models {
             LotteryModels = new ObservableCollection<LotteryModel>(items);
         }
 
-        /// <summary>選択されたモデルを保有する</summary>
-        /// <param name="model">選択するモデル</param>
-        public void SelectModel(LotteryModel model) => SelectionLotteryModel = model;
-
         /// <summary>
         /// 抽選の実施
         /// </summary>
-        public async void ToDrawAsync() {
+        public async void ToDrawAsync(LotteryPageModel lotteryPageModel) {
             var raitoSum = LotteryModels.Where(x => !x.IsSelected).Sum(x => x.Ratio);
             if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2) return;
             InLottery = true;
@@ -65,7 +61,7 @@ namespace RanCyan.Models {
                 foreach (var x in LotteryModels.Where(x => !x.IsSelected)) {
                     count += x.Ratio;
                     x.IsHited = (lastCount < hitCount && hitCount <= count);
-                    if (x.IsHited) SelectModel(x);
+                    if (x.IsHited) lotteryPageModel.ViewLotteryModel = x;
                     lastCount = count;
                 }
                 if (i < NumberOfLoops) await Task.Delay((int)(oneWaitTime * i)); //少しずつウェイト時間を長くする
