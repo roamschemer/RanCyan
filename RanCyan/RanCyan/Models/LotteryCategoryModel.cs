@@ -27,10 +27,6 @@ namespace RanCyan.Models {
         /// <summary>抽選モデルのコレクション</summary>
         public ObservableCollection<LotteryModel> LotteryModels { get; private set; }
 
-        /// <summary>選択された抽選モデル</summary>
-        public LotteryModel SelectionLotteryModel { get => selectionLotteryModel; set => SetProperty(ref selectionLotteryModel, value); }
-        private LotteryModel selectionLotteryModel;
-
         /// <summary>コンストラクタ</summary>
         public LotteryCategoryModel() {
             ResetModels();
@@ -50,7 +46,10 @@ namespace RanCyan.Models {
         public async void ToDrawAsync(LotteryPageModel lotteryPageModel) {
             var raitoSum = LotteryModels.Where(x => !x.IsSelected).Sum(x => x.Ratio);
             if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2) return;
+            lotteryPageModel.SelectionLotteryCategoryModel = this;
             InLottery = true;
+            lotteryPageModel.LotteryLabelVisible = true;
+            lotteryPageModel.LotteryLabelColor = "Black";
             foreach (var x in LotteryModels) x.IsHited = false;
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             float oneWaitTime = TotalTimeOfAllLoops / (((NumberOfLoops - 1) * NumberOfLoops) / 2); //基準となるウェイト時間(msec)
@@ -61,15 +60,17 @@ namespace RanCyan.Models {
                 foreach (var x in LotteryModels.Where(x => !x.IsSelected)) {
                     count += x.Ratio;
                     x.IsHited = (lastCount < hitCount && hitCount <= count);
-                    if (x.IsHited) lotteryPageModel.ViewLotteryModel = x;
+                    if (x.IsHited) lotteryPageModel.LotteryLabelText = x.Name;
                     lastCount = count;
                 }
                 if (i < NumberOfLoops) await Task.Delay((int)(oneWaitTime * i)); //少しずつウェイト時間を長くする
             }
-            //最後に点滅させる(ここでは選択状態を等間隔でON/OFFするだけ)
+            //最後に点滅させる
+            lotteryPageModel.LotteryLabelColor = "Red";
             foreach (var x in LotteryModels.Where(x => x.IsHited)) {
                 foreach (var i in Enumerable.Range(0, 10)) {
                     x.IsHited = !x.IsHited;
+                    lotteryPageModel.LotteryLabelVisible = !lotteryPageModel.LotteryLabelVisible;
                     await Task.Delay(50);
                 }
             }

@@ -12,6 +12,16 @@
   <ContentPage.Resources>
     <ResourceDictionary>
       <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
+      <Style  x:Key="LabelStyle" TargetType="Label">
+        <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
+        <Setter Property="HorizontalTextAlignment" Value="Center"/>
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="FontAttributes" Value="Bold"/>
+        <Setter Property="FontSize" Value="40"/>
+      </Style>
+      <Style x:Key="BoxViewStyle" TargetType="BoxView">
+        <Setter Property="BackgroundColor" Value="White"/>
+      </Style>
     </ResourceDictionary>
   </ContentPage.Resources>
   
@@ -20,11 +30,13 @@
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="{Binding SelectionViewWidth.Value}" />
     </Grid.ColumnDefinitions>
+    <!-- 抽選結果(シングル) -->
+    <Label Grid.Column="0" Style="{StaticResource LabelStyle}"
+           Text="{Binding LotteryLabel.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
     <!-- 乱ちゃんの3Dgif画像 -->
     <!--<ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding RanCyanImage.Value}" />-->
     <!--<Image Grid.Column="0" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
            Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />-->
-    <Label Grid.Column="0" Text="{Binding LotteryLabel.Value}" />
     <!-- 除外選択リストと抽選ボタン -->
     <CollectionView Grid.Column="1"
                     ItemsSource="{Binding LotteryCategorySelectionViewModels}"
