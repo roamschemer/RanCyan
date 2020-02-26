@@ -5,11 +5,18 @@
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryConfigPage"
              Title="{Binding Title.Value}">
-  <StackLayout Orientation="Horizontal">
-    <Picker 
-        ItemsSource="{Binding LotteryCategoryModels}" 
-        SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
-        ItemDisplayBinding="{Binding Title}"/>
-  </StackLayout>
+
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*"/>
+      <ColumnDefinition Width="*"/>
+    </Grid.ColumnDefinitions>
+    <Grid Grid.Column="1">
+      <Picker 
+          ItemsSource="{Binding LotteryCategoryModels}" 
+          SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
+          ItemDisplayBinding="{Binding Title}"/>
+    </Grid>
+  </Grid>
   
 </ContentPage>
