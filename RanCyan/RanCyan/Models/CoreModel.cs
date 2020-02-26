@@ -55,7 +55,7 @@ namespace RanCyan.Models {
         /// 乱ちゃんの画像を抽選画像に差し替えた後、ちょっと待ってから待機画像に差し替える
         /// </summary>
         public async void LotteryRancyanImageAsync() {
-            //RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
+            RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
             await Task.Delay(4000);
             WaitingRancyanImage();
         }
@@ -72,7 +72,7 @@ namespace RanCyan.Models {
                 "RanCyan.Images.3D_Taiki8.gif",
             };
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            //RanCyanImage = images[rnd.Next(0, images.Count())];
+            RanCyanImage = images[rnd.Next(0, images.Count())];
         }
 
     }

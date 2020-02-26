@@ -38,6 +38,7 @@ namespace RanCyan
             containerRegistry.RegisterForNavigation<GenericRandomUWPPage, GenericRandomPageViewModel>();
             containerRegistry.RegisterForNavigation<LotteryUwpPage, LotteryPageViewModel>();
             containerRegistry.RegisterForNavigation<LotteryTabletPage, LotteryPageViewModel>();
+            containerRegistry.RegisterForNavigation<LotteryConfigPage, LotteryConfigPageViewModel>();
         }
 
     }

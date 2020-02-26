@@ -24,34 +24,52 @@
       </Style>
     </ResourceDictionary>
   </ContentPage.Resources>
-  
+
   <Grid>
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="*" />
       <ColumnDefinition Width="{Binding SelectionViewWidth.Value}" />
     </Grid.ColumnDefinitions>
-    <!-- 抽選結果(シングル) -->
-    <Label Grid.Column="0" Style="{StaticResource LabelStyle}"
-           Text="{Binding LotteryLabel.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
-    <!-- 乱ちゃんの3Dgif画像 -->
-    <!--<ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding RanCyanImage.Value}" />-->
-    <!--<Image Grid.Column="0" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+    <Grid Grid.Column="0">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="*"/>
+        <RowDefinition Height="4*"/>
+      </Grid.RowDefinitions>
+      <!-- 抽選結果(シングル) -->
+      <Label Grid.Row="0" Style="{StaticResource LabelStyle}"
+             Text="{Binding LotteryLabel.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
+      <!-- 乱ちゃんの3Dgif画像 -->
+      <!--<Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
            Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />-->
-    <!-- 除外選択リストと抽選ボタン -->
-    <CollectionView Grid.Column="1"
-                    ItemsSource="{Binding LotteryCategorySelectionViewModels}"
-                    ItemsLayout="HorizontalList">
-      <CollectionView.ItemTemplate>
-        <DataTemplate>
-          <Grid VerticalOptions="FillAndExpand">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="100" />
-            </Grid.ColumnDefinitions>
-            <views:LotteryCategorySelectionView BindingContext="{Binding}"/>
-          </Grid>
-        </DataTemplate>
-      </CollectionView.ItemTemplate>
-    </CollectionView>
+    </Grid>
+    <Grid Grid.Column="1">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="8*"/>
+        <RowDefinition Height="*"/>
+      </Grid.RowDefinitions>
+      <!-- 除外選択リストと抽選ボタン -->
+      <CollectionView Grid.Row="0"
+                      ItemsSource="{Binding LotteryCategorySelectionViewModels}"
+                      ItemsLayout="HorizontalList">
+        <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Grid VerticalOptions="FillAndExpand">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+              </Grid.ColumnDefinitions>
+              <views:LotteryCategorySelectionView BindingContext="{Binding}"/>
+            </Grid>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
+      <Grid Grid.Row="1">
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="*" />
+          <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Button Grid.Column="1" Text="Config" Command="{Binding ConfigPageNavigationCommand}"/>
+      </Grid>
+    </Grid>
   </Grid>
 
 </ContentPage>

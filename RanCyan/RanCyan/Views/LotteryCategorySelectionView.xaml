@@ -29,7 +29,6 @@
     <Grid.RowDefinitions>
       <RowDefinition Height="50" />
       <RowDefinition Height="*" />
-      <RowDefinition Height="50" />
     </Grid.RowDefinitions>
     <Button Grid.Row="0" Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"/>
     <Grid Grid.Row="1">
@@ -47,6 +46,6 @@
         </CollectionView.ItemTemplate>
       </CollectionView>
     </Grid>
-    <Button Grid.Row="2" Text="設定" BackgroundColor="LightGray"/>
   </Grid>
+  
 </ContentView>

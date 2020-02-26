@@ -2,12 +2,14 @@
 using Prism.Mvvm;
 using Prism.Navigation;
 using RanCyan.Models;
+using RanCyan.Views;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using Xamarin.Forms;
 
 namespace RanCyan.ViewModels {
     /// <summary>(ViewModel)各抽選用ページ</summary>
@@ -20,6 +22,8 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> LotteryLabel { get; }
         public ReactiveProperty<string> LotteryLabelColor { get; }
         public ReactiveProperty<bool> LotteryLabelVisible { get; }
+        public AsyncReactiveCommand<object> ConfigPageNavigationCommand { get; }
+
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             this.coreModel = coreModel;
             RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
@@ -30,9 +34,13 @@ namespace RanCyan.ViewModels {
             LotteryLabel = lotteryPageModel.ObserveProperty(x => x.LotteryLabelText).ToReactiveProperty().AddTo(this.Disposable);
             LotteryLabelColor = lotteryPageModel.ObserveProperty(x => x.LotteryLabelColor).ToReactiveProperty().AddTo(this.Disposable);
             LotteryLabelVisible = lotteryPageModel.ObserveProperty(x => x.LotteryLabelVisible).ToReactiveProperty().AddTo(this.Disposable);
+            ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
+                await navigationService.NavigateAsync(nameof(LotteryConfigPage));
+            }).AddTo(this.Disposable);
+
         }
         public override void OnNavigatedTo(INavigationParameters parameters) {
-            //何故か遷移後にgifを選択しないと動かない。Xamarinのバージョンを上げるとこうなった。
+            //何故か遷移後にgifを選択しないと動かない。Xamarinのバージョンを上げるとこうなった。2回目の表示以降はこれでもダメだがしゃーない。
             coreModel.WaitingRancyanImage();
         }
     }

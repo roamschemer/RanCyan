@@ -56,5 +56,10 @@ namespace RanCyan.Models {
             LotteryCategoryModels = new ObservableCollection<LotteryCategoryModel>(items);
         }
 
+        /// <summary>
+        /// 新規にLotteryCategoryModelを追加する
+        /// </summary>
+        public void CleateNewLotteryCategoryModel() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
+
     }
 }
