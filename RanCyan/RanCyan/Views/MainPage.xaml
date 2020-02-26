@@ -26,10 +26,10 @@
                 CommandParameter="{Binding}"/>
             </Grid.GestureRecognizers>
             <Grid.RowDefinitions>
-              <RowDefinition Height="50" />
+              <RowDefinition Height="60" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="50" />
+              <ColumnDefinition Width="60" />
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding ImageAddress}" />
