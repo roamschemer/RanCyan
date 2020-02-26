@@ -17,8 +17,8 @@ namespace RanCyan.Models {
         private string ranCyanImage;
 
         /// <summary>選択された抽選ページ</summary>
-        public LotteryPageModel LotteryPageModel { get => lotteryPageModel; set => SetProperty(ref lotteryPageModel, value); }
-        private LotteryPageModel lotteryPageModel;
+        public LotteryPageModel SelectionLotteryPageModel { get => selectionLotteryPageModel; set => SetProperty(ref selectionLotteryPageModel, value); }
+        private LotteryPageModel selectionLotteryPageModel;
 
         /// <summary>ページモデルのコレクション</summary>
         public ObservableCollection<LotteryPageModel> LotteryPageModels { get; private set; }
@@ -29,8 +29,8 @@ namespace RanCyan.Models {
         }
 
         /// <summary>選択されたモデルを保有する</summary>
-        /// <param name="i">選択するモデルのindex</param>
-        public void SelectionModel(int index) => LotteryPageModel = LotteryPageModels[index];
+        /// <param name="model">選択されたモデル</param>
+        public void SelectionModel(LotteryPageModel model) => SelectionLotteryPageModel = model;
 
         /// <summary>
         /// 見本作成する
@@ -55,7 +55,7 @@ namespace RanCyan.Models {
         /// 乱ちゃんの画像を抽選画像に差し替えた後、ちょっと待ってから待機画像に差し替える
         /// </summary>
         public async void LotteryRancyanImageAsync() {
-            RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
+            //RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
             await Task.Delay(4000);
             WaitingRancyanImage();
         }
@@ -72,7 +72,7 @@ namespace RanCyan.Models {
                 "RanCyan.Images.3D_Taiki8.gif",
             };
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            RanCyanImage = images[rnd.Next(0, images.Count())];
+            //RanCyanImage = images[rnd.Next(0, images.Count())];
         }
 
     }

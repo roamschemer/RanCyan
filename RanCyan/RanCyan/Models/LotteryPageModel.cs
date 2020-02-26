@@ -18,14 +18,18 @@ namespace RanCyan.Models {
         private int categoryModelsCount;
 
         /// <summary>カテゴリーのリスト</summary>
-        public ObservableCollection<LotteryCategoryModel> CategoryModels {
-            get => categoryModels;
+        public ObservableCollection<LotteryCategoryModel> LotteryCategoryModels {
+            get => lotteryCategoryModels;
             set {
-                SetProperty(ref categoryModels, value);
-                CategoryModelsCount = categoryModels.Count();
+                SetProperty(ref lotteryCategoryModels, value);
+                CategoryModelsCount = lotteryCategoryModels.Count();
             }
         }
-        private ObservableCollection<LotteryCategoryModel> categoryModels;
+        private ObservableCollection<LotteryCategoryModel> lotteryCategoryModels;
+
+        /// <summary>選択された抽選カテゴリ</summary>
+        public LotteryCategoryModel SelectionLotteryCategoryModel { get => selectionLotteryCategoryModel; set => SetProperty(ref selectionLotteryCategoryModel, value); }
+        private LotteryCategoryModel selectionLotteryCategoryModel;
 
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
@@ -37,9 +41,12 @@ namespace RanCyan.Models {
         /// </summary>
         private void ResetModels() {
             var items = Enumerable.Range(0, 4).Select(x => new LotteryCategoryModel() { Title = $"Category{x}" });
-            CategoryModels = new ObservableCollection<LotteryCategoryModel>(items);
+            LotteryCategoryModels = new ObservableCollection<LotteryCategoryModel>(items);
         }
 
+        /// <summary>選択されたモデルを保有する</summary>
+        /// <param name="model">選択するモデル</param>
+        public void SelectionModel(LotteryCategoryModel model) => SelectionLotteryCategoryModel = model;
 
     }
 }
