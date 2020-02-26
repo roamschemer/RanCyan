@@ -14,10 +14,11 @@ using Xamarin.Forms;
 namespace RanCyan.ViewModels {
     /// <summary>(ViewModel)各抽選用ページ</summary>
     public class LotteryPageViewModel : ViewModelBase {
-        private readonly CoreModel coreModel;
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
         public ReactiveProperty<int> SelectionViewWidth { get; }
+        public ReactiveProperty<int> CategoryModelsCount { get; }
+        public ReadOnlyReactiveProperty<int> SelectionViewOneWidth { get; }
         public ReactiveProperty<string> RanCyanImage { get; }
         public ReactiveProperty<bool> IsImageActive { get; }
         public ReactiveProperty<string> LotteryLabel { get; }
@@ -26,31 +27,30 @@ namespace RanCyan.ViewModels {
         public AsyncReactiveCommand<object> ConfigPageNavigationCommand { get; }
 
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
-            this.coreModel = coreModel;
+            //乱ちゃんイメージ
             coreModel.StartRancyanImage();
             RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
             IsImageActive = coreModel.ObserveProperty(x => x.IsImageActive).ToReactiveProperty().AddTo(this.Disposable);
             var imageTimer = new ReactiveTimer(TimeSpan.FromSeconds(10));
             imageTimer.Subscribe(_ => {
                 coreModel.WaitingRancyanImage();
-                coreModel.IsImageActive = true; 
-                imageTimer.Stop(); 
+                imageTimer.Stop();
             });
             imageTimer.Start(TimeSpan.FromSeconds(0.5));
+            //表示系
             var lotteryPageModel = coreModel.SelectionLotteryPageModel;
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategorySelectionViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x)).AddTo(this.Disposable);
-            SelectionViewWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x * 100).ToReactiveProperty().AddTo(this.Disposable);
+            SelectionViewWidth = coreModel.ObserveProperty(x => x.SelectionViewWidth).ToReactiveProperty().AddTo(this.Disposable);
+            CategoryModelsCount = lotteryPageModel.ObserveProperty(x=>x.CategoryModelsCount).ToReactiveProperty().AddTo(this.Disposable);
+            SelectionViewOneWidth = SelectionViewWidth.CombineLatest(CategoryModelsCount, (x, y) => (int)(x / y)).ToReadOnlyReactiveProperty().AddTo(this.Disposable);
             LotteryLabel = lotteryPageModel.ObserveProperty(x => x.LotteryLabelText).ToReactiveProperty().AddTo(this.Disposable);
             LotteryLabelColor = lotteryPageModel.ObserveProperty(x => x.LotteryLabelColor).ToReactiveProperty().AddTo(this.Disposable);
             LotteryLabelVisible = lotteryPageModel.ObserveProperty(x => x.LotteryLabelVisible).ToReactiveProperty().AddTo(this.Disposable);
+            //発火系
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
             }).AddTo(this.Disposable);
-        }
-        public override void OnNavigatedTo(INavigationParameters parameters) {
-            //何故か遷移後にgifを選択しないと動かない。Xamarinのバージョンを上げるとこうなった。2回目の表示以降はこれでもダメだがしゃーない。
-            //coreModel.WaitingRancyanImage();
         }
     }
 }

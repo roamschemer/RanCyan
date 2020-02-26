@@ -12,6 +12,9 @@ namespace RanCyan.Models {
         public string BackColor { get => backColor; set => SetProperty(ref backColor, value); }
         private string backColor;
 
+        /// <summary>透過用背景色のリスト</summary>
+        public ObservableCollection<string> ImageBackColorList { get; } 
+
         /// <summary>乱ちゃんの表示画像</summary>
         public string RanCyanImage { get => ranCyanImage; set => SetProperty(ref ranCyanImage, value); }
         private string ranCyanImage;
@@ -29,9 +32,22 @@ namespace RanCyan.Models {
         /// <summary>ページモデルのコレクション</summary>
         public ObservableCollection<LotteryPageModel> LotteryPageModels { get; private set; }
 
+        /// <summary>抽選リスト部分の幅</summary>
+        public int SelectionViewWidth { get => selectionViewWidth; set => SetProperty(ref selectionViewWidth, value); }
+        private int selectionViewWidth;
+
+        /// <summary>抽選リスト部分の幅リスト</summary>
+        public ObservableCollection<int> SelectionViewWidthList { get; }
+
         /// <summary>コンストラクタ</summary>
         public CoreModel() {
             ResetModels();
+            ImageBackColorList = new ObservableCollection<string>() { 
+                "White", "Blue", "Lime", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" 
+            };
+            BackColor = ImageBackColorList.First();
+            SelectionViewWidthList = new ObservableCollection<int>(Enumerable.Range(1, 10).Select(x => x * 100));
+            SelectionViewWidth = SelectionViewWidthList[3];
         }
 
         /// <summary>選択されたモデルを保有する</summary>
@@ -79,6 +95,7 @@ namespace RanCyan.Models {
             };
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             RanCyanImage = images[rnd.Next(0, images.Count())];
+            IsImageActive = true;
         }
 
         /// <summary>
@@ -88,5 +105,6 @@ namespace RanCyan.Models {
             RanCyanImage = "";
             IsImageActive = false;
         }
+
     }
 }

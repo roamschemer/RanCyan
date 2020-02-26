@@ -8,6 +8,7 @@
              xmlns:local="clr-namespace:RanCyan.TriggerActions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryUwpPage"
+             x:Name="this"
              Title="{Binding Title.Value}">
 
   <ContentPage.Resources>
@@ -44,14 +45,14 @@
              Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
         <Image.Triggers>
           <DataTrigger TargetType="Image" Binding="{Binding IsImageActive.Value}" Value="True">
-              <DataTrigger.EnterActions>
-                <local:MoveTriggerAction IsActive="True" />
-              </DataTrigger.EnterActions>
-              <DataTrigger.ExitActions>
-                <local:MoveTriggerAction IsActive="False" />
-              </DataTrigger.ExitActions>
-            </DataTrigger>
-          </Image.Triggers>
+            <DataTrigger.EnterActions>
+              <local:MoveTriggerAction IsActive="True" />
+            </DataTrigger.EnterActions>
+            <DataTrigger.ExitActions>
+              <local:MoveTriggerAction IsActive="False" />
+            </DataTrigger.ExitActions>
+          </DataTrigger>
+        </Image.Triggers>
       </Image>
     </Grid>
     <Grid Grid.Column="1">
@@ -67,7 +68,7 @@
           <DataTemplate>
             <Grid VerticalOptions="FillAndExpand">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="{Binding BindingContext.SelectionViewOneWidth.Value ,Source={x:Reference this}}" />
               </Grid.ColumnDefinitions>
               <views:LotteryCategorySelectionView BindingContext="{Binding}"/>
             </Grid>
