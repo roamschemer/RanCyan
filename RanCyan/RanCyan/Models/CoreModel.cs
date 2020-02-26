@@ -46,8 +46,8 @@ namespace RanCyan.Models {
                 "White", "Blue", "Lime", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" 
             };
             BackColor = ImageBackColorList.First();
-            SelectionViewWidthList = new ObservableCollection<int>(Enumerable.Range(1, 10).Select(x => x * 100));
-            SelectionViewWidth = SelectionViewWidthList[3];
+            SelectionViewWidthList = new ObservableCollection<int>(Enumerable.Range(4, 7).Select(x => x * 100));
+            SelectionViewWidth = SelectionViewWidthList.First();
         }
 
         /// <summary>選択されたモデルを保有する</summary>
@@ -73,13 +73,18 @@ namespace RanCyan.Models {
         /// <param name="index">消去するモデルのindex</param>
         public void DeleteLotteryPageModel(int index) => LotteryPageModels.RemoveAt(index);
 
+        /// <summary>乱ちゃん挙動中</summary>
+        private bool isRancyanLottery;
         /// <summary>
         /// 乱ちゃんの画像を抽選画像に差し替えた後、ちょっと待ってから待機画像に差し替える
         /// </summary>
         public async void LotteryRancyanImageAsync() {
+            if (isRancyanLottery) return;
+            isRancyanLottery = true;
             RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
             await Task.Delay(4000);
             WaitingRancyanImage();
+            isRancyanLottery = false;
         }
 
         /// <summary>

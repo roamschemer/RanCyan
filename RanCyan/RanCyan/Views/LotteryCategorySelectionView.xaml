@@ -32,20 +32,22 @@
     </Grid.RowDefinitions>
     <Button Grid.Row="0" Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"/>
     <Grid Grid.Row="1">
-      <CollectionView ItemsSource="{Binding LotteryModels}">
-        <CollectionView.ItemTemplate>
+      <ListView ItemsSource="{Binding LotteryModels}">
+        <ListView.ItemTemplate>
           <DataTemplate>
-            <Grid>
-              <controls:ToggleButton Command="{Binding BindingContext.SelectionCommand, Source={x:Reference Base}}"
+            <ViewCell>
+              <Grid>
+                <controls:ToggleButton Command="{Binding BindingContext.SelectionCommand, Source={x:Reference Base}}"
                                      CommandParameter="{Binding}"
                                      Text="{Binding Name}"
                                      IsSelected="{Binding IsSelected}"
                                      IsHited="{Binding IsHited}"/>
-            </Grid>
+              </Grid>
+            </ViewCell>
           </DataTemplate>
-        </CollectionView.ItemTemplate>
-      </CollectionView>
+        </ListView.ItemTemplate>
+      </ListView>
     </Grid>
   </Grid>
-  
+
 </ContentView>
