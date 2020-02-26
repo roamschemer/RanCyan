@@ -17,6 +17,9 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
         public ReactiveProperty<int> SelectionViewWidth { get; }
         public ReactiveProperty<string> RanCyanImage { get; }
+        public ReactiveProperty<LotteryCategoryModel> LotteryCategoryModel { get; }
+        public ReactiveProperty<LotteryModel> LotteryModel { get; }
+        public ReactiveProperty<string> LotteryLabel { get; }
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             this.coreModel = coreModel;
             RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);

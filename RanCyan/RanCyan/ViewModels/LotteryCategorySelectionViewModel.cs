@@ -26,7 +26,7 @@ namespace RanCyan.ViewModels {
             CategoryTitle = lotteryCategoryModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             ToDrawCommand = new ReactiveCommand();
             ToDrawCommand.Where(_ => !lotteryCategoryModel.InLottery).Subscribe(_ => {
-                coreModel.SelectionLotteryPageModel.SelectionModel(lotteryCategoryModel);
+                //coreModel.SelectionLotteryPageModel.SelectModel(lotteryCategoryModel);
                 coreModel.LotteryRancyanImageAsync();
                 lotteryCategoryModel.ToDrawAsync();
             }).AddTo(this.Disposable);

@@ -22,7 +22,7 @@ namespace RanCyan.ViewModels {
                     await Browser.OpenAsync(x.ViewAddress, BrowserLaunchMode.SystemPreferred);
                     return;
                 }
-                if (x.LotteryPageIndex != null) coreModel.SelectionModel(coreModel.LotteryPageModels[(int)x.LotteryPageIndex]);
+                if (x.LotteryPageIndex != null) coreModel.SelectModel(coreModel.LotteryPageModels[(int)x.LotteryPageIndex]);
                 await navigationService.NavigateAsync(x.ViewAddress);
             }).AddTo(this.Disposable);
             CreateCommand = new AsyncReactiveCommand().WithSubscribe(async _ => {

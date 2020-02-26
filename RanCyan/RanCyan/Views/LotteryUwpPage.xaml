@@ -22,8 +22,9 @@
     </Grid.ColumnDefinitions>
     <!-- 乱ちゃんの3Dgif画像 -->
     <!--<ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding RanCyanImage.Value}" />-->
-    <Image Grid.Column="0" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
-           Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />
+    <!--<Image Grid.Column="0" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+           Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />-->
+    <Label Grid.Column="0" Text="{Binding LotteryLabel.Value}" />
     <!-- 除外選択リストと抽選ボタン -->
     <CollectionView Grid.Column="1"
                     ItemsSource="{Binding LotteryCategorySelectionViewModels}"

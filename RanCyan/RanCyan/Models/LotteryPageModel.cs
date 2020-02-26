@@ -46,7 +46,7 @@ namespace RanCyan.Models {
 
         /// <summary>選択されたモデルを保有する</summary>
         /// <param name="model">選択するモデル</param>
-        public void SelectionModel(LotteryCategoryModel model) => SelectionLotteryCategoryModel = model;
+        public void SelectModel(LotteryCategoryModel model) => SelectionLotteryCategoryModel = model;
 
     }
 }
