@@ -5,6 +5,7 @@
              xmlns:views="clr-namespace:RanCyan.Views"
              xmlns:cv="clr-namespace:RanCyan.Converters"
              xmlns:ff="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:local="clr-namespace:RanCyan.TriggerActions"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryUwpPage"
              Title="{Binding Title.Value}">
@@ -39,8 +40,19 @@
       <Label Grid.Row="0" Style="{StaticResource LabelStyle}"
              Text="{Binding LotteryLabel.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
       <!-- 乱ちゃんの3Dgif画像 -->
-      <!--<Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
-           Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}" />-->
+      <Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+             Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
+        <Image.Triggers>
+          <DataTrigger TargetType="Image" Binding="{Binding IsImageActive.Value}" Value="True">
+              <DataTrigger.EnterActions>
+                <local:MoveTriggerAction IsActive="True" />
+              </DataTrigger.EnterActions>
+              <DataTrigger.ExitActions>
+                <local:MoveTriggerAction IsActive="False" />
+              </DataTrigger.ExitActions>
+            </DataTrigger>
+          </Image.Triggers>
+      </Image>
     </Grid>
     <Grid Grid.Column="1">
       <Grid.RowDefinitions>

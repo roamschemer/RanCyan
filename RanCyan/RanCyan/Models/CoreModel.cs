@@ -16,6 +16,12 @@ namespace RanCyan.Models {
         public string RanCyanImage { get => ranCyanImage; set => SetProperty(ref ranCyanImage, value); }
         private string ranCyanImage;
 
+        /// <summary>
+        /// 乱ちゃん画像の表示アクションフラグ
+        /// </summary>
+        public bool IsImageActive { get => isImageActive; set => SetProperty(ref isImageActive, value); }
+        private bool isImageActive;
+
         /// <summary>選択された抽選ページ</summary>
         public LotteryPageModel SelectionLotteryPageModel { get => selectionLotteryPageModel; set => SetProperty(ref selectionLotteryPageModel, value); }
         private LotteryPageModel selectionLotteryPageModel;
@@ -75,5 +81,12 @@ namespace RanCyan.Models {
             RanCyanImage = images[rnd.Next(0, images.Count())];
         }
 
+        /// <summary>
+        /// 乱ちゃんの立ち絵を消す(初期状態)
+        /// </summary>
+        public void StartRancyanImage() {
+            RanCyanImage = "";
+            IsImageActive = false;
+        }
     }
 }

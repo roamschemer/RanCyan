@@ -19,6 +19,7 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
         public ReactiveProperty<int> SelectionViewWidth { get; }
         public ReactiveProperty<string> RanCyanImage { get; }
+        public ReactiveProperty<bool> IsImageActive { get; }
         public ReactiveProperty<string> LotteryLabel { get; }
         public ReactiveProperty<string> LotteryLabelColor { get; }
         public ReactiveProperty<bool> LotteryLabelVisible { get; }
@@ -26,7 +27,16 @@ namespace RanCyan.ViewModels {
 
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             this.coreModel = coreModel;
+            coreModel.StartRancyanImage();
             RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
+            IsImageActive = coreModel.ObserveProperty(x => x.IsImageActive).ToReactiveProperty().AddTo(this.Disposable);
+            var imageTimer = new ReactiveTimer(TimeSpan.FromSeconds(10));
+            imageTimer.Subscribe(_ => {
+                coreModel.WaitingRancyanImage();
+                coreModel.IsImageActive = true; 
+                imageTimer.Stop(); 
+            });
+            imageTimer.Start(TimeSpan.FromSeconds(0.5));
             var lotteryPageModel = coreModel.SelectionLotteryPageModel;
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategorySelectionViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x)).AddTo(this.Disposable);
@@ -37,11 +47,10 @@ namespace RanCyan.ViewModels {
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
             }).AddTo(this.Disposable);
-
         }
         public override void OnNavigatedTo(INavigationParameters parameters) {
             //何故か遷移後にgifを選択しないと動かない。Xamarinのバージョンを上げるとこうなった。2回目の表示以降はこれでもダメだがしゃーない。
-            coreModel.WaitingRancyanImage();
+            //coreModel.WaitingRancyanImage();
         }
     }
 }
