@@ -25,6 +25,7 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> LotteryLabelColor { get; }
         public ReactiveProperty<bool> LotteryLabelVisible { get; }
         public AsyncReactiveCommand<object> ConfigPageNavigationCommand { get; }
+        public ReactiveCommand<object> AllToDrawCommand { get; }
 
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //乱ちゃんイメージ
@@ -51,6 +52,9 @@ namespace RanCyan.ViewModels {
             LotteryLabelColor = lolettaLabelModel.ObserveProperty(x => x.Color).ToReactiveProperty().AddTo(this.Disposable);
             LotteryLabelVisible = lolettaLabelModel.ObserveProperty(x => x.Visible).ToReactiveProperty().AddTo(this.Disposable);
             //発火系
+            AllToDrawCommand = new ReactiveCommand().WithSubscribe(_ => {
+                lotteryPageModel.AllToDrawAsync();
+            }).AddTo(this.Disposable);
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
             }).AddTo(this.Disposable);

@@ -53,5 +53,12 @@ namespace RanCyan.Models {
         /// </summary>
         public void CleateNewLotteryCategoryModel() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
 
+        /// <summary>全項目抽選の実施</summary>
+        public void AllToDrawAsync() {
+            foreach(var x in LotteryCategoryModels) {
+                x.ToDrawAsync(this);
+            }
+        }
+
     }
 }

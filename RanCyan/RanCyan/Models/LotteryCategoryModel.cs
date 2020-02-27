@@ -45,7 +45,7 @@ namespace RanCyan.Models {
         /// </summary>
         public async void ToDrawAsync(LotteryPageModel pageModel) {
             var raitoSum = LotteryModels.Where(x => !x.IsSelected).Sum(x => x.Ratio);
-            if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2) return;
+            if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2 || InLottery) return;
             pageModel.SelectionLotteryCategoryModel = this;
             InLottery = true;
             var label = pageModel.LotteryLabelModel;

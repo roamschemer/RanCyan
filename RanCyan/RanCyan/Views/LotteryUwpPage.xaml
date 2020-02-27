@@ -80,6 +80,7 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Text="全抽選" Command="{Binding AllToDrawCommand}"/>
         <Button Grid.Column="1" Text="Config" Command="{Binding ConfigPageNavigationCommand}"/>
       </Grid>
     </Grid>
