@@ -45,6 +45,16 @@
       <ListView Grid.Row="0" Grid.RowSpan="2"
                 ItemsSource="{Binding LotteryCategoryModels}"
                 IsVisible="{Binding IsAllToDraw.Value}">
+        <ListView.Triggers>
+          <DataTrigger TargetType="ListView" Binding="{Binding IsAllToDraw.Value}" Value="True">
+            <DataTrigger.EnterActions>
+              <local:MoveTriggerAction IsActive="True" />
+            </DataTrigger.EnterActions>
+            <DataTrigger.ExitActions>
+              <local:MoveTriggerAction IsActive="False" />
+            </DataTrigger.ExitActions>
+          </DataTrigger>
+        </ListView.Triggers>
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
