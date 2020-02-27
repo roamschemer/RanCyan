@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace RanCyan.ViewModels {
+    [Obsolete("大幅改造により削除予定")]
     public class GenericRandomPageViewModel : ViewModelBase {
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
         public ReactiveProperty<string> RanCyanKowashiyaImage { get; set; } = new ReactiveProperty<string>("RanCyan.Images.MiniKowashiyaRanCyan.png");
