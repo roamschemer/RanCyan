@@ -9,7 +9,7 @@ namespace RanCyan.TriggerActions {
 
         protected override void Invoke(VisualElement sender) {
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            var xRate = (rnd.Next(0, 20) - 10) * 0.1;
+            var xRate = (rnd.Next(0, 50) - 25) * 0.1;
             if (IsActive) {
                 sender.TranslationX = sender.Width * xRate;
                 sender.TranslationY = sender.Height;
