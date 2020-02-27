@@ -31,13 +31,10 @@ namespace RanCyan.Models {
         public LotteryCategoryModel SelectionLotteryCategoryModel { get => selectionLotteryCategoryModel; set => SetProperty(ref selectionLotteryCategoryModel, value); }
         private LotteryCategoryModel selectionLotteryCategoryModel;
 
-        public LotteryLabelModel LotteryLabelModel { get => lotteryLabelModel; set => SetProperty(ref lotteryLabelModel, value); }
-        private LotteryLabelModel lotteryLabelModel;
-
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
             ResetModels();
-            LotteryLabelModel = new LotteryLabelModel();
+            SelectionLotteryCategoryModel = new LotteryCategoryModel();
         }
 
         /// <summary>
@@ -55,9 +52,7 @@ namespace RanCyan.Models {
 
         /// <summary>全項目抽選の実施</summary>
         public void AllToDraw() {
-            foreach(var x in LotteryCategoryModels) {
-                x.ToDrawAsync(this);
-            }
+            foreach (var x in LotteryCategoryModels) { x.ToDrawAsync(this); }
         }
     }
 }

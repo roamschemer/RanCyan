@@ -38,8 +38,19 @@
         <RowDefinition Height="4*"/>
       </Grid.RowDefinitions>
       <!-- 抽選結果(シングル) -->
-      <Label Grid.Row="0" Style="{StaticResource LabelStyle}"
-             Text="{Binding LotteryLabelText.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
+      <!--<Label Grid.Row="0" Style="{StaticResource LabelStyle}"
+             Text="{Binding LotteryLabelText.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>-->
+      <!-- 抽選結果(オール) -->
+      <ListView Grid.Row="0" Grid.RowSpan="2"
+                      ItemsSource="{Binding LotteryCategoryModels}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Label Style="{StaticResource LabelStyle}" Text="{Binding LotteryLabelModel.Text}" TextColor="{Binding LotteryLabelModel.Color}" IsVisible="{Binding LotteryLabelModel.Visible}"/>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
       <!-- 乱ちゃんの3Dgif画像 -->
       <!--<Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
              Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
