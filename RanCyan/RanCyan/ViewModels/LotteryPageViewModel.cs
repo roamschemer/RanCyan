@@ -28,12 +28,12 @@ namespace RanCyan.ViewModels {
 
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //乱ちゃんイメージ
-            coreModel.StartRancyanImage();
-            RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
-            IsImageActive = coreModel.ObserveProperty(x => x.IsImageActive).ToReactiveProperty().AddTo(this.Disposable);
+            coreModel.RanCyanModel.StartRancyanImage();
+            RanCyanImage = coreModel.RanCyanModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
+            IsImageActive = coreModel.RanCyanModel.ObserveProperty(x => x.IsImageActive).ToReactiveProperty().AddTo(this.Disposable);
             var imageTimer = new ReactiveTimer(TimeSpan.FromSeconds(10));
             imageTimer.Subscribe(_ => {
-                coreModel.WaitingRancyanImage();
+                coreModel.RanCyanModel.WaitingRancyanImage();
                 imageTimer.Stop();
             });
             imageTimer.Start(TimeSpan.FromSeconds(0.5));
