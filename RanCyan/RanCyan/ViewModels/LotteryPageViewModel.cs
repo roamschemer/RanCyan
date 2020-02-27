@@ -27,6 +27,8 @@ namespace RanCyan.ViewModels {
         //public ReactiveProperty<bool> LotteryLabelVisible { get; }
         public AsyncReactiveCommand<object> ConfigPageNavigationCommand { get; }
         public ReactiveCommand<object> AllToDrawCommand { get; }
+        public ReactiveProperty<bool> IsAllToDraw { get; }
+
         public ReadOnlyReactiveCollection<LotteryCategoryModel> LotteryCategoryModels { get; }
 
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
@@ -54,7 +56,7 @@ namespace RanCyan.ViewModels {
             //LotteryLabelColor = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Color).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
             //LotteryLabelVisible = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Visible).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
-
+            IsAllToDraw = lotteryPageModel.ObserveProperty(x => x.IsAllToDraw).ToReactiveProperty().AddTo(this.Disposable);
             //発火系
             AllToDrawCommand = new ReactiveCommand().WithSubscribe(_ => {
                 ranCyanModel.LotteryRancyanImageAsync();

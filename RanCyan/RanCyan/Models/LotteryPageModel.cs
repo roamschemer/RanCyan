@@ -17,6 +17,10 @@ namespace RanCyan.Models {
         public int CategoryModelsCount { get => categoryModelsCount; set => SetProperty(ref categoryModelsCount, value); }
         private int categoryModelsCount;
 
+        /// <summary>全体抽選の実施</summary>
+        public bool IsAllToDraw { get => isAllToDraw; set => SetProperty(ref isAllToDraw, value); }
+        private bool isAllToDraw;
+
         /// <summary>カテゴリーのリスト</summary>
         public ObservableCollection<LotteryCategoryModel> LotteryCategoryModels {
             get => lotteryCategoryModels;
@@ -52,6 +56,7 @@ namespace RanCyan.Models {
 
         /// <summary>全項目抽選の実施</summary>
         public void AllToDraw() {
+            IsAllToDraw = true;
             foreach (var x in LotteryCategoryModels) { x.ToDrawAsync(this); }
         }
     }

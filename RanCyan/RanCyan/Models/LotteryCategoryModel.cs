@@ -53,7 +53,6 @@ namespace RanCyan.Models {
             if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2 || InLottery) return;
             pageModel.SelectionLotteryCategoryModel = this;
             InLottery = true;
-            LotteryLabelModel.Visible = true;
             LotteryLabelModel.Color = "Black";
             foreach (var x in LotteryModels) x.IsHited = false;
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
@@ -66,7 +65,7 @@ namespace RanCyan.Models {
                     count += x.Ratio;
                     x.IsHited = (lastCount < hitCount && hitCount <= count);
                     if (x.IsHited) LotteryLabelModel.Text = x.Name;
-                     lastCount = count;
+                    lastCount = count;
                 }
                 if (i < NumberOfLoops) await Task.Delay((int)(oneWaitTime * i)); //少しずつウェイト時間を長くする
             }
@@ -75,7 +74,7 @@ namespace RanCyan.Models {
             foreach (var x in LotteryModels.Where(x => x.IsHited)) {
                 foreach (var i in Enumerable.Range(0, 10)) {
                     x.IsHited = !x.IsHited;
-                    LotteryLabelModel.Visible = !LotteryLabelModel.Visible;
+                    LotteryLabelModel.Text = x.IsHited ? x.Name : string.Empty;
                     await Task.Delay(50);
                 }
             }

@@ -14,12 +14,13 @@
   <ContentPage.Resources>
     <ResourceDictionary>
       <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
-      <Style  x:Key="LabelStyle" TargetType="Label">
+      <Style x:Key="LabelStyle" TargetType="Label">
         <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
         <Setter Property="HorizontalTextAlignment" Value="Center"/>
         <Setter Property="VerticalTextAlignment" Value="Center"/>
         <Setter Property="FontAttributes" Value="Bold"/>
-        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="LineBreakMode" Value="TailTruncation"/>
       </Style>
       <Style x:Key="BoxViewStyle" TargetType="BoxView">
         <Setter Property="BackgroundColor" Value="White"/>
@@ -42,11 +43,27 @@
              Text="{Binding LotteryLabelText.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>-->
       <!-- 抽選結果(オール) -->
       <ListView Grid.Row="0" Grid.RowSpan="2"
-                      ItemsSource="{Binding LotteryCategoryModels}">
+                ItemsSource="{Binding LotteryCategoryModels}"
+                IsVisible="{Binding IsAllToDraw.Value}">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <Label Style="{StaticResource LabelStyle}" Text="{Binding LotteryLabelModel.Text}" TextColor="{Binding LotteryLabelModel.Color}" IsVisible="{Binding LotteryLabelModel.Visible}"/>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       Style="{StaticResource LabelStyle}"
+                       Text="{Binding Title}" 
+                       TextColor="{Binding LotteryLabelModel.Color}" 
+                       />
+                <Label Grid.Column="1"
+                       Style="{StaticResource LabelStyle}"
+                       Text="{Binding LotteryLabelModel.Text}" 
+                       TextColor="{Binding LotteryLabelModel.Color}" 
+                       />
+              </Grid>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>
