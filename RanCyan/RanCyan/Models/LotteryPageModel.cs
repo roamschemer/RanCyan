@@ -31,21 +31,13 @@ namespace RanCyan.Models {
         public LotteryCategoryModel SelectionLotteryCategoryModel { get => selectionLotteryCategoryModel; set => SetProperty(ref selectionLotteryCategoryModel, value); }
         private LotteryCategoryModel selectionLotteryCategoryModel;
 
-        /// <summary>抽選結果表示用ラベルの文字</summary>
-        public string LotteryLabelText { get => lotteryLabelText; set => SetProperty(ref lotteryLabelText, value); }
-        private string lotteryLabelText;
-
-        /// <summary>抽選結果表示用ラベルの文字色</summary>
-        public string LotteryLabelColor { get => lotteryLabelColor; set => SetProperty(ref lotteryLabelColor, value); }
-        private string lotteryLabelColor;
-
-        /// <summary>抽選結果表示用ラベルの文字表示</summary>
-        public bool LotteryLabelVisible { get => lotteryLabelVisible; set => SetProperty(ref lotteryLabelVisible, value); }
-        private bool lotteryLabelVisible;
+        public LotteryLabelModel LotteryLabelModel { get => lotteryLabelModel; set => SetProperty(ref lotteryLabelModel, value); }
+        private LotteryLabelModel lotteryLabelModel;
 
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
             ResetModels();
+            LotteryLabelModel = new LotteryLabelModel();
         }
 
         /// <summary>

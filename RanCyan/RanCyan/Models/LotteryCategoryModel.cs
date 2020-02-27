@@ -43,13 +43,14 @@ namespace RanCyan.Models {
         /// <summary>
         /// 抽選の実施
         /// </summary>
-        public async void ToDrawAsync(LotteryPageModel lotteryPageModel) {
+        public async void ToDrawAsync(LotteryPageModel pageModel) {
             var raitoSum = LotteryModels.Where(x => !x.IsSelected).Sum(x => x.Ratio);
             if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2) return;
-            lotteryPageModel.SelectionLotteryCategoryModel = this;
+            pageModel.SelectionLotteryCategoryModel = this;
             InLottery = true;
-            lotteryPageModel.LotteryLabelVisible = true;
-            lotteryPageModel.LotteryLabelColor = "Black";
+            var label = pageModel.LotteryLabelModel;
+            label.Visible = true;
+            label.Color = "Black";
             foreach (var x in LotteryModels) x.IsHited = false;
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             float oneWaitTime = TotalTimeOfAllLoops / (((NumberOfLoops - 1) * NumberOfLoops) / 2); //基準となるウェイト時間(msec)
@@ -60,17 +61,17 @@ namespace RanCyan.Models {
                 foreach (var x in LotteryModels.Where(x => !x.IsSelected)) {
                     count += x.Ratio;
                     x.IsHited = (lastCount < hitCount && hitCount <= count);
-                    if (x.IsHited) lotteryPageModel.LotteryLabelText = x.Name;
+                    if (x.IsHited) label.Text = x.Name;
                     lastCount = count;
                 }
                 if (i < NumberOfLoops) await Task.Delay((int)(oneWaitTime * i)); //少しずつウェイト時間を長くする
             }
             //最後に点滅させる
-            lotteryPageModel.LotteryLabelColor = "Red";
+            label.Color = "Red";
             foreach (var x in LotteryModels.Where(x => x.IsHited)) {
                 foreach (var i in Enumerable.Range(0, 10)) {
                     x.IsHited = !x.IsHited;
-                    lotteryPageModel.LotteryLabelVisible = !lotteryPageModel.LotteryLabelVisible;
+                    label.Visible = !label.Visible;
                     await Task.Delay(50);
                 }
             }

@@ -39,7 +39,7 @@
       </Grid.RowDefinitions>
       <!-- 抽選結果(シングル) -->
       <Label Grid.Row="0" Style="{StaticResource LabelStyle}"
-             Text="{Binding LotteryLabel.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
+             Text="{Binding LotteryLabelText.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
       <!-- 乱ちゃんの3Dgif画像 -->
       <!--<Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
              Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">

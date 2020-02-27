@@ -21,7 +21,7 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveProperty<int> SelectionViewOneWidth { get; }
         public ReactiveProperty<string> RanCyanImage { get; }
         public ReactiveProperty<bool> IsImageActive { get; }
-        public ReactiveProperty<string> LotteryLabel { get; }
+        public ReactiveProperty<string> LotteryLabelText { get; }
         public ReactiveProperty<string> LotteryLabelColor { get; }
         public ReactiveProperty<bool> LotteryLabelVisible { get; }
         public AsyncReactiveCommand<object> ConfigPageNavigationCommand { get; }
@@ -46,9 +46,10 @@ namespace RanCyan.ViewModels {
             SelectionViewWidth = coreModel.ObserveProperty(x => x.SelectionViewWidth).ToReactiveProperty().AddTo(this.Disposable);
             CategoryModelsCount = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => (x > 0) ? x : 1).ToReactiveProperty().AddTo(this.Disposable);
             SelectionViewOneWidth = SelectionViewWidth.CombineLatest(CategoryModelsCount, (x, y) => x / y).ToReadOnlyReactiveProperty().AddTo(this.Disposable);
-            LotteryLabel = lotteryPageModel.ObserveProperty(x => x.LotteryLabelText).ToReactiveProperty().AddTo(this.Disposable);
-            LotteryLabelColor = lotteryPageModel.ObserveProperty(x => x.LotteryLabelColor).ToReactiveProperty().AddTo(this.Disposable);
-            LotteryLabelVisible = lotteryPageModel.ObserveProperty(x => x.LotteryLabelVisible).ToReactiveProperty().AddTo(this.Disposable);
+            var lolettaLabelModel = lotteryPageModel.LotteryLabelModel;
+            LotteryLabelText = lolettaLabelModel.ObserveProperty(x => x.Text).ToReactiveProperty().AddTo(this.Disposable);
+            LotteryLabelColor = lolettaLabelModel.ObserveProperty(x => x.Color).ToReactiveProperty().AddTo(this.Disposable);
+            LotteryLabelVisible = lolettaLabelModel.ObserveProperty(x => x.Visible).ToReactiveProperty().AddTo(this.Disposable);
             //発火系
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
