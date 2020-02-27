@@ -53,7 +53,8 @@ namespace RanCyan.ViewModels {
             LotteryLabelVisible = lolettaLabelModel.ObserveProperty(x => x.Visible).ToReactiveProperty().AddTo(this.Disposable);
             //発火系
             AllToDrawCommand = new ReactiveCommand().WithSubscribe(_ => {
-                lotteryPageModel.AllToDrawAsync();
+                ranCyanModel.LotteryRancyanImageAsync();
+                lotteryPageModel.AllToDraw();
             }).AddTo(this.Disposable);
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
