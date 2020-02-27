@@ -13,17 +13,11 @@ namespace RanCyan.Models {
         private string backColor;
 
         /// <summary>透過用背景色のリスト</summary>
-        public ObservableCollection<string> ImageBackColorList { get; } 
+        public ObservableCollection<string> ImageBackColorList { get; }
 
-        /// <summary>乱ちゃんの表示画像</summary>
-        public string RanCyanImage { get => ranCyanImage; set => SetProperty(ref ranCyanImage, value); }
-        private string ranCyanImage;
-
-        /// <summary>
-        /// 乱ちゃん画像の表示アクションフラグ
-        /// </summary>
-        public bool IsImageActive { get => isImageActive; set => SetProperty(ref isImageActive, value); }
-        private bool isImageActive;
+        /// <summary>乱ちゃんの情報</summary>
+        public RanCyanModel RanCyanModel { get => ranCyanModel; set => SetProperty(ref ranCyanModel, value); }
+        private RanCyanModel ranCyanModel;
 
         /// <summary>選択された抽選ページ</summary>
         public LotteryPageModel SelectionLotteryPageModel { get => selectionLotteryPageModel; set => SetProperty(ref selectionLotteryPageModel, value); }
@@ -48,6 +42,7 @@ namespace RanCyan.Models {
             BackColor = ImageBackColorList.First();
             SelectionViewWidthList = new ObservableCollection<int>(Enumerable.Range(4, 7).Select(x => x * 100));
             SelectionViewWidth = SelectionViewWidthList.First();
+            RanCyanModel = new RanCyanModel();
         }
 
         /// <summary>選択されたモデルを保有する</summary>
@@ -72,44 +67,6 @@ namespace RanCyan.Models {
         /// </summary>
         /// <param name="index">消去するモデルのindex</param>
         public void DeleteLotteryPageModel(int index) => LotteryPageModels.RemoveAt(index);
-
-        /// <summary>乱ちゃん挙動中</summary>
-        private bool isRancyanLottery;
-        /// <summary>
-        /// 乱ちゃんの画像を抽選画像に差し替えた後、ちょっと待ってから待機画像に差し替える
-        /// </summary>
-        public async void LotteryRancyanImageAsync() {
-            if (isRancyanLottery) return;
-            isRancyanLottery = true;
-            RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
-            await Task.Delay(4000);
-            WaitingRancyanImage();
-            isRancyanLottery = false;
-        }
-
-        /// <summary>
-        /// 乱ちゃんの画像を待機画像に差し替える
-        /// </summary>
-        public void WaitingRancyanImage() {
-            var images = new[] {
-                "RanCyan.Images.3D_Taiki2.gif",
-                "RanCyan.Images.3D_Taiki5.gif",
-                "RanCyan.Images.3D_Taiki6.gif",
-                "RanCyan.Images.3D_Taiki7.gif",
-                "RanCyan.Images.3D_Taiki8.gif",
-            };
-            var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
-            RanCyanImage = images[rnd.Next(0, images.Count())];
-            IsImageActive = true;
-        }
-
-        /// <summary>
-        /// 乱ちゃんの立ち絵を消す(初期状態)
-        /// </summary>
-        public void StartRancyanImage() {
-            RanCyanImage = "";
-            IsImageActive = false;
-        }
 
     }
 }

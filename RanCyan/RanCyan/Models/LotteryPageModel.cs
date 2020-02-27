@@ -17,6 +17,10 @@ namespace RanCyan.Models {
         public int CategoryModelsCount { get => categoryModelsCount; set => SetProperty(ref categoryModelsCount, value); }
         private int categoryModelsCount;
 
+        /// <summary>全体抽選の実施</summary>
+        public bool IsAllToDraw { get => isAllToDraw; set => SetProperty(ref isAllToDraw, value); }
+        private bool isAllToDraw;
+
         /// <summary>カテゴリーのリスト</summary>
         public ObservableCollection<LotteryCategoryModel> LotteryCategoryModels {
             get => lotteryCategoryModels;
@@ -31,21 +35,10 @@ namespace RanCyan.Models {
         public LotteryCategoryModel SelectionLotteryCategoryModel { get => selectionLotteryCategoryModel; set => SetProperty(ref selectionLotteryCategoryModel, value); }
         private LotteryCategoryModel selectionLotteryCategoryModel;
 
-        /// <summary>抽選結果表示用ラベルの文字</summary>
-        public string LotteryLabelText { get => lotteryLabelText; set => SetProperty(ref lotteryLabelText, value); }
-        private string lotteryLabelText;
-
-        /// <summary>抽選結果表示用ラベルの文字色</summary>
-        public string LotteryLabelColor { get => lotteryLabelColor; set => SetProperty(ref lotteryLabelColor, value); }
-        private string lotteryLabelColor;
-
-        /// <summary>抽選結果表示用ラベルの文字表示</summary>
-        public bool LotteryLabelVisible { get => lotteryLabelVisible; set => SetProperty(ref lotteryLabelVisible, value); }
-        private bool lotteryLabelVisible;
-
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
             ResetModels();
+            SelectionLotteryCategoryModel = new LotteryCategoryModel();
         }
 
         /// <summary>
@@ -61,5 +54,10 @@ namespace RanCyan.Models {
         /// </summary>
         public void CleateNewLotteryCategoryModel() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
 
+        /// <summary>全項目抽選の実施</summary>
+        public void AllToDraw() {
+            IsAllToDraw = true;
+            foreach (var x in LotteryCategoryModels) { x.ToDrawAsync(this); }
+        }
     }
 }

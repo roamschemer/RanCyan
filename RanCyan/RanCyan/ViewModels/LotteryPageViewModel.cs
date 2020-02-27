@@ -21,33 +21,47 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveProperty<int> SelectionViewOneWidth { get; }
         public ReactiveProperty<string> RanCyanImage { get; }
         public ReactiveProperty<bool> IsImageActive { get; }
-        public ReactiveProperty<string> LotteryLabel { get; }
-        public ReactiveProperty<string> LotteryLabelColor { get; }
-        public ReactiveProperty<bool> LotteryLabelVisible { get; }
+        public ReactiveProperty<LotteryCategoryModel> LotteryCategorySelectedModel { get; }
+        //public ReactiveProperty<string> LotteryLabelText { get; }
+        //public ReactiveProperty<string> LotteryLabelColor { get; }
+        //public ReactiveProperty<bool> LotteryLabelVisible { get; }
         public AsyncReactiveCommand<object> ConfigPageNavigationCommand { get; }
+        public ReactiveCommand<object> AllToDrawCommand { get; }
+        public ReactiveProperty<bool> IsAllToDraw { get; }
+
+        public ReadOnlyReactiveCollection<LotteryCategoryModel> LotteryCategoryModels { get; }
 
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //乱ちゃんイメージ
-            coreModel.StartRancyanImage();
-            RanCyanImage = coreModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
-            IsImageActive = coreModel.ObserveProperty(x => x.IsImageActive).ToReactiveProperty().AddTo(this.Disposable);
+            var ranCyanModel = coreModel.RanCyanModel;
+            ranCyanModel.StartRancyanImage();
+            RanCyanImage = ranCyanModel.ObserveProperty(x => x.RanCyanImage).ToReactiveProperty().AddTo(this.Disposable);
+            IsImageActive = ranCyanModel.ObserveProperty(x => x.IsImageActive).ToReactiveProperty().AddTo(this.Disposable);
             var imageTimer = new ReactiveTimer(TimeSpan.FromSeconds(10));
             imageTimer.Subscribe(_ => {
-                coreModel.WaitingRancyanImage();
+                ranCyanModel.WaitingRancyanImage();
                 imageTimer.Stop();
             });
             imageTimer.Start(TimeSpan.FromSeconds(0.5));
-            //表示系
+            //ContentView
             var lotteryPageModel = coreModel.SelectionLotteryPageModel;
-            Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategorySelectionViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x)).AddTo(this.Disposable);
+            //表示系
+            Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             SelectionViewWidth = coreModel.ObserveProperty(x => x.SelectionViewWidth).ToReactiveProperty().AddTo(this.Disposable);
-            CategoryModelsCount = lotteryPageModel.ObserveProperty(x=>x.CategoryModelsCount).ToReactiveProperty().AddTo(this.Disposable);
+            CategoryModelsCount = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => (x > 0) ? x : 1).ToReactiveProperty().AddTo(this.Disposable);
             SelectionViewOneWidth = SelectionViewWidth.CombineLatest(CategoryModelsCount, (x, y) => x / y).ToReadOnlyReactiveProperty().AddTo(this.Disposable);
-            LotteryLabel = lotteryPageModel.ObserveProperty(x => x.LotteryLabelText).ToReactiveProperty().AddTo(this.Disposable);
-            LotteryLabelColor = lotteryPageModel.ObserveProperty(x => x.LotteryLabelColor).ToReactiveProperty().AddTo(this.Disposable);
-            LotteryLabelVisible = lotteryPageModel.ObserveProperty(x => x.LotteryLabelVisible).ToReactiveProperty().AddTo(this.Disposable);
+            LotteryCategorySelectedModel = lotteryPageModel.ObserveProperty(x => x.SelectionLotteryCategoryModel).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
+            //LotteryLabelText = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Text).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
+            //LotteryLabelColor = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Color).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
+            //LotteryLabelVisible = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Visible).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
+            LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
+            IsAllToDraw = lotteryPageModel.ObserveProperty(x => x.IsAllToDraw).ToReactiveProperty().AddTo(this.Disposable);
             //発火系
+            AllToDrawCommand = new ReactiveCommand().WithSubscribe(_ => {
+                ranCyanModel.LotteryRancyanImageAsync();
+                lotteryPageModel.AllToDraw();
+            }).AddTo(this.Disposable);
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
             }).AddTo(this.Disposable);

@@ -14,12 +14,13 @@
   <ContentPage.Resources>
     <ResourceDictionary>
       <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
-      <Style  x:Key="LabelStyle" TargetType="Label">
+      <Style x:Key="LabelStyle" TargetType="Label">
         <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
         <Setter Property="HorizontalTextAlignment" Value="Center"/>
         <Setter Property="VerticalTextAlignment" Value="Center"/>
         <Setter Property="FontAttributes" Value="Bold"/>
-        <Setter Property="FontSize" Value="40"/>
+        <Setter Property="FontSize" Value="32"/>
+        <Setter Property="LineBreakMode" Value="TailTruncation"/>
       </Style>
       <Style x:Key="BoxViewStyle" TargetType="BoxView">
         <Setter Property="BackgroundColor" Value="White"/>
@@ -38,10 +39,47 @@
         <RowDefinition Height="4*"/>
       </Grid.RowDefinitions>
       <!-- 抽選結果(シングル) -->
-      <Label Grid.Row="0" Style="{StaticResource LabelStyle}"
-             Text="{Binding LotteryLabel.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>
+      <!--<Label Grid.Row="0" Style="{StaticResource LabelStyle}"
+             Text="{Binding LotteryLabelText.Value}" TextColor="{Binding LotteryLabelColor.Value}" IsVisible="{Binding LotteryLabelVisible.Value}"/>-->
+      <!-- 抽選結果(オール) -->
+      <ListView Grid.Row="0" Grid.RowSpan="2"
+                ItemsSource="{Binding LotteryCategoryModels}"
+                IsVisible="{Binding IsAllToDraw.Value}">
+        <ListView.Triggers>
+          <DataTrigger TargetType="ListView" Binding="{Binding IsAllToDraw.Value}" Value="True">
+            <DataTrigger.EnterActions>
+              <local:MoveTriggerAction IsActive="True" />
+            </DataTrigger.EnterActions>
+            <DataTrigger.ExitActions>
+              <local:MoveTriggerAction IsActive="False" />
+            </DataTrigger.ExitActions>
+          </DataTrigger>
+        </ListView.Triggers>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="*" />
+                  <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       Style="{StaticResource LabelStyle}"
+                       Text="{Binding Title}" 
+                       TextColor="{Binding LotteryLabelModel.Color}" 
+                       />
+                <Label Grid.Column="1"
+                       Style="{StaticResource LabelStyle}"
+                       Text="{Binding LotteryLabelModel.Text}" 
+                       TextColor="{Binding LotteryLabelModel.Color}" 
+                       />
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
       <!-- 乱ちゃんの3Dgif画像 -->
-      <Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+      <!--<Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
              Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
         <Image.Triggers>
           <DataTrigger TargetType="Image" Binding="{Binding IsImageActive.Value}" Value="True">
@@ -53,7 +91,7 @@
             </DataTrigger.ExitActions>
           </DataTrigger>
         </Image.Triggers>
-      </Image>
+      </Image>-->
     </Grid>
     <Grid Grid.Column="1">
       <Grid.RowDefinitions>
@@ -80,6 +118,7 @@
           <ColumnDefinition Width="*" />
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+        <Button Grid.Column="0" Text="全抽選" Command="{Binding AllToDrawCommand}"/>
         <Button Grid.Column="1" Text="Config" Command="{Binding ConfigPageNavigationCommand}"/>
       </Grid>
     </Grid>

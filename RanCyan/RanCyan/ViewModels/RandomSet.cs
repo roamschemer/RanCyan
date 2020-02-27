@@ -7,6 +7,7 @@ using System.Text;
 
 namespace RanCyan.ViewModels
 {
+    [Obsolete("大幅改造により削除予定")]
     public class RandomSet
     {
         public RandomList RandomList;

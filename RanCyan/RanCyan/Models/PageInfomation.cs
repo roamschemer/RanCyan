@@ -8,6 +8,7 @@ namespace RanCyan.Models {
     /// <summary>
     /// 各ページそれぞれにおける情報クラス
     /// </summary>
+    [Obsolete("大幅改造により削除予定")]
     public class PageInfomation : BindableBase {
         /// <summary>
         /// ページ番号

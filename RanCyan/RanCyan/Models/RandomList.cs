@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace RanCyan.Models {
+    [Obsolete("大幅改造により削除予定")]
     public class Item : BindableBase {
         //主キー
         [PrimaryKey, AutoIncrement]
@@ -56,6 +57,7 @@ namespace RanCyan.Models {
 
     }
 
+    [Obsolete("大幅改造により削除予定")]
     public class RandomList : BindableBase {
         /// <summary>
         /// リスト
