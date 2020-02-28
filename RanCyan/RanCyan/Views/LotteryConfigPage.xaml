@@ -27,18 +27,17 @@
   </ContentPage>
 
   <ContentPage Title="カテゴリ設定">
-    <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*"/>
-        <ColumnDefinition Width="*"/>
-      </Grid.ColumnDefinitions>
-      <Grid Grid.Column="1">
-        <Picker 
-          ItemsSource="{Binding LotteryCategoryModels}" 
-          SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
-          ItemDisplayBinding="{Binding Title}"/>
-      </Grid>
-    </Grid>
+    <TableView>
+      <TableRoot>
+        <TableSection Title="カテゴリ選択">
+          <ViewCell>
+            <Picker ItemsSource="{Binding LotteryCategoryModels}" 
+                    SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
+                    ItemDisplayBinding="{Binding Title}"/>
+          </ViewCell>
+        </TableSection>
+      </TableRoot>
+    </TableView>
   </ContentPage>
 
 </TabbedPage>
