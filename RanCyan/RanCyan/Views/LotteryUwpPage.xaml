@@ -68,7 +68,10 @@
         </ListView.ItemTemplate>
       </ListView>
       <!-- 乱ちゃんの3Dgif画像 -->
-      <!--<Image Grid.Row="1" Aspect = "AspectFit" VerticalOptions ="FillAndExpand"
+      <Image Grid.Row="0" 
+             Grid.RowSpan="2"
+             Aspect = "AspectFit" 
+             VerticalOptions ="End"
              Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
         <Image.Triggers>
           <DataTrigger TargetType="Image" Binding="{Binding IsImageActive.Value}" Value="True">
@@ -80,7 +83,7 @@
             </DataTrigger.ExitActions>
           </DataTrigger>
         </Image.Triggers>
-      </Image>-->
+      </Image>
     </Grid>
     <Grid Grid.Column="1">
       <Grid.RowDefinitions>
