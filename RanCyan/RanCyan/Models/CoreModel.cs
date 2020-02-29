@@ -3,14 +3,30 @@ using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace RanCyan.Models {
     /// <summary>コアクラス</summary>
     public class CoreModel : BindableBase {
 
         /// <summary>透過用背景色</summary>
-        public string BackColor { get => backColor; set => SetProperty(ref backColor, value); }
+        public string BackColor {
+            get => backColor;
+            set {
+                SetProperty(ref backColor, value);
+                Application.Current.Properties[$"{GetType().Name}/{nameof(BackColor)}"] = backColor;
+            }
+        }
         private string backColor;
+
+        /// <summary>抽選リスト部分の幅</summary>
+        public int SelectionViewWidth {
+            get => selectionViewWidth; set {
+                SetProperty(ref selectionViewWidth, value);
+                Application.Current.Properties[$"{GetType().Name}/{nameof(SelectionViewWidth)}"] = selectionViewWidth;
+            }
+        }
+        private int selectionViewWidth;
 
         /// <summary>透過用背景色のリスト</summary>
         public ObservableCollection<string> ImageBackColorList { get; }
@@ -26,23 +42,24 @@ namespace RanCyan.Models {
         /// <summary>ページモデルのコレクション</summary>
         public ObservableCollection<LotteryPageModel> LotteryPageModels { get; private set; }
 
-        /// <summary>抽選リスト部分の幅</summary>
-        public int SelectionViewWidth { get => selectionViewWidth; set => SetProperty(ref selectionViewWidth, value); }
-        private int selectionViewWidth;
-
         /// <summary>抽選リスト部分の幅リスト</summary>
         public ObservableCollection<int> SelectionViewWidthList { get; }
 
         /// <summary>コンストラクタ</summary>
         public CoreModel() {
             ResetModels();
-            ImageBackColorList = new ObservableCollection<string>() { 
-                "White", "Blue", "Lime", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" 
-            };
-            BackColor = ImageBackColorList.First();
+            ImageBackColorList = new ObservableCollection<string>() { "White", "Blue", "Lime", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" };
             SelectionViewWidthList = new ObservableCollection<int>(Enumerable.Range(4, 7).Select(x => x * 100));
-            SelectionViewWidth = SelectionViewWidthList.First();
             RanCyanModel = new RanCyanModel();
+            ConfigRead();
+        }
+
+        /// <summary>アプリ設定の読み込み</summary>
+        private void ConfigRead() {
+            string s = $"{GetType().Name}/{nameof(BackColor)}";
+            BackColor = (Application.Current.Properties.ContainsKey(s)) ? Application.Current.Properties[s].ToString() : ImageBackColorList.First();
+            s = $"{GetType().Name}/{nameof(SelectionViewWidth)}";
+            SelectionViewWidth = (Application.Current.Properties.ContainsKey(s)) ? (int)Application.Current.Properties[s] : SelectionViewWidthList.First();
         }
 
         /// <summary>選択されたモデルを保有する</summary>
