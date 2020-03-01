@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reactive.Linq;
+using Xamarin.Forms;
 
 namespace RanCyan.ViewModels {
     /// <summary>設定画面</summary>
@@ -40,7 +41,10 @@ namespace RanCyan.ViewModels {
             //カテゴリ設定
             LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());
-            CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(_ => lotteryPageModel.CleateNewLotteryCategoryModel()).AddTo(this.Disposable);
+            CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
+                var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
+                if (select) lotteryPageModel.CleateNewLotteryCategoryModel();
+            }).AddTo(this.Disposable);
         }
     }
 }
