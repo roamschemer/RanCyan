@@ -9,11 +9,9 @@ using Xamarin.Forms;
 namespace RanCyan.ViewModels {
     /// <summary>(ViewModel)起動直後に展開するメインページ</summary>
     public class MainPageViewModel : ViewModelBase {
-
         public ReadOnlyReactiveCollection<MenuModel> MenuModels { get; }
         public AsyncReactiveCommand<MenuModel> Command { get; }
         public AsyncReactiveCommand<object> CreateCommand { get; }
-
         public MainPageViewModel(INavigationService navigationService, MainPageModel mainPageModel, CoreModel coreModel) : base(navigationService) {
             mainPageModel.CoreModelInjection(coreModel);
             MenuModels = mainPageModel.MenuModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);

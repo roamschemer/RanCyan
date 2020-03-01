@@ -9,6 +9,9 @@ namespace RanCyan.Models {
     /// <summary>コアクラス</summary>
     public class CoreModel : BindableBase {
 
+        /// <summary>透過用背景色のリスト</summary>
+        public ObservableCollection<string> ImageBackColorList { get; }
+
         /// <summary>透過用背景色</summary>
         public string BackColor {
             get => backColor;
@@ -19,6 +22,9 @@ namespace RanCyan.Models {
         }
         private string backColor;
 
+        /// <summary>抽選リスト部分の幅リスト</summary>
+        public ObservableCollection<int> SelectionViewWidthList { get; }
+
         /// <summary>抽選リスト部分の幅</summary>
         public int SelectionViewWidth {
             get => selectionViewWidth; set {
@@ -27,9 +33,6 @@ namespace RanCyan.Models {
             }
         }
         private int selectionViewWidth;
-
-        /// <summary>透過用背景色のリスト</summary>
-        public ObservableCollection<string> ImageBackColorList { get; }
 
         /// <summary>乱ちゃんの情報</summary>
         public RanCyanModel RanCyanModel { get => ranCyanModel; set => SetProperty(ref ranCyanModel, value); }
@@ -42,8 +45,6 @@ namespace RanCyan.Models {
         /// <summary>ページモデルのコレクション</summary>
         public ObservableCollection<LotteryPageModel> LotteryPageModels { get; private set; }
 
-        /// <summary>抽選リスト部分の幅リスト</summary>
-        public ObservableCollection<int> SelectionViewWidthList { get; }
 
         /// <summary>コンストラクタ</summary>
         public CoreModel() {

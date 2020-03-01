@@ -21,6 +21,13 @@ namespace RanCyan.Models {
         public bool IsAllToDraw { get => isAllToDraw; set => SetProperty(ref isAllToDraw, value); }
         private bool isAllToDraw;
 
+        /// <summary>全体抽選の動作時間差(msec)</summary>
+        public int AllToDrawTimeDifference { get => allToDrawTimeDifference; set => SetProperty(ref allToDrawTimeDifference, value); }
+        private int allToDrawTimeDifference;
+
+        /// <summary>全体抽選の動作時間差(msec)リスト</summary>
+        public ObservableCollection<int> AllToDrawTimeDifferenceList { get; }
+
         /// <summary>カテゴリーのリスト</summary>
         public ObservableCollection<LotteryCategoryModel> LotteryCategoryModels {
             get => lotteryCategoryModels;
@@ -37,8 +44,15 @@ namespace RanCyan.Models {
 
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
-            ResetModels();
             SelectionLotteryCategoryModel = new LotteryCategoryModel();
+            AllToDrawTimeDifferenceList = new ObservableCollection<int>(Enumerable.Range(1, 10).Select(x => x * 100));
+            ResetModels();
+            ConfigRead();
+        }
+
+        /// <summary>アプリ設定の読み込み</summary>
+        private void ConfigRead() {
+            AllToDrawTimeDifference = AllToDrawTimeDifferenceList.First();
         }
 
         /// <summary>
@@ -52,7 +66,10 @@ namespace RanCyan.Models {
         /// <summary>
         /// 新規にLotteryCategoryModelを追加する
         /// </summary>
-        public void CleateNewLotteryCategoryModel() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
+        public void CleateNewLotteryCategoryModel() {
+            LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
+            CategoryModelsCount = lotteryCategoryModels.Count();
+        }
 
         /// <summary>全項目抽選の実施</summary>
         public void AllToDraw() {

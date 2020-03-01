@@ -51,13 +51,9 @@ namespace RanCyan.ViewModels {
             CategoryModelsCount = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => (x > 0) ? x : 1).ToReactiveProperty().AddTo(this.Disposable);
             SelectionViewOneWidth = SelectionViewWidth.CombineLatest(CategoryModelsCount, (x, y) => x / y).ToReadOnlyReactiveProperty().AddTo(this.Disposable);
             LotteryCategorySelectedModel = lotteryPageModel.ObserveProperty(x => x.SelectionLotteryCategoryModel).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
-            //LotteryLabelText = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Text).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
-            //LotteryLabelColor = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Color).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
-            //LotteryLabelVisible = LotteryCategorySelectedModel.Value.ObserveProperty(x => x.LotteryLabelModel.Visible).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             IsAllToDraw = lotteryPageModel.ObserveProperty(x => x.IsAllToDraw).ToReactiveProperty().AddTo(this.Disposable);
             IsNotAllToDraw = IsAllToDraw.Select(x => !x).ToReadOnlyReactiveProperty().AddTo(this.Disposable);
-
             //発火系
             AllToDrawCommand = new ReactiveCommand().WithSubscribe(_ => {
                 ranCyanModel.LotteryRancyanImageAsync();

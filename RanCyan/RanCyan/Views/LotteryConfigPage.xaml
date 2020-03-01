@@ -4,7 +4,7 @@
              xmlns:prism="http://prismlibrary.com"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryConfigPage"
-             Title="{Binding Title.Value}">
+             Title="{Binding Title.Value, StringFormat='Config {0}'}">
 
   <ContentPage Title="全体設定">
     <TableView >
@@ -24,11 +24,30 @@
   </ContentPage>
 
   <ContentPage Title="ページ設定">
+    <TableView >
+      <TableRoot>
+        <TableSection Title="ページ名称">
+          <ViewCell>
+            <Entry Text="{Binding Title.Value}" />
+          </ViewCell>
+        </TableSection>
+        <TableSection Title="全体抽選の動作時間差(msec)">
+          <ViewCell>
+            <Picker ItemsSource="{Binding AllToDrawTimeDifferenceList}" SelectedItem="{Binding AllToDrawTimeDifference.Value}" />
+          </ViewCell>
+        </TableSection>
+      </TableRoot>
+    </TableView>
   </ContentPage>
 
   <ContentPage Title="カテゴリ設定">
     <TableView>
       <TableRoot>
+        <TableSection Title="カテゴリ追加">
+          <ViewCell>
+            <Button Text="新しいカテゴリの追加" Command="{Binding CreateCategoryCommand}"/>
+          </ViewCell>
+        </TableSection>        
         <TableSection Title="カテゴリ選択">
           <ViewCell>
             <Picker ItemsSource="{Binding LotteryCategoryModels}" 

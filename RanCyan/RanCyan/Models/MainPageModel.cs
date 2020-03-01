@@ -60,7 +60,7 @@ namespace RanCyan.Models {
         private void AddMenuModel(LotteryPageModel lotteryPageModel, int index) {
             var menuModel = new MenuModel() {
                 Title = lotteryPageModel.Title,
-                ViewAddress = nameof(LotteryUwpPage),
+                ViewAddress = $"NavigationPage/MainPage/{nameof(LotteryUwpPage)}",
                 ImageAddress = images[index % images.Count()],
                 LotteryPageIndex = index
             };

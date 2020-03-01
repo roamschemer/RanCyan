@@ -39,6 +39,23 @@
         <RowDefinition Height="*"/>
         <RowDefinition Height="4*"/>
       </Grid.RowDefinitions>
+      <!-- 乱ちゃんの3Dgif画像 -->
+      <Image Grid.Row="0" 
+             Grid.RowSpan="2"
+             Aspect = "AspectFit" 
+             VerticalOptions ="End"
+             Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
+        <Image.Triggers>
+          <DataTrigger TargetType="Image" Binding="{Binding IsImageActive.Value}" Value="True">
+            <DataTrigger.EnterActions>
+              <local:MoveTriggerAction IsActive="True" />
+            </DataTrigger.EnterActions>
+            <DataTrigger.ExitActions>
+              <local:MoveTriggerAction IsActive="False" />
+            </DataTrigger.ExitActions>
+          </DataTrigger>
+        </Image.Triggers>
+      </Image>
       <!-- 抽選結果(シングル) -->
       <Label Grid.Row="0" 
              Style="{StaticResource LabelStyle}"
@@ -67,23 +84,6 @@
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
-      <!-- 乱ちゃんの3Dgif画像 -->
-      <Image Grid.Row="0" 
-             Grid.RowSpan="2"
-             Aspect = "AspectFit" 
-             VerticalOptions ="End"
-             Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
-        <Image.Triggers>
-          <DataTrigger TargetType="Image" Binding="{Binding IsImageActive.Value}" Value="True">
-            <DataTrigger.EnterActions>
-              <local:MoveTriggerAction IsActive="True" />
-            </DataTrigger.EnterActions>
-            <DataTrigger.ExitActions>
-              <local:MoveTriggerAction IsActive="False" />
-            </DataTrigger.ExitActions>
-          </DataTrigger>
-        </Image.Triggers>
-      </Image>
     </Grid>
     <Grid Grid.Column="1">
       <Grid.RowDefinitions>
