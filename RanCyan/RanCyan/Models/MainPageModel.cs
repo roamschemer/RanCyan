@@ -1,20 +1,17 @@
 ﻿using Prism.Mvvm;
 using RanCyan.Views;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
 namespace RanCyan.Models {
     /// <summary>メインページクラス</summary>
+    [Obsolete("削除予定")]
     public class MainPageModel : BindableBase {
 
         /// <summary>メニューコレクション</summary>
         public ObservableCollection<MenuModel> MenuModels { get; }
-
-        private List<string> images = new List<string> {
-                "resource://RanCyan.Images.MiniMikoRanCyan.png",
-                "resource://RanCyan.Images.MiniKowashiyaRanCyan.png"
-            };
 
         public MainPageModel() {
             //コレクション化する
@@ -58,6 +55,10 @@ namespace RanCyan.Models {
         /// <param name="lotteryPageModel">lotteryPageModel</param>
         /// <param name="index">index</param>
         private void AddMenuModel(LotteryPageModel lotteryPageModel, int index) {
+            var images = new[] {
+                "resource://RanCyan.Images.MiniMikoRanCyan.png",
+                "resource://RanCyan.Images.MiniKowashiyaRanCyan.png"
+            };
             var menuModel = new MenuModel() {
                 Title = lotteryPageModel.Title,
                 ViewAddress = $"NavigationPage/MainPage/{nameof(LotteryUwpPage)}",

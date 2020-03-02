@@ -9,23 +9,22 @@ using Xamarin.Forms;
 namespace RanCyan.ViewModels {
     /// <summary>(ViewModel)起動直後に展開するメインページ</summary>
     public class MainPageViewModel : ViewModelBase {
-        public ReadOnlyReactiveCollection<MenuModel> MenuModels { get; }
-        public AsyncReactiveCommand<MenuModel> Command { get; }
+        public ReadOnlyReactiveCollection<LotteryPageModel> LotteryPageModels { get; }
+        public AsyncReactiveCommand<LotteryPageModel> Command { get; }
         public AsyncReactiveCommand<object> CreateCommand { get; }
-        public MainPageViewModel(INavigationService navigationService, MainPageModel mainPageModel, CoreModel coreModel) : base(navigationService) {
-            mainPageModel.CoreModelInjection(coreModel);
-            MenuModels = mainPageModel.MenuModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
-            Command = new AsyncReactiveCommand<MenuModel>().WithSubscribe(async (x) => {
-                if (x.IsWebPage) {
-                    await Browser.OpenAsync(x.ViewAddress, BrowserLaunchMode.SystemPreferred);
+        public MainPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
+            LotteryPageModels = coreModel.LotteryPageModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
+            Command = new AsyncReactiveCommand<LotteryPageModel>().WithSubscribe(async (x) => {
+                if (x.MenuModel.IsWebPage) {
+                    await Browser.OpenAsync(x.MenuModel.ViewAddress, BrowserLaunchMode.SystemPreferred);
                     return;
                 }
-                if (x.LotteryPageIndex != null) coreModel.SelectModel(coreModel.LotteryPageModels[(int)x.LotteryPageIndex]);
-                await navigationService.NavigateAsync(x.ViewAddress);
+                if (x.MenuModel.LotteryPageIndex != null) coreModel.SelectModel(coreModel.LotteryPageModels[(int)x.MenuModel.LotteryPageIndex]);
+                await navigationService.NavigateAsync(x.MenuModel.ViewAddress);
             }).AddTo(this.Disposable);
             CreateCommand = new AsyncReactiveCommand().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
-                if (select) mainPageModel.LastAddLotteryPageMode(coreModel);
+                if (select) coreModel.CleateNewLotteryPageModel();
             }).AddTo(this.Disposable);
         }
     }

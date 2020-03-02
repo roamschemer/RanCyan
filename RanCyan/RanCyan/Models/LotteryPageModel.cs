@@ -42,6 +42,10 @@ namespace RanCyan.Models {
         public LotteryCategoryModel SelectionLotteryCategoryModel { get => selectionLotteryCategoryModel; set => SetProperty(ref selectionLotteryCategoryModel, value); }
         private LotteryCategoryModel selectionLotteryCategoryModel;
 
+        /// <summary>メニュー表示用情報</summary>
+        public MenuModel MenuModel { get => menuModel; set => SetProperty(ref menuModel, value); }
+        private MenuModel menuModel;
+
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
             SelectionLotteryCategoryModel = new LotteryCategoryModel();

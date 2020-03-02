@@ -9,7 +9,7 @@ namespace RanCyan.Models
     /// <summary>
     /// 全ページ共通の情報クラス
     /// </summary>
-    /// [Obsolete("大幅改造により削除予定")]
+    [Obsolete("大幅改造により削除予定")]
     public class AllPageInfomation : BindableBase {
 
         /// <summary>

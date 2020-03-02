@@ -1,5 +1,6 @@
 ﻿using Prism.Mvvm;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
@@ -71,7 +72,24 @@ namespace RanCyan.Models {
         /// 見本作成する
         /// </summary>
         private void ResetModels() {
-            var items = Enumerable.Range(0, 5).Select(x => new LotteryPageModel() { Title = $"NewPage{x}" });
+
+            var items = new List<LotteryPageModel>(){
+                new LotteryPageModel() {
+                    Title = "取説(外部ページへ飛びます)",
+                    MenuModel = new MenuModel() {
+                        ImageAddress = "resource://RanCyan.Images.Ranshika.png",
+                        ViewAddress = "https://www.gunshi.info/rancyanproject",
+                        IsWebPage = true,
+                    }
+                },
+                new LotteryPageModel() {
+                    Title = "ライセンス情報",
+                    MenuModel = new MenuModel() {
+                        ImageAddress = "resource://RanCyan.Images.Ranshika.png",
+                        ViewAddress = "",
+                    }
+                },            
+            };
             LotteryPageModels = new ObservableCollection<LotteryPageModel>(items);
         }
 

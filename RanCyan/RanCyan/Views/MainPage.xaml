@@ -13,7 +13,7 @@
   </ContentPage.Padding>
 
   <StackLayout>
-    <CollectionView ItemsSource="{Binding MenuModels}" SelectionMode="Single">
+    <CollectionView ItemsSource="{Binding LotteryPageModels}" SelectionMode="Single">
       <CollectionView.ItemsLayout>
         <GridItemsLayout Orientation="Vertical" Span="2" />
       </CollectionView.ItemsLayout>
@@ -32,7 +32,7 @@
               <ColumnDefinition Width="60" />
               <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding ImageAddress}" />
+            <ff:CachedImage Grid.Column="0" Aspect = "AspectFit" Source="{Binding MenuModel.ImageAddress}" />
             <Label Grid.Column="1" Text="{Binding Title}" VerticalOptions="CenterAndExpand"/>
           </Grid>
         </DataTemplate>

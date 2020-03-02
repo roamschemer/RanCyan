@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 
@@ -9,6 +10,7 @@ namespace RanCyan.Models {
     public class MenuModel : BindableBase {
 
         /// <summary>リストに並ぶタイトル</summary>
+        [Obsolete("削除予定")]
         public string Title { get => title; set => SetProperty(ref title, value); }
         private string title;
 
