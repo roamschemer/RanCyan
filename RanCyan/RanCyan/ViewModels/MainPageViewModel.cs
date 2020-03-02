@@ -15,11 +15,11 @@ namespace RanCyan.ViewModels {
         public MainPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             LotteryPageModels = coreModel.LotteryPageModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             Command = new AsyncReactiveCommand<LotteryPageModel>().WithSubscribe(async (x) => {
-                if (x.MenuModel.IsWebPage) {
+                if (x.MenuModel.PageType == MenuModel.PageTypeEnum.Web) {
                     await Browser.OpenAsync(x.MenuModel.ViewAddress, BrowserLaunchMode.SystemPreferred);
                     return;
                 }
-                if (x.MenuModel.LotteryPageIndex != null) coreModel.SelectModel(coreModel.LotteryPageModels[(int)x.MenuModel.LotteryPageIndex]);
+                coreModel.SelectModel(x);
                 await navigationService.NavigateAsync(x.MenuModel.ViewAddress);
             }).AddTo(this.Disposable);
             CreateCommand = new AsyncReactiveCommand().WithSubscribe(async _ => {

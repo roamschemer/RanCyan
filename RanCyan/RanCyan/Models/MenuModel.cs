@@ -9,11 +9,6 @@ namespace RanCyan.Models {
     /// </summary>
     public class MenuModel : BindableBase {
 
-        /// <summary>リストに並ぶタイトル</summary>
-        [Obsolete("削除予定")]
-        public string Title { get => title; set => SetProperty(ref title, value); }
-        private string title;
-
         /// <summary>イメージ画像格納先</summary>
         public string ImageAddress { get => imageAddress; set => SetProperty(ref imageAddress, value); }
         private string imageAddress;
@@ -22,12 +17,18 @@ namespace RanCyan.Models {
         public string ViewAddress { get => viewAddress; set => SetProperty(ref viewAddress, value); }
         private string viewAddress;
 
-        /// <summary>抽選ページのindex</summary>
-        public int? LotteryPageIndex { get => lotteryPageIndex; set => SetProperty(ref lotteryPageIndex, value); }
-        private int? lotteryPageIndex = null;
+        public enum PageTypeEnum{
+            /// <summary>抽選ページ</summary>
+            Lottery = 0,
+            /// <summary>Webページ</summary>
+            Web = 1,
+            /// <summary>その他のページ</summary>
+            Other = 2
+        }
 
-        /// <summary>遷移先がWebページ</summary>
-        public bool IsWebPage { get => isWebPage; set => SetProperty(ref isWebPage, value); }
-        private bool isWebPage;
+        /// <summary>遷移先種類</summary>
+        public PageTypeEnum PageType { get => pageType; set => SetProperty(ref pageType, value); }
+        private PageTypeEnum pageType;
+
     }
 }

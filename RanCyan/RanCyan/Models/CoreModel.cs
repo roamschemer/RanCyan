@@ -1,4 +1,5 @@
 ﻿using Prism.Mvvm;
+using RanCyan.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -79,7 +80,7 @@ namespace RanCyan.Models {
                     MenuModel = new MenuModel() {
                         ImageAddress = "resource://RanCyan.Images.Ranshika.png",
                         ViewAddress = "https://www.gunshi.info/rancyanproject",
-                        IsWebPage = true,
+                        PageType = MenuModel.PageTypeEnum.Web
                     }
                 },
                 new LotteryPageModel() {
@@ -87,16 +88,33 @@ namespace RanCyan.Models {
                     MenuModel = new MenuModel() {
                         ImageAddress = "resource://RanCyan.Images.Ranshika.png",
                         ViewAddress = "",
+                        PageType = MenuModel.PageTypeEnum.Other
                     }
                 },            
             };
             LotteryPageModels = new ObservableCollection<LotteryPageModel>(items);
+            for (var i = 0; i < 5; i++) CleateNewLotteryPageModel();
         }
 
         /// <summary>
         /// 新規にLotteryPageModelを追加する
         /// </summary>
-        public void CleateNewLotteryPageModel() => LotteryPageModels.Add(new LotteryPageModel() { Title = $"NewPage{LotteryPageModels.Count()}" });
+        public void CleateNewLotteryPageModel() {
+            var images = new[] {
+                "resource://RanCyan.Images.MiniMikoRanCyan.png",
+                "resource://RanCyan.Images.MiniKowashiyaRanCyan.png"
+            };
+            var index = LotteryPageModels.Count(x => x.MenuModel.PageType == MenuModel.PageTypeEnum.Lottery);
+            var model = new LotteryPageModel() {
+                Title = $"NewPage{index}",
+                MenuModel = new MenuModel() {
+                    ViewAddress = nameof(LotteryUwpPage),
+                    ImageAddress = images[index % images.Count()],
+                    PageType = MenuModel.PageTypeEnum.Lottery
+                }
+            };
+            LotteryPageModels.Add(model);
+        }
 
         /// <summary>
         /// 指定したindexのLotteryPageModelを削除する
