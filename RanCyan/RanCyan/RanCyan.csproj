@@ -41,7 +41,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="AiForms.CollectionView" Version="0.3.10-pre" />
     <PackageReference Include="PCLStorage" Version="1.0.2" />
     <PackageReference Include="Plugin.NetStandardStorage" Version="1.0.7" />
     <PackageReference Include="Prism.DryIoc.Forms" Version="7.2.0.1422" />
@@ -51,7 +50,6 @@
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
-    <PackageReference Include="Xamarin.Forms.BehaviorsPack" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -76,12 +74,6 @@
     <EmbeddedResource Update="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\GenericRandomMainPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Views\GenericRandomUWPPage.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LotteryCategorySelectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>

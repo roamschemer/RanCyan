@@ -175,9 +175,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AiForms.CollectionView">
-      <Version>0.3.10-pre</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform" Version="6.2.9" />
     <PackageReference Include="PCLStorage">
       <Version>1.0.2</Version>
@@ -204,9 +201,6 @@
       <Version>2.4.11.982</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
-    <PackageReference Include="Xamarin.Forms.BehaviorsPack">
-      <Version>2.1.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RanCyan\RanCyan.csproj">
