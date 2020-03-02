@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace RanCyan.Models {
     /// <summary>ページクラス</summary>
@@ -49,14 +50,14 @@ namespace RanCyan.Models {
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
             SelectionLotteryCategoryModel = new LotteryCategoryModel();
-            AllToDrawTimeDifferenceList = new ObservableCollection<int>(Enumerable.Range(1, 10).Select(x => x * 100));
+            AllToDrawTimeDifferenceList = new ObservableCollection<int>(Enumerable.Range(0, 11).Select(x => x * 100));
             ResetModels();
             ConfigRead();
         }
 
         /// <summary>アプリ設定の読み込み</summary>
         private void ConfigRead() {
-            AllToDrawTimeDifference = AllToDrawTimeDifferenceList.First();
+            AllToDrawTimeDifference = AllToDrawTimeDifferenceList.Skip(5).First();
         }
 
         /// <summary>
@@ -76,9 +77,12 @@ namespace RanCyan.Models {
         }
 
         /// <summary>全項目抽選の実施</summary>
-        public void AllToDraw() {
+        public async void AllToDraw() {
             IsAllToDraw = true;
-            foreach (var x in LotteryCategoryModels) { x.ToDrawAsync(this); }
+            foreach (var (x, i) in LotteryCategoryModels.Select((x, i) => (x, i))) {
+                if (i > 0) await Task.Delay(AllToDrawTimeDifference);
+                x.ToDrawAsync(this);
+            }
         }
     }
 }
