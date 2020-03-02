@@ -93,7 +93,7 @@ namespace RanCyan.Models {
             var model = new LotteryPageModel() {
                 Title = $"NewPage{index}",
                 MenuModel = new MenuModel() {
-                    ViewAddress = nameof(LotteryUwpPage),
+                    ViewAddress = Device.RuntimePlatform == Device.UWP ? nameof(LotteryUwpPage) : nameof(LotteryMobilePage),
                     ImageAddress = images[index % images.Count()],
                     PageType = MenuModel.PageTypeEnum.Lottery
                 }

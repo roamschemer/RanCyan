@@ -1,8 +1,8 @@
 ﻿using Xamarin.Forms;
 
 namespace RanCyan.Views {
-    public partial class LotteryTabletPage : TabbedPage {
-        public LotteryTabletPage() {
+    public partial class LotteryMobilePage : ContentPage {
+        public LotteryMobilePage() {
             InitializeComponent();
         }
     }

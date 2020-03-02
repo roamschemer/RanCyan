@@ -40,6 +40,7 @@
     <EnableLLVM>false</EnableLLVM>
     <BundleAssemblies>false</BundleAssemblies>
     <AndroidEnableMultiDex>true</AndroidEnableMultiDex>
+    <AndroidEnableProfiledAot>false</AndroidEnableProfiledAot>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -100,14 +101,8 @@
     <PackageReference Include="Xamarin.Forms.BehaviorsPack">
       <Version>2.1.1</Version>
     </PackageReference>
-    <PackageReference Include="Xamarin.GooglePlayServices.Ads">
-      <Version>71.1720.1</Version>
-    </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AdMobBannerRenderer.cs" />
-    <Compile Include="CBannerCtrl_Droid.cs" />
-    <Compile Include="CCommonModel_Droid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
