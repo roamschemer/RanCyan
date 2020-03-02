@@ -98,7 +98,7 @@
           <DataTemplate>
             <Grid VerticalOptions="FillAndExpand">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="{Binding BindingContext.SelectionViewOneWidth.Value ,Source={x:Reference this}}" />
+                <ColumnDefinition Width="100" />
               </Grid.ColumnDefinitions>
               <views:LotteryCategorySelectionView BindingContext="{Binding}"/>
             </Grid>

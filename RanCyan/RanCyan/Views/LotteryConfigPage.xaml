@@ -14,11 +14,6 @@
             <Picker ItemsSource="{Binding ImageBackColorList}" SelectedItem="{Binding ImageBackColor.Value}" BackgroundColor="{Binding ImageBackColor.Value}"/>
           </ViewCell>
         </TableSection>
-        <TableSection Title="抽選リスト部分の幅">
-          <ViewCell>
-            <Picker ItemsSource="{Binding SelectionViewWidthList}" SelectedItem="{Binding SelectionViewWidth.Value}" />
-          </ViewCell>
-        </TableSection>
       </TableRoot>
     </TableView>
   </ContentPage>

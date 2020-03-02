@@ -17,8 +17,6 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
         public ReactiveProperty<int> SelectionViewWidth { get; }
-        public ReactiveProperty<int> CategoryModelsCount { get; }
-        public ReadOnlyReactiveProperty<int> SelectionViewOneWidth { get; }
         public ReactiveProperty<string> RanCyanImage { get; }
         public ReactiveProperty<bool> IsImageActive { get; }
         public ReactiveProperty<LotteryCategoryModel> LotteryCategorySelectedModel { get; }
@@ -47,9 +45,7 @@ namespace RanCyan.ViewModels {
             LotteryCategorySelectionViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryCategorySelectionViewModel(coreModel, x)).AddTo(this.Disposable);
             //表示系
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
-            SelectionViewWidth = coreModel.ObserveProperty(x => x.SelectionViewWidth).ToReactiveProperty().AddTo(this.Disposable);
-            CategoryModelsCount = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => (x > 0) ? x : 1).ToReactiveProperty().AddTo(this.Disposable);
-            SelectionViewOneWidth = SelectionViewWidth.CombineLatest(CategoryModelsCount, (x, y) => x / y).ToReadOnlyReactiveProperty().AddTo(this.Disposable);
+            SelectionViewWidth = lotteryPageModel.ObserveProperty(x => x.CategoryModelsCount).Select(x => x * 100).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategorySelectedModel = lotteryPageModel.ObserveProperty(x => x.SelectionLotteryCategoryModel).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             IsAllToDraw = lotteryPageModel.ObserveProperty(x => x.IsAllToDraw).ToReactiveProperty().AddTo(this.Disposable);

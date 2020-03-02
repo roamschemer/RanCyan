@@ -31,8 +31,6 @@ namespace RanCyan.ViewModels {
             //全体設定
             ImageBackColorList = coreModel.ImageBackColorList.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             ImageBackColor = coreModel.ToReactivePropertyAsSynchronized(x => x.BackColor).AddTo(this.Disposable);
-            SelectionViewWidthList = coreModel.SelectionViewWidthList.ToReadOnlyReactiveCollection(x => x).AddTo(this.Disposable);
-            SelectionViewWidth = coreModel.ToReactivePropertyAsSynchronized(x => x.SelectionViewWidth).AddTo(this.Disposable);
             //ページ設定
             var lotteryPageModel = coreModel.SelectionLotteryPageModel;
             Title = lotteryPageModel.ToReactivePropertyAsSynchronized(x => x.Title).AddTo(this.Disposable);

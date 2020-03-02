@@ -24,18 +24,6 @@ namespace RanCyan.Models {
         }
         private string backColor;
 
-        /// <summary>抽選リスト部分の幅リスト</summary>
-        public ObservableCollection<int> SelectionViewWidthList { get; }
-
-        /// <summary>抽選リスト部分の幅</summary>
-        public int SelectionViewWidth {
-            get => selectionViewWidth; set {
-                SetProperty(ref selectionViewWidth, value);
-                Application.Current.Properties[$"{GetType().Name}/{nameof(SelectionViewWidth)}"] = selectionViewWidth;
-            }
-        }
-        private int selectionViewWidth;
-
         /// <summary>乱ちゃんの情報</summary>
         public RanCyanModel RanCyanModel { get => ranCyanModel; set => SetProperty(ref ranCyanModel, value); }
         private RanCyanModel ranCyanModel;
@@ -52,7 +40,6 @@ namespace RanCyan.Models {
         public CoreModel() {
             ResetModels();
             ImageBackColorList = new ObservableCollection<string>() { "White", "Blue", "Lime", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" };
-            SelectionViewWidthList = new ObservableCollection<int>(Enumerable.Range(4, 7).Select(x => x * 100));
             RanCyanModel = new RanCyanModel();
             ConfigRead();
         }
@@ -61,8 +48,6 @@ namespace RanCyan.Models {
         private void ConfigRead() {
             string s = $"{GetType().Name}/{nameof(BackColor)}";
             BackColor = (Application.Current.Properties.ContainsKey(s)) ? Application.Current.Properties[s].ToString() : ImageBackColorList.First();
-            s = $"{GetType().Name}/{nameof(SelectionViewWidth)}";
-            SelectionViewWidth = (Application.Current.Properties.ContainsKey(s)) ? (int)Application.Current.Properties[s] : SelectionViewWidthList.First();
         }
 
         /// <summary>選択されたモデルを保有する</summary>
