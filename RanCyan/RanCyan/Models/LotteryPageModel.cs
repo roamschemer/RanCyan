@@ -14,10 +14,6 @@ namespace RanCyan.Models {
         public string Title { get => title; set => SetProperty(ref title, value); }
         private string title;
 
-        /// <summary>カテゴリーの数</summary>
-        public int CategoryModelsCount { get => categoryModelsCount; set => SetProperty(ref categoryModelsCount, value); }
-        private int categoryModelsCount;
-
         /// <summary>全体抽選の実施</summary>
         public bool IsAllToDraw { get => isAllToDraw; set => SetProperty(ref isAllToDraw, value); }
         private bool isAllToDraw;
@@ -32,10 +28,7 @@ namespace RanCyan.Models {
         /// <summary>カテゴリーのリスト</summary>
         public ObservableCollection<LotteryCategoryModel> LotteryCategoryModels {
             get => lotteryCategoryModels;
-            set {
-                SetProperty(ref lotteryCategoryModels, value);
-                CategoryModelsCount = lotteryCategoryModels.Count();
-            }
+            set => SetProperty(ref lotteryCategoryModels, value);
         }
         private ObservableCollection<LotteryCategoryModel> lotteryCategoryModels;
 
@@ -71,10 +64,7 @@ namespace RanCyan.Models {
         /// <summary>
         /// 新規にLotteryCategoryModelを追加する
         /// </summary>
-        public void CleateNewLotteryCategoryModel() {
-            LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
-            CategoryModelsCount = lotteryCategoryModels.Count();
-        }
+        public void CleateNewLotteryCategoryModel() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
 
         /// <summary>全項目抽選の実施</summary>
         public async void AllToDraw() {
