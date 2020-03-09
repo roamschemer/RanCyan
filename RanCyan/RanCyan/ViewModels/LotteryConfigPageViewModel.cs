@@ -42,10 +42,6 @@ namespace RanCyan.ViewModels {
                 var select = await Application.Current.MainPage.DisplayAlert("削除", "このページを削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
                 if (select) { 
                     coreModel.DeleteLotteryPageModel();
-                    //await NavigationService.GoBackAsync(); //一つ前に戻るだけなのでダメ。二つ前にあるMainPageに戻りたい。
-                    //await NavigationService.NavigateAsync("MainPage"); //MainPageに進む形になるのでBackができてしまう。
-                    //await NavigationService.NavigateAsync("NavigationPage/MainPage"); //ナビゲーションバーが増える 
-                    //await NavigationService.NavigateAsync("/MainPage"); //ナビゲーションバーが消える
                     await NavigationService.NavigateAsync("NavigationPage/MainPage",useModalNavigation: true); //これが正しい
                 }
             }).AddTo(this.Disposable);
