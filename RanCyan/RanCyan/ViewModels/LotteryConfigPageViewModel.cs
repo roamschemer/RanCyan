@@ -2,6 +2,7 @@
 using Prism.Mvvm;
 using Prism.Navigation;
 using RanCyan.Models;
+using RanCyan.Views;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -22,6 +23,7 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<int> AllToDrawTimeDifferenceList { get; }
         public ReactiveProperty<int> AllToDrawTimeDifference { get; }
+        public ReactiveCommand<object> DeletePage { get; }
         //カテゴリ設定
         public ReadOnlyReactiveCollection<LotteryCategoryModel> LotteryCategoryModels { get; }
         public ReactiveProperty<LotteryCategoryModel> SelectedLotteryCategoryModel { get; }
@@ -36,6 +38,17 @@ namespace RanCyan.ViewModels {
             Title = lotteryPageModel.ToReactivePropertyAsSynchronized(x => x.Title).AddTo(this.Disposable);
             AllToDrawTimeDifferenceList = lotteryPageModel.AllToDrawTimeDifferenceList.ToReadOnlyReactiveCollection(x => x).AddTo(this.Disposable);
             AllToDrawTimeDifference = lotteryPageModel.ToReactivePropertyAsSynchronized(x => x.AllToDrawTimeDifference).AddTo(this.Disposable);
+            DeletePage = new ReactiveCommand<object>().WithSubscribe(async _ => {
+                var select = await Application.Current.MainPage.DisplayAlert("削除", "このページを削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
+                if (select) { 
+                    coreModel.DeleteLotteryPageModel();
+                    //await NavigationService.GoBackAsync(); //一つ前に戻るだけなのでダメ。二つ前にあるMainPageに戻りたい。
+                    //await NavigationService.NavigateAsync("MainPage"); //MainPageに進む形になるのでBackができてしまう。
+                    //await NavigationService.NavigateAsync("NavigationPage/MainPage"); //ナビゲーションバーが増える 
+                    //await NavigationService.NavigateAsync("/MainPage"); //ナビゲーションバーが消える
+                    await NavigationService.NavigateAsync("NavigationPage/MainPage",useModalNavigation: true); //これが正しい
+                }
+            }).AddTo(this.Disposable);
             //カテゴリ設定
             LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());

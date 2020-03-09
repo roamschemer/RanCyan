@@ -75,7 +75,7 @@ namespace RanCyan.Models {
                         ViewAddress = "",
                         PageType = MenuModel.PageTypeEnum.Other
                     }
-                },            
+                },
             };
             LotteryPageModels = new ObservableCollection<LotteryPageModel>(items);
             for (var i = 0; i < 5; i++) CleateNewLotteryPageModel();
@@ -102,10 +102,8 @@ namespace RanCyan.Models {
         }
 
         /// <summary>
-        /// 指定したindexのLotteryPageModelを削除する
+        /// 現在のLotteryPageModelを削除する
         /// </summary>
-        /// <param name="index">消去するモデルのindex</param>
-        public void DeleteLotteryPageModel(int index) => LotteryPageModels.RemoveAt(index);
-
+        public void DeleteLotteryPageModel() => LotteryPageModels.Remove(SelectionLotteryPageModel);
     }
 }

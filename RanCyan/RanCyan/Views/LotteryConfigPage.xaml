@@ -31,6 +31,11 @@
             <Picker ItemsSource="{Binding AllToDrawTimeDifferenceList}" SelectedItem="{Binding AllToDrawTimeDifference.Value}" />
           </ViewCell>
         </TableSection>
+        <TableSection Title="削除">
+          <ViewCell>
+            <Button Text="現在のページを削除" Command="{Binding DeletePage}"/>
+          </ViewCell>
+        </TableSection>        
       </TableRoot>
     </TableView>
   </ContentPage>
