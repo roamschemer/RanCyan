@@ -42,7 +42,7 @@ namespace RanCyan.ViewModels {
                 var select = await Application.Current.MainPage.DisplayAlert("削除", "このページを削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
                 if (select) { 
                     coreModel.DeleteLotteryPageModel();
-                    await NavigationService.NavigateAsync("NavigationPage/MainPage",useModalNavigation: true); //これが正しい
+                    await NavigationService.GoBackToRootAsync();
                 }
             }).AddTo(this.Disposable);
             //カテゴリ設定
