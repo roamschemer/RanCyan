@@ -52,6 +52,7 @@ namespace RanCyan.ViewModels {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
                 if (select) lotteryPageModel.CleateNewLotteryCategoryModel();
             }).AddTo(this.Disposable);
+            
         }
     }
 }
