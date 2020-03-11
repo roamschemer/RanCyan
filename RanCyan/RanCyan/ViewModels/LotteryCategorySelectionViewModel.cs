@@ -2,10 +2,8 @@
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
-using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using System.Text;
 
 namespace RanCyan.ViewModels {
     /// <summary>(ContentView/ViewModel)各抽選カテゴリ除外選択リスト</summary>

@@ -65,6 +65,9 @@
     <Compile Update="Views\LotteryCategorySelectionView.xaml.cs">
       <DependentUpon>LotteryCategorySelectionView.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Views\LotteryConfigLotteryModelSettingView.xaml.cs">
+      <DependentUpon>LotteryConfigLotteryModelSettingView.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Views\LotteryMobilePage.xaml.cs">
       <DependentUpon>LotteryMobilePage.xaml</DependentUpon>
     </Compile>
@@ -78,7 +81,7 @@
     <EmbeddedResource Update="Views\LotteryCategorySelectionView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Views\LotteryConfigCategorySettingView.xaml">
+    <EmbeddedResource Update="Views\LotteryConfigLotteryModelSettingView.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="Views\LotteryConfigPage.xaml">

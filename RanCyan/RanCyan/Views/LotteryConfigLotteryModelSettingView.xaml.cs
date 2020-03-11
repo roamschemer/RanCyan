@@ -9,8 +9,8 @@ using Xamarin.Forms.Xaml;
 
 namespace RanCyan.Views {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class LotteryConfigCategorySettingView : ContentView {
-        public LotteryConfigCategorySettingView() {
+    public partial class LotteryConfigLotteryModelSettingView : ContentView {
+        public LotteryConfigLotteryModelSettingView() {
             InitializeComponent();
         }
     }
