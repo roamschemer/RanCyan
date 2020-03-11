@@ -28,6 +28,8 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveCollection<LotteryCategoryModel> LotteryCategoryModels { get; }
         public ReactiveProperty<LotteryCategoryModel> SelectedLotteryCategoryModel { get; }
         public ReactiveCommand<object> CreateCategoryCommand { get; }
+        public ReadOnlyReactiveCollection<LotteryModel> LotteryCategoryModes { get; }
+        public ReadOnlyReactiveCollection<LotteryConfigLotteryModelSettingViewModel> LotteryConfigLotteryModelSettingViewModels { get; }
 
         public LotteryConfigPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //全体設定
@@ -40,19 +42,20 @@ namespace RanCyan.ViewModels {
             AllToDrawTimeDifference = lotteryPageModel.ToReactivePropertyAsSynchronized(x => x.AllToDrawTimeDifference).AddTo(this.Disposable);
             DeletePage = new ReactiveCommand<object>().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("削除", "このページを削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
-                if (select) { 
+                if (select) {
                     coreModel.DeleteLotteryPageModel();
                     await NavigationService.GoBackToRootAsync();
                 }
             }).AddTo(this.Disposable);
             //カテゴリ設定
-            LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
-            SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());
             CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
                 if (select) lotteryPageModel.CleateNewLotteryCategoryModel();
             }).AddTo(this.Disposable);
-            
+            LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
+            SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());
+            LotteryConfigLotteryModelSettingViewModels = SelectedLotteryCategoryModel.Value.LotteryModels
+                .ToReadOnlyReactiveCollection(x => new LotteryConfigLotteryModelSettingViewModel(x)).AddTo(this.Disposable);
         }
     }
 }

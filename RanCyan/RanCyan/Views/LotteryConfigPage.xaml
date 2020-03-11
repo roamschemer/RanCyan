@@ -2,7 +2,8 @@
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:prism="http://prismlibrary.com"
-             prism:ViewModelLocator.AutowireViewModel="True"
+            xmlns:views="clr-namespace:RanCyan.Views"
+            prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="RanCyan.Views.LotteryConfigPage"
              Title="{Binding Title.Value, StringFormat='Config {0}'}">
 
@@ -35,28 +36,27 @@
           <ViewCell>
             <Button Text="現在のページを削除" Command="{Binding DeletePage}"/>
           </ViewCell>
-        </TableSection>        
+        </TableSection>
       </TableRoot>
     </TableView>
   </ContentPage>
 
   <ContentPage Title="カテゴリ設定">
-    <TableView>
-      <TableRoot>
-        <TableSection Title="カテゴリ追加">
-          <ViewCell>
-            <Button Text="新しいカテゴリの追加" Command="{Binding CreateCategoryCommand}"/>
-          </ViewCell>
-        </TableSection>        
-        <TableSection Title="カテゴリ選択">
-          <ViewCell>
-            <Picker ItemsSource="{Binding LotteryCategoryModels}" 
-                    SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
-                    ItemDisplayBinding="{Binding Title}"/>
-          </ViewCell>
-        </TableSection>
-      </TableRoot>
-    </TableView>
+    <StackLayout>
+      <Button Text="新しいカテゴリの追加" Command="{Binding CreateCategoryCommand}"/>
+      <Picker ItemsSource="{Binding LotteryCategoryModels}" 
+              SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
+              ItemDisplayBinding="{Binding Title}"/>
+      <ListView ItemsSource="{Binding LotteryConfigLotteryModelSettingViewModels}">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <views:LotteryConfigLotteryModelSettingView BindingContext="{Binding}"/>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
   </ContentPage>
 
 </TabbedPage>

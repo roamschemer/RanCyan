@@ -8,8 +8,12 @@ using System.Reactive.Linq;
 namespace RanCyan.ViewModels {
     /// <summary>カテゴリ編集</summary>
     public class LotteryConfigLotteryModelSettingViewModel : IDisposable {
-        public LotteryConfigLotteryModelSettingViewModel(LotteryModel lotteryModel) {
 
+        public ReactiveProperty<string> Name { get; }
+        public ReactiveProperty<int> Ratio { get; }
+        public LotteryConfigLotteryModelSettingViewModel(LotteryModel lotteryModel) {
+            Name = lotteryModel.ToReactivePropertyAsSynchronized(x => x.Name).AddTo(this.Disposable);
+            Ratio = lotteryModel.ToReactivePropertyAsSynchronized(x => x.Ratio).AddTo(this.Disposable);
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
