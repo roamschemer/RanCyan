@@ -17,9 +17,9 @@
     <Picker Grid.Column="1"
             ItemsSource="{Binding RatioItems}" 
             SelectedItem="{Binding Ratio.Value}" />
-    <Button Grid.Column="2" Text="↑"/>
-    <Button Grid.Column="3" Text="↓"/>
-    <Button Grid.Column="4" Text="消去"/>
+    <Button Grid.Column="2" Text="↑" Command="{Binding Up}"/>
+    <Button Grid.Column="3" Text="↓" Command="{Binding Down}"/>
+    <Button Grid.Column="4" Text="消去" Command="{Binding Clear}"/>
   </Grid>
 
 </ContentView>

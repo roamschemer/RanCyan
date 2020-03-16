@@ -46,6 +46,17 @@ namespace RanCyan.Models {
         }
 
         /// <summary>
+        /// カテゴリの前移動
+        /// </summary>
+        public void Up(LotteryModel m) {
+            var item1 = LotteryModels.Select((model, index) => (model, index)).First(x => x.model == m);
+            if (item1.index == 0) return;
+            var item2 = LotteryModels[item1.index-1];
+
+
+        }
+
+        /// <summary>
         /// 抽選の実施
         /// </summary>
         public async void ToDrawAsync(LotteryPageModel pageModel) {

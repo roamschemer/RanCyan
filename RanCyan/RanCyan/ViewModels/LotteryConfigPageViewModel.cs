@@ -56,7 +56,7 @@ namespace RanCyan.ViewModels {
             SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());
             SelectedLotteryCategoryModel.Subscribe(x => {
                 LotteryConfigLotteryModelSettingViewModels = SelectedLotteryCategoryModel.Value.LotteryModels
-                    .ToReadOnlyReactiveCollection(y => new LotteryConfigLotteryModelSettingViewModel(y)).AddTo(this.Disposable);
+                    .ToReadOnlyReactiveCollection(y => new LotteryConfigLotteryModelSettingViewModel(x,y)).AddTo(this.Disposable);
                 this.RaisePropertyChanged(nameof(LotteryConfigLotteryModelSettingViewModels));
             });
         }

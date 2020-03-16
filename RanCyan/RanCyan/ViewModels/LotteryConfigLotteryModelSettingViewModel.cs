@@ -12,11 +12,15 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> Name { get; }
         public ReactiveProperty<int> Ratio { get; }
         public ReadOnlyReactiveCollection<int> RatioItems { get; }
+        public ReactiveCommand<object> Up { get; }
+        public ReactiveCommand<object> Down { get; }
+        public ReactiveCommand<object> Clear { get; }
 
-        public LotteryConfigLotteryModelSettingViewModel(LotteryModel lotteryModel) {
+        public LotteryConfigLotteryModelSettingViewModel(LotteryCategoryModel lotteryCategoryModel, LotteryModel lotteryModel) {
             Name = lotteryModel.ToReactivePropertyAsSynchronized(x => x.Name).AddTo(this.Disposable);
             Ratio = lotteryModel.ToReactivePropertyAsSynchronized(x => x.Ratio).AddTo(this.Disposable);
             RatioItems = lotteryModel.RatioItems.ToReadOnlyReactiveCollection(x => x).AddTo(this.Disposable);
+            Up = new ReactiveCommand<object>().WithSubscribe(x => lotteryCategoryModel.Up(lotteryModel));
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
