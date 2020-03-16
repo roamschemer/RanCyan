@@ -48,6 +48,19 @@
               SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
               ItemDisplayBinding="{Binding Title}"/>
       <ListView ItemsSource="{Binding LotteryConfigLotteryModelSettingViewModels}">
+        <ListView.Header>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="80" />
+              <ColumnDefinition Width="40" />
+              <ColumnDefinition Width="40" />
+              <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="項目" />
+            <Label Grid.Column="1" Text="レート" />
+          </Grid>
+        </ListView.Header>
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>

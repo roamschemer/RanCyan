@@ -1,5 +1,10 @@
 ﻿using Prism.Mvvm;
 using SQLite;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Threading.Tasks;
+
 
 namespace RanCyan.Models {
     /// <summary>抽選モデル(SQLiteで永続化される)</summary>
@@ -26,6 +31,11 @@ namespace RanCyan.Models {
         public bool IsHited { get => isHited; set => SetProperty(ref isHited, value); }
         private bool isHited;
 
+        public ObservableCollection<int> RatioItems { get; }
+
+        public LotteryModel() {
+            RatioItems = new ObservableCollection<int>(Enumerable.Range(1, 100));
+        }
         /// <summary>
         /// 選択状態を切り替える
         /// </summary>

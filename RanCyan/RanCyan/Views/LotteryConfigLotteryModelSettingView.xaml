@@ -11,10 +11,12 @@
       <ColumnDefinition Width="80" />
       <ColumnDefinition Width="40" />
       <ColumnDefinition Width="40" />
-      <ColumnDefinition Width="40" />
+      <ColumnDefinition Width="60" />
     </Grid.ColumnDefinitions>
     <Entry Grid.Column="0" Text="{Binding Name.Value}"/>
-    <Entry Grid.Column="1" Text="{Binding Ratio.Value}"/>
+    <Picker Grid.Column="1"
+            ItemsSource="{Binding RatioItems}" 
+            SelectedItem="{Binding Ratio.Value}" />
     <Button Grid.Column="2" Text="↑"/>
     <Button Grid.Column="3" Text="↓"/>
     <Button Grid.Column="4" Text="消去"/>
