@@ -4,6 +4,7 @@ using Reactive.Bindings.Extensions;
 using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
+using Xamarin.Forms;
 
 namespace RanCyan.ViewModels {
     /// <summary>カテゴリ編集</summary>
@@ -20,7 +21,13 @@ namespace RanCyan.ViewModels {
             Name = lotteryModel.ToReactivePropertyAsSynchronized(x => x.Name).AddTo(this.Disposable);
             Ratio = lotteryModel.ToReactivePropertyAsSynchronized(x => x.Ratio).AddTo(this.Disposable);
             RatioItems = lotteryModel.RatioItems.ToReadOnlyReactiveCollection(x => x).AddTo(this.Disposable);
-            Up = new ReactiveCommand<object>().WithSubscribe(x => lotteryCategoryModel.Up(lotteryModel));
+            Up = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Up(lotteryModel));
+            Down = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Down(lotteryModel));
+            Clear = new ReactiveCommand<object>().WithSubscribe(x => lotteryCategoryModel.Clear(lotteryModel));
+            Clear = new ReactiveCommand<object>().WithSubscribe(async _ => {
+                var select = await Application.Current.MainPage.DisplayAlert("削除", "この項目を削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
+                if (select) lotteryCategoryModel.Clear(lotteryModel);
+            }).AddTo(this.Disposable);
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();

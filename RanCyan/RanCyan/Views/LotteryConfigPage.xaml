@@ -47,6 +47,7 @@
       <Picker ItemsSource="{Binding LotteryCategoryModels}" 
               SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
               ItemDisplayBinding="{Binding Title}"/>
+      <Entry Text="{Binding LotteryCategoryModelTitle.Value}"/>
       <ListView ItemsSource="{Binding LotteryConfigLotteryModelSettingViewModels}">
         <ListView.Header>
           <Grid>

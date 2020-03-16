@@ -37,24 +37,26 @@ namespace RanCyan.Models {
             LotteryLabelModel = new LotteryLabelModel();
         }
 
-        /// <summary>
-        /// 見本生成
-        /// </summary>
+        /// <summary>見本生成</summary>
         private void ResetModels() {
             var items = Enumerable.Range(0, 6).Select(x => new LotteryModel() { Id = x, Name = $"select{x}" });
             LotteryModels = new ObservableCollection<LotteryModel>(items);
         }
 
-        /// <summary>
-        /// カテゴリの前移動
-        /// </summary>
+        /// <summary>抽選モデルの前移動</summary>
         public void Up(LotteryModel m) {
-            var item1 = LotteryModels.Select((model, index) => (model, index)).First(x => x.model == m);
-            if (item1.index == 0) return;
-            var item2 = LotteryModels[item1.index-1];
-
-
+            var item = LotteryModels.Select((model, index) => (model, index)).First(x => x.model == m);
+            if (item.index == 0) return;
+            LotteryModels.Move(item.index, item.index - 1);
         }
+        /// <summary>抽選モデルの後移動</summary>
+        public void Down(LotteryModel m) {
+            var item = LotteryModels.Select((model, index) => (model, index)).First(x => x.model == m);
+            if (item.index == LotteryModels.Count - 1) return;
+            LotteryModels.Move(item.index, item.index + 1);
+        }
+        /// <summary>抽選モデルの削除</summary>
+        public void Clear(LotteryModel m) => LotteryModels.Remove(m);
 
         /// <summary>
         /// 抽選の実施

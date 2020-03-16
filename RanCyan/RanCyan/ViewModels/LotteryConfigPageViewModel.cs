@@ -30,7 +30,7 @@ namespace RanCyan.ViewModels {
         public ReactiveCommand<object> CreateCategoryCommand { get; }
         public ReadOnlyReactiveCollection<LotteryModel> LotteryCategoryModes { get; }
         public ReadOnlyReactiveCollection<LotteryConfigLotteryModelSettingViewModel> LotteryConfigLotteryModelSettingViewModels { get; private set; }
-
+        public ReactiveProperty<string> LotteryCategoryModelTitle { get; private set; }
         public LotteryConfigPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //全体設定
             ImageBackColorList = coreModel.ImageBackColorList.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
@@ -56,8 +56,10 @@ namespace RanCyan.ViewModels {
             SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());
             SelectedLotteryCategoryModel.Subscribe(x => {
                 LotteryConfigLotteryModelSettingViewModels = SelectedLotteryCategoryModel.Value.LotteryModels
-                    .ToReadOnlyReactiveCollection(y => new LotteryConfigLotteryModelSettingViewModel(x,y)).AddTo(this.Disposable);
+                    .ToReadOnlyReactiveCollection(y => new LotteryConfigLotteryModelSettingViewModel(x, y)).AddTo(this.Disposable);
                 this.RaisePropertyChanged(nameof(LotteryConfigLotteryModelSettingViewModels));
+                LotteryCategoryModelTitle = x.ToReactivePropertyAsSynchronized(y => y.Title).AddTo(this.Disposable);
+                this.RaisePropertyChanged(nameof(LotteryCategoryModelTitle));
             });
         }
     }
