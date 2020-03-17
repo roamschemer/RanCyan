@@ -31,8 +31,15 @@ namespace RanCyan.Models {
         /// <summary>抽選モデルのコレクション</summary>
         public ObservableCollection<LotteryModel> LotteryModels { get; private set; }
 
+        /// <summary>ループする回数選択リスト</summary>
+        public ObservableCollection<int> NumberOfLoopsSelectList { get; }
+        /// <summary>全ループ合計時間(msec)選択リスト</summary>
+        public ObservableCollection<int> TotalTimeOfAllLoopsSelectList { get; }
+
         /// <summary>コンストラクタ</summary>
         public LotteryCategoryModel() {
+            NumberOfLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 10));
+            TotalTimeOfAllLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 500));
             ResetModels();
             LotteryLabelModel = new LotteryLabelModel();
         }
@@ -49,17 +56,20 @@ namespace RanCyan.Models {
             if (item.index == 0) return;
             LotteryModels.Move(item.index, item.index - 1);
         }
+
         /// <summary>抽選モデルの後移動</summary>
         public void Down(LotteryModel m) {
             var item = LotteryModels.Select((model, index) => (model, index)).First(x => x.model == m);
             if (item.index == LotteryModels.Count - 1) return;
             LotteryModels.Move(item.index, item.index + 1);
         }
+        
         /// <summary>抽選モデルの削除</summary>
         public void Clear(LotteryModel m) => LotteryModels.Remove(m);
 
         /// <summary>抽選モデルの作成</summary>
         public void Create() => LotteryModels.Add(new LotteryModel() {  Name = $"select{LotteryModels.Count}" });
+
         /// <summary>
         /// 抽選の実施
         /// </summary>

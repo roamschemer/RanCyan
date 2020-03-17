@@ -17,21 +17,17 @@ namespace RanCyan.ViewModels {
         //全体設定
         public ReadOnlyReactiveCollection<string> ImageBackColorList { get; }
         public ReactiveProperty<string> ImageBackColor { get; }
-        public ReadOnlyReactiveCollection<int> SelectionViewWidthList { get; }
-        public ReactiveProperty<int> SelectionViewWidth { get; }
         //ページ設定
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<int> AllToDrawTimeDifferenceList { get; }
         public ReactiveProperty<int> AllToDrawTimeDifference { get; }
         public ReactiveCommand<object> DeletePage { get; }
         //カテゴリ設定
+        public ReadOnlyReactiveCollection<LotteryConfigCategoryModelSettingViewModel> LotteryConfigCategoryModelSettingViewModels { get; }
         public ReadOnlyReactiveCollection<LotteryCategoryModel> LotteryCategoryModels { get; }
-        public ReactiveProperty<LotteryCategoryModel> SelectedLotteryCategoryModel { get; }
         public ReactiveCommand<object> CreateCategoryCommand { get; }
-        public ReadOnlyReactiveCollection<LotteryModel> LotteryCategoryModes { get; }
+        public ReactiveProperty<LotteryCategoryModel> SelectedLotteryCategoryModel { get; }
         public ReadOnlyReactiveCollection<LotteryConfigLotteryModelSettingViewModel> LotteryConfigLotteryModelSettingViewModels { get; private set; }
-        public ReactiveProperty<string> LotteryCategoryModelTitle { get; private set; }
-        public ReactiveCommand<object> CreateSelectedModelCommand { get; }
         public LotteryConfigPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //全体設定
             ImageBackColorList = coreModel.ImageBackColorList.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
@@ -52,12 +48,12 @@ namespace RanCyan.ViewModels {
             //カテゴリ設定
             CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
-                if (select) lotteryPageModel.CleateNewLotteryCategoryModel();
+                if (select) lotteryPageModel.Cleate();
             }).AddTo(this.Disposable);
-            LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
-
+            LotteryConfigCategoryModelSettingViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryConfigCategoryModelSettingViewModel(lotteryPageModel, x)).AddTo(this.Disposable);
 
             //抽選モデル設定
+            LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());
             SelectedLotteryCategoryModel.Subscribe(x => {
                 LotteryConfigLotteryModelSettingViewModels = SelectedLotteryCategoryModel.Value.LotteryModels

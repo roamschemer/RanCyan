@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="RanCyan.Views.LotteryConfigCategoryModelSettingView">
+  <Grid>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="*" />
+      <ColumnDefinition Width="80" />
+      <ColumnDefinition Width="80" />
+      <ColumnDefinition Width="40" />
+      <ColumnDefinition Width="40" />
+      <ColumnDefinition Width="60" />
+    </Grid.ColumnDefinitions>
+    <Entry Grid.Column="0" Text="{Binding Title.Value}"/>
+    <Picker Grid.Column="1"
+            ItemsSource="{Binding NumberOfLoopsSelectList}" 
+            SelectedItem="{Binding NumberOfLoops.Value}" />
+    <Picker Grid.Column="2"
+            ItemsSource="{Binding TotalTimeOfAllLoopsSelectList}" 
+            SelectedItem="{Binding TotalTimeOfAllLoops.Value}" />
+    <Button Grid.Column="3" Text="↑" Command="{Binding Up}"/>
+    <Button Grid.Column="4" Text="↓" Command="{Binding Down}"/>
+    <Button Grid.Column="5" Text="消去" Command="{Binding Clear}"/>
+  </Grid>
+  
+</ContentView>

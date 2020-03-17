@@ -44,25 +44,26 @@
   <ContentPage Title="カテゴリ設定">
     <StackLayout>
       <Button Text="新しいカテゴリの追加" Command="{Binding CreateCategoryCommand}"/>
-      <Picker ItemsSource="{Binding LotteryCategoryModels}" 
-              SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
-              ItemDisplayBinding="{Binding Title}"/>
-      <ListView ItemsSource="{Binding LotteryConfigLotteryModelSettingViewModels}">
+      <ListView ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModels}">
         <ListView.Header>
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="80" />
+              <ColumnDefinition Width="80" />
               <ColumnDefinition Width="40" />
               <ColumnDefinition Width="40" />
               <ColumnDefinition Width="60" />
             </Grid.ColumnDefinitions>
             <Label Grid.Column="0" Text="項目" />
+            <Label Grid.Column="1" Text="ループ回数" />
+            <Label Grid.Column="2" Text="全ループ合計時間(msec)" />
           </Grid>
         </ListView.Header>
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
-              <views:LotteryConfigLotteryModelSettingView BindingContext="{Binding}"/>
+              <views:LotteryConfigCategoryModelSettingView BindingContext="{Binding}"/>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>

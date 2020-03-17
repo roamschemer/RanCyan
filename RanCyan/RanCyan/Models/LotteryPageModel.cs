@@ -64,7 +64,24 @@ namespace RanCyan.Models {
         /// <summary>
         /// 新規にLotteryCategoryModelを追加する
         /// </summary>
-        public void CleateNewLotteryCategoryModel() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
+        public void Cleate() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
+
+        /// <summary>カテゴリの前移動</summary>
+        public void Up(LotteryCategoryModel m) {
+            var item = LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == m);
+            if (item.index == 0) return;
+            LotteryCategoryModels.Move(item.index, item.index - 1);
+        }
+
+        /// <summary>カテゴリの後移動</summary>
+        public void Down(LotteryCategoryModel m) {
+            var item = LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == m);
+            if (item.index == LotteryCategoryModels.Count - 1) return;
+            LotteryCategoryModels.Move(item.index, item.index + 1);
+        }
+
+        /// <summary>抽選モデルの削除</summary>
+        public void Clear(LotteryCategoryModel m) => LotteryCategoryModels.Remove(m);
 
         /// <summary>全項目抽選の実施</summary>
         public async void AllToDraw() {
