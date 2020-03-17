@@ -46,7 +46,7 @@ namespace RanCyan.ViewModels {
             //表示系
             Title = lotteryPageModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             SelectionViewWidth = lotteryPageModel.LotteryCategoryModels.ObserveProperty(x => x.Count).Select(x => x * 100).ToReactiveProperty().AddTo(this.Disposable);
-            LotteryCategorySelectedModel = lotteryPageModel.ObserveProperty(x => x.SelectionLotteryCategoryModel).Select(x => { return x; }).ToReactiveProperty().AddTo(this.Disposable);
+            LotteryCategorySelectedModel = lotteryPageModel.ObserveProperty(x => x.SelectionLotteryCategoryModel).ToReactiveProperty().AddTo(this.Disposable);
             LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             IsAllToDraw = lotteryPageModel.ObserveProperty(x => x.IsAllToDraw).ToReactiveProperty().AddTo(this.Disposable);
             IsNotAllToDraw = IsAllToDraw.Select(x => !x).ToReadOnlyReactiveProperty().AddTo(this.Disposable);

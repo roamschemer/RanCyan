@@ -47,7 +47,35 @@
       <Picker ItemsSource="{Binding LotteryCategoryModels}" 
               SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
               ItemDisplayBinding="{Binding Title}"/>
-      <Entry Text="{Binding LotteryCategoryModelTitle.Value}"/>
+      <ListView ItemsSource="{Binding LotteryConfigLotteryModelSettingViewModels}">
+        <ListView.Header>
+          <Grid>
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="*" />
+              <ColumnDefinition Width="40" />
+              <ColumnDefinition Width="40" />
+              <ColumnDefinition Width="60" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Text="項目" />
+          </Grid>
+        </ListView.Header>
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <views:LotteryConfigLotteryModelSettingView BindingContext="{Binding}"/>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+    </StackLayout>
+  </ContentPage>
+
+  <ContentPage Title="抽選モデル設定">
+    <StackLayout>
+      <Button Text="新しい抽選モデルの追加" Command="{Binding CreateCategoryCommand}"/>
+      <Picker ItemsSource="{Binding LotteryCategoryModels}" 
+              SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
+              ItemDisplayBinding="{Binding Title}"/>
       <ListView ItemsSource="{Binding LotteryConfigLotteryModelSettingViewModels}">
         <ListView.Header>
           <Grid>
@@ -72,5 +100,4 @@
       </ListView>
     </StackLayout>
   </ContentPage>
-
 </TabbedPage>

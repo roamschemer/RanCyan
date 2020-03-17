@@ -39,7 +39,7 @@ namespace RanCyan.Models {
 
         /// <summary>見本生成</summary>
         private void ResetModels() {
-            var items = Enumerable.Range(0, 6).Select(x => new LotteryModel() { Id = x, Name = $"select{x}" });
+            var items = Enumerable.Range(0, 6).Select(x => new LotteryModel() { Name = $"select{x}" });
             LotteryModels = new ObservableCollection<LotteryModel>(items);
         }
 
@@ -58,6 +58,8 @@ namespace RanCyan.Models {
         /// <summary>抽選モデルの削除</summary>
         public void Clear(LotteryModel m) => LotteryModels.Remove(m);
 
+        /// <summary>抽選モデルの作成</summary>
+        public void Create() => LotteryModels.Add(new LotteryModel() {  Name = $"select{LotteryModels.Count}" });
         /// <summary>
         /// 抽選の実施
         /// </summary>

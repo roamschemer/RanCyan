@@ -31,6 +31,7 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveCollection<LotteryModel> LotteryCategoryModes { get; }
         public ReadOnlyReactiveCollection<LotteryConfigLotteryModelSettingViewModel> LotteryConfigLotteryModelSettingViewModels { get; private set; }
         public ReactiveProperty<string> LotteryCategoryModelTitle { get; private set; }
+        public ReactiveCommand<object> CreateSelectedModelCommand { get; }
         public LotteryConfigPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //全体設定
             ImageBackColorList = coreModel.ImageBackColorList.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
@@ -47,19 +48,21 @@ namespace RanCyan.ViewModels {
                     await NavigationService.GoBackToRootAsync();
                 }
             }).AddTo(this.Disposable);
+
             //カテゴリ設定
             CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
                 if (select) lotteryPageModel.CleateNewLotteryCategoryModel();
             }).AddTo(this.Disposable);
             LotteryCategoryModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
+
+
+            //抽選モデル設定
             SelectedLotteryCategoryModel = new ReactiveProperty<LotteryCategoryModel>(LotteryCategoryModels.First());
             SelectedLotteryCategoryModel.Subscribe(x => {
                 LotteryConfigLotteryModelSettingViewModels = SelectedLotteryCategoryModel.Value.LotteryModels
                     .ToReadOnlyReactiveCollection(y => new LotteryConfigLotteryModelSettingViewModel(x, y)).AddTo(this.Disposable);
                 this.RaisePropertyChanged(nameof(LotteryConfigLotteryModelSettingViewModels));
-                LotteryCategoryModelTitle = x.ToReactivePropertyAsSynchronized(y => y.Title).AddTo(this.Disposable);
-                this.RaisePropertyChanged(nameof(LotteryCategoryModelTitle));
             });
         }
     }
