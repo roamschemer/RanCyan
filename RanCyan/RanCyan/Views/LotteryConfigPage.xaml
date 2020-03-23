@@ -73,11 +73,11 @@
 
   <ContentPage Title="抽選モデル設定">
     <StackLayout>
-      <Button Text="新しい抽選モデルの追加" Command="{Binding CreateCategoryCommand}"/>
-      <Picker ItemsSource="{Binding LotteryCategoryModels}" 
-              SelectedItem="{Binding SelectedLotteryCategoryModel.Value}" 
-              ItemDisplayBinding="{Binding Title}"/>
-      <ListView ItemsSource="{Binding LotteryConfigLotteryModelSettingViewModels}">
+      <Button Text="新しい抽選モデルの追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.CreateSelectCommand}"/>
+      <Picker ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModels}" 
+              SelectedItem="{Binding LotteryConfigCategoryModelSettingViewModel.Value}" 
+              ItemDisplayBinding="{Binding Title.Value}"/>
+      <ListView ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModel.Value.LotteryConfigLotteryModelSettingViewModels}">
         <ListView.Header>
           <Grid>
             <Grid.ColumnDefinitions>

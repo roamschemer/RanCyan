@@ -104,6 +104,9 @@ namespace RanCyan.Models {
         /// <summary>
         /// 現在のLotteryPageModelを削除する
         /// </summary>
-        public void DeleteLotteryPageModel() => LotteryPageModels.Remove(SelectionLotteryPageModel);
+        public void DeleteLotteryPageModel() {
+            LotteryPageModels.Remove(SelectionLotteryPageModel);
+            if (LotteryPageModels.Count(x => x.MenuModel.PageType == MenuModel.PageTypeEnum.Lottery) == 0) CleateNewLotteryPageModel();
+        }
     }
 }

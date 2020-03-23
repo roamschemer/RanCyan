@@ -1,4 +1,5 @@
-﻿using RanCyan.Models;
+﻿using Prism.Mvvm;
+using RanCyan.Models;
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
@@ -7,8 +8,8 @@ using System.Reactive.Linq;
 using Xamarin.Forms;
 
 namespace RanCyan.ViewModels {
-    /// <summary>カテゴリ編集</summary>
-    public class LotteryConfigLotteryModelSettingViewModel : IDisposable {
+    /// <summary>抽選項目編集</summary>
+    public class LotteryConfigLotteryModelSettingViewModel : BindableBase, IDisposable {
 
         public ReactiveProperty<string> Name { get; }
         public ReactiveProperty<int> Ratio { get; }

@@ -81,8 +81,10 @@ namespace RanCyan.Models {
         }
 
         /// <summary>抽選モデルの削除</summary>
-        public void Clear(LotteryCategoryModel m) => LotteryCategoryModels.Remove(m);
-
+        public void Clear(LotteryCategoryModel m) {
+            if (LotteryCategoryModels.Count == 1) return;
+            LotteryCategoryModels.Remove(m);
+        }
         /// <summary>全項目抽選の実施</summary>
         public async void AllToDraw() {
             IsAllToDraw = true;

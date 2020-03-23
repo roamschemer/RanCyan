@@ -29,7 +29,8 @@ namespace RanCyan.Models {
         private LotteryLabelModel lotteryLabelModel;
 
         /// <summary>抽選モデルのコレクション</summary>
-        public ObservableCollection<LotteryModel> LotteryModels { get; private set; }
+        public ObservableCollection<LotteryModel> LotteryModels { get => lotteryModels; set => SetProperty(ref lotteryModels, value); }
+        private ObservableCollection<LotteryModel> lotteryModels;
 
         /// <summary>ループする回数選択リスト</summary>
         public ObservableCollection<int> NumberOfLoopsSelectList { get; }
@@ -63,9 +64,12 @@ namespace RanCyan.Models {
             if (item.index == LotteryModels.Count - 1) return;
             LotteryModels.Move(item.index, item.index + 1);
         }
-        
+
         /// <summary>抽選モデルの削除</summary>
-        public void Clear(LotteryModel m) => LotteryModels.Remove(m);
+        public void Clear(LotteryModel m) {
+            if (LotteryModels.Count == 1) return;
+            LotteryModels.Remove(m);
+        }
 
         /// <summary>抽選モデルの作成</summary>
         public void Create() => LotteryModels.Add(new LotteryModel() {  Name = $"select{LotteryModels.Count}" });
