@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 
 namespace RanCyan.Models {
-    /// <summary>抽選モデル(SQLiteで永続化される)</summary>
+    /// <summary>抽選モデル</summary>
     public class LotteryModel : BindableBase {
 
         /// <summary>名称</summary>

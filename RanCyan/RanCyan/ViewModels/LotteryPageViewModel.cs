@@ -37,7 +37,7 @@ namespace RanCyan.ViewModels {
             imageTimer.Subscribe(_ => {
                 ranCyanModel.WaitingRancyanImage();
                 imageTimer.Stop();
-            });
+            }).AddTo(this.Disposable); ;
             imageTimer.Start(TimeSpan.FromSeconds(0.5));
             BackgroundColor = coreModel.ObserveProperty(x => x.BackColor).ToReactiveProperty().AddTo(this.Disposable);
             //ContentView

@@ -27,7 +27,10 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<LotteryConfigCategoryModelSettingViewModel> LotteryConfigCategoryModelSettingViewModel { get; }
         public ReactiveCommand<object> CreateCategoryCommand { get; }
 
+        private CoreModel CoreModel { get; }
+
         public LotteryConfigPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
+            CoreModel = coreModel;
             //全体設定
             ImageBackColorList = coreModel.ImageBackColorList.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             ImageBackColor = coreModel.ToReactivePropertyAsSynchronized(x => x.BackColor).AddTo(this.Disposable);
@@ -51,6 +54,16 @@ namespace RanCyan.ViewModels {
             }).AddTo(this.Disposable);
             LotteryConfigCategoryModelSettingViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryConfigCategoryModelSettingViewModel(lotteryPageModel, x)).AddTo(this.Disposable);
             LotteryConfigCategoryModelSettingViewModel = new ReactiveProperty<LotteryConfigCategoryModelSettingViewModel>(LotteryConfigCategoryModelSettingViewModels.First());
+
+            //一定間隔で情報を保存
+            var saveTimer = new ReactiveTimer(TimeSpan.FromSeconds(5));
+            saveTimer.Subscribe(_ => CoreModel.SaveLotteryPage()).AddTo(this.Disposable);
+            saveTimer.Start(TimeSpan.FromSeconds(5));
+        }
+
+        public override void OnNavigatedFrom(INavigationParameters parameters) {
+            CoreModel.SaveLotteryPage();
+            base.OnNavigatedFrom(parameters);
         }
     }
 }

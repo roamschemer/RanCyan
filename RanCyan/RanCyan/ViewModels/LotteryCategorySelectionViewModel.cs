@@ -19,7 +19,10 @@ namespace RanCyan.ViewModels {
         public LotteryCategorySelectionViewModel(CoreModel coreModel, LotteryCategoryModel lotteryCategoryModel) {
             //選択リスト
             LotteryModels = lotteryCategoryModel.LotteryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
-            SelectionCommand = new ReactiveCommand<LotteryModel>().WithSubscribe(x => x.SelectionState()).AddTo(this.Disposable);
+            SelectionCommand = new ReactiveCommand<LotteryModel>().WithSubscribe(x => {
+                x.SelectionState();
+                coreModel.SaveLotteryPage();
+            }).AddTo(this.Disposable);
             //抽選ボタン
             CategoryTitle = lotteryCategoryModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             ToDrawCommand = new ReactiveCommand();
