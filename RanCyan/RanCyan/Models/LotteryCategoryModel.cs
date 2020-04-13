@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RanCyan.Models {
@@ -21,10 +22,12 @@ namespace RanCyan.Models {
         private int totalTimeOfAllLoops = 1000;
 
         /// <summary>抽選中</summary>
+        [JsonIgnore]
         public bool InLottery { get => inLottery; set => SetProperty(ref inLottery, value); }
         private bool inLottery;
 
         /// <summary>ラベルの情報</summary>
+        [JsonIgnore]
         public LotteryLabelModel LotteryLabelModel { get => lotteryLabelModel; set => SetProperty(ref lotteryLabelModel, value); }
         private LotteryLabelModel lotteryLabelModel;
 
@@ -33,8 +36,11 @@ namespace RanCyan.Models {
         private ObservableCollection<LotteryModel> lotteryModels;
 
         /// <summary>ループする回数選択リスト</summary>
+        [JsonIgnore]
         public ObservableCollection<int> NumberOfLoopsSelectList { get; }
+
         /// <summary>全ループ合計時間(msec)選択リスト</summary>
+        [JsonIgnore]
         public ObservableCollection<int> TotalTimeOfAllLoopsSelectList { get; }
 
         /// <summary>コンストラクタ</summary>

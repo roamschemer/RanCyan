@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace RanCyan.Models {
@@ -22,9 +23,6 @@ namespace RanCyan.Models {
         public int AllToDrawTimeDifference { get => allToDrawTimeDifference; set => SetProperty(ref allToDrawTimeDifference, value); }
         private int allToDrawTimeDifference;
 
-        /// <summary>全体抽選の動作時間差(msec)リスト</summary>
-        public ObservableCollection<int> AllToDrawTimeDifferenceList { get; }
-
         /// <summary>カテゴリーのリスト</summary>
         public ObservableCollection<LotteryCategoryModel> LotteryCategoryModels {
             get => lotteryCategoryModels;
@@ -32,7 +30,12 @@ namespace RanCyan.Models {
         }
         private ObservableCollection<LotteryCategoryModel> lotteryCategoryModels;
 
+        /// <summary>全体抽選の動作時間差(msec)リスト</summary>
+        [JsonIgnore]
+        public ObservableCollection<int> AllToDrawTimeDifferenceList { get; }
+
         /// <summary>選択された抽選カテゴリ</summary>
+        [JsonIgnore]
         public LotteryCategoryModel SelectionLotteryCategoryModel { get => selectionLotteryCategoryModel; set => SetProperty(ref selectionLotteryCategoryModel, value); }
         private LotteryCategoryModel selectionLotteryCategoryModel;
 

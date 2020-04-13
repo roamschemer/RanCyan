@@ -3,17 +3,13 @@ using SQLite;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 
 namespace RanCyan.Models {
     /// <summary>抽選モデル(SQLiteで永続化される)</summary>
     public class LotteryModel : BindableBase {
-
-        /// <summary>主キー</summary>
-        [PrimaryKey, AutoIncrement]
-        public int Id { get => id; set => SetProperty(ref id, value); }
-        private int id = 0;
 
         /// <summary>名称</summary>
         public string Name { get => name; set => SetProperty(ref name, value); }
@@ -31,6 +27,8 @@ namespace RanCyan.Models {
         public bool IsHited { get => isHited; set => SetProperty(ref isHited, value); }
         private bool isHited;
 
+        /// <summary>レートのリスト</summary>
+        [JsonIgnore]
         public ObservableCollection<int> RatioItems { get; }
 
         public LotteryModel() {

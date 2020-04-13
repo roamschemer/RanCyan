@@ -3,9 +3,15 @@ using RanCyan.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Text.Encodings.Web;
+using System.Text.Unicode;
+using static RanCyan.Models.MenuModel;
 
 namespace RanCyan.Models {
     /// <summary>コアクラス</summary>
@@ -35,13 +41,16 @@ namespace RanCyan.Models {
         /// <summary>ページモデルのコレクション</summary>
         public ObservableCollection<LotteryPageModel> LotteryPageModels { get; private set; }
 
+        /// <summary>jsonファイル名</summary>
+        private readonly string _fileName = "LotteryPage.json";
 
         /// <summary>コンストラクタ</summary>
         public CoreModel() {
-            ResetModels();
             ImageBackColorList = new ObservableCollection<string>() { "White", "Blue", "Lime", "DodgerBlue", "CornflowerBlue", "Chartreuse", "ForestGreen", "Yellow" };
             RanCyanModel = new RanCyanModel();
             ConfigRead();
+            InfomationPageSet();
+            LoadLotteryPage();
         }
 
         /// <summary>アプリ設定の読み込み</summary>
@@ -58,7 +67,10 @@ namespace RanCyan.Models {
         /// 見本作成する
         /// </summary>
         private void ResetModels() {
+            for (var i = 0; i < 5; i++) CleateNewLotteryPageModel();
+        }
 
+        private void InfomationPageSet() {
             var items = new List<LotteryPageModel>(){
                 new LotteryPageModel() {
                     Title = "取説(外部ページへ飛びます)",
@@ -78,7 +90,6 @@ namespace RanCyan.Models {
                 },
             };
             LotteryPageModels = new ObservableCollection<LotteryPageModel>(items);
-            for (var i = 0; i < 5; i++) CleateNewLotteryPageModel();
         }
 
         /// <summary>
@@ -108,5 +119,31 @@ namespace RanCyan.Models {
             LotteryPageModels.Remove(SelectionLotteryPageModel);
             if (LotteryPageModels.Count(x => x.MenuModel.PageType == MenuModel.PageTypeEnum.Lottery) == 0) CleateNewLotteryPageModel();
         }
+
+        /// <summary>各ページ以下の情報をjsonで保存</summary>
+        public void SaveLotteryPage() {
+            var fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _fileName);
+            var options = new JsonSerializerOptions {
+                Encoder = JavaScriptEncoder.Create(UnicodeRanges.All),
+                WriteIndented = true
+            };
+            var models = new ObservableCollection<LotteryPageModel>(LotteryPageModels);
+            var json = JsonSerializer.Serialize(models.Where(x => x.MenuModel.PageType == PageTypeEnum.Lottery), options);
+            File.WriteAllText(fileName, json);
+        }
+
+        /// <summary>各ページ以下の情報をjsonから復元</summary>
+        private void LoadLotteryPage() {
+            var fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _fileName);
+            if (!File.Exists(fileName)) {
+                ResetModels();
+                SaveLotteryPage();
+                return;
+            }
+            var json = File.ReadAllText(fileName);
+            var models = JsonSerializer.Deserialize<ObservableCollection<LotteryPageModel>>(json);
+            foreach (var x in models) LotteryPageModels.Add(x);
+        }
+
     }
 }
