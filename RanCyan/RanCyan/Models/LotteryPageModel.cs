@@ -16,6 +16,7 @@ namespace RanCyan.Models {
         private string title;
 
         /// <summary>全体抽選の実施</summary>
+        [JsonIgnore]
         public bool IsAllToDraw { get => isAllToDraw; set => SetProperty(ref isAllToDraw, value); }
         private bool isAllToDraw;
 

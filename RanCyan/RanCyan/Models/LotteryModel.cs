@@ -1,10 +1,7 @@
 ﻿using Prism.Mvvm;
-using SQLite;
-using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 
 namespace RanCyan.Models {
@@ -24,6 +21,7 @@ namespace RanCyan.Models {
         private bool isSelected;
 
         /// <summary>抽選された</summary>
+        [JsonIgnore]
         public bool IsHited { get => isHited; set => SetProperty(ref isHited, value); }
         private bool isHited;
 
