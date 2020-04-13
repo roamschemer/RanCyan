@@ -110,6 +110,7 @@ namespace RanCyan.Models {
                 }
             };
             LotteryPageModels.Add(model);
+            SaveLotteryPage();
         }
 
         /// <summary>
@@ -118,6 +119,7 @@ namespace RanCyan.Models {
         public void DeleteLotteryPageModel() {
             LotteryPageModels.Remove(SelectionLotteryPageModel);
             if (LotteryPageModels.Count(x => x.MenuModel.PageType == MenuModel.PageTypeEnum.Lottery) == 0) CleateNewLotteryPageModel();
+            SaveLotteryPage();
         }
 
         /// <summary>各ページ以下の情報をjsonで保存</summary>
@@ -137,7 +139,6 @@ namespace RanCyan.Models {
             var fileName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _fileName);
             if (!File.Exists(fileName)) {
                 ResetModels();
-                SaveLotteryPage();
                 return;
             }
             var json = File.ReadAllText(fileName);
