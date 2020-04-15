@@ -23,6 +23,8 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<int> AllToDrawTimeDifference { get; }
         public ReactiveCommand<object> DeletePage { get; }
         public ReactiveCommand<string> ChangeRanshikaCommand { get; }
+        public ReactiveCommand<string> ChangeRanmemo1Command { get; }
+        public ReactiveCommand<string> ChangeRanmemo2Command { get; }
 
         //カテゴリ設定
         public ReadOnlyReactiveCollection<LotteryConfigCategoryModelSettingViewModel> LotteryConfigCategoryModelSettingViewModels { get; }
@@ -48,10 +50,20 @@ namespace RanCyan.ViewModels {
                     await NavigationService.GoBackToRootAsync();
                 }
             }).AddTo(this.Disposable);
+            //ページ初期化
             ChangeRanshikaCommand = new ReactiveCommand<string>().WithSubscribe(async x => {
                 var select = await Application.Current.MainPage.DisplayAlert("初期化", $"このページを乱屍に初期化しますか？", "いいよ", "待った");
                 if (select) lotteryPageModel.ChangeRanshika();
             }).AddTo(this.Disposable);
+            ChangeRanmemo1Command = new ReactiveCommand<string>().WithSubscribe(async x => {
+                var select = await Application.Current.MainPage.DisplayAlert("初期化", $"このページを乱メモ1に初期化しますか？", "いいよ", "待った");
+                if (select) lotteryPageModel.ChangeRanmemo1();
+            }).AddTo(this.Disposable);
+            ChangeRanmemo2Command = new ReactiveCommand<string>().WithSubscribe(async x => {
+                var select = await Application.Current.MainPage.DisplayAlert("初期化", $"このページを乱メモ2に初期化しますか？", "いいよ", "待った");
+                if (select) lotteryPageModel.ChangeRanmemo2();
+            }).AddTo(this.Disposable);
+
 
             //カテゴリ設定
             CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {

@@ -67,7 +67,12 @@ namespace RanCyan.Models {
         /// 見本作成する
         /// </summary>
         private void ResetModels() {
-            for (var i = 0; i < 5; i++) CleateNewLotteryPageModel();
+            CleateNewLotteryPageModel();
+            LotteryPageModels.Last().ChangeRanshika();
+            CleateNewLotteryPageModel();
+            LotteryPageModels.Last().ChangeRanmemo1();
+            CleateNewLotteryPageModel();
+            LotteryPageModels.Last().ChangeRanmemo2();
         }
 
         private void InfomationPageSet() {

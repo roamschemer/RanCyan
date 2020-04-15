@@ -39,7 +39,11 @@
         </TableSection>
         <TableSection Title="初期化">
           <ViewCell>
-            <Button Text="乱屍" Command="{Binding ChangeRanshikaCommand}" />
+            <StackLayout>
+              <Button Text="乱屍" Command="{Binding ChangeRanshikaCommand}" />
+              <Button Text="乱メモ1" Command="{Binding ChangeRanmemo1Command}" />
+              <Button Text="乱メモ2" Command="{Binding ChangeRanmemo2Command}" />
+            </StackLayout>
           </ViewCell>
         </TableSection>
       </TableRoot>

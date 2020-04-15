@@ -71,6 +71,43 @@ namespace RanCyan.Models {
         }
 
         /// <summary>
+        /// 新規にLotteryCategoryModelを追加する
+        /// </summary>
+        public void Cleate() {
+            var model = new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" };
+            model.ResetModels();
+            LotteryCategoryModels.Add(model);
+        }
+
+        /// <summary>カテゴリの前移動</summary>
+        public void Up(LotteryCategoryModel m) {
+            var item = LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == m);
+            if (item.index == 0) return;
+            LotteryCategoryModels.Move(item.index, item.index - 1);
+        }
+
+        /// <summary>カテゴリの後移動</summary>
+        public void Down(LotteryCategoryModel m) {
+            var item = LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == m);
+            if (item.index == LotteryCategoryModels.Count - 1) return;
+            LotteryCategoryModels.Move(item.index, item.index + 1);
+        }
+
+        /// <summary>抽選モデルの削除</summary>
+        public void Clear(LotteryCategoryModel m) {
+            if (LotteryCategoryModels.Count == 1) return;
+            LotteryCategoryModels.Remove(m);
+        }
+        /// <summary>全項目抽選の実施</summary>
+        public async void AllToDraw() {
+            IsAllToDraw = true;
+            foreach (var (x, i) in LotteryCategoryModels.Select((x, i) => (x, i))) {
+                if (i > 0) await Task.Delay(AllToDrawTimeDifference);
+                x.ToDrawAsync(this);
+            }
+        }
+
+        /// <summary>
         /// このページの設定を乱屍にする
         /// </summary>
         public void ChangeRanshika() {
@@ -124,40 +161,118 @@ namespace RanCyan.Models {
         }
 
         /// <summary>
-        /// 新規にLotteryCategoryModelを追加する
+        /// このページの設定を乱メモ1にする
         /// </summary>
-        public void Cleate() {
-            var model = new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" };
-            model.ResetModels();
+        public void ChangeRanmemo1() {
+            Title = "乱メモ1";
+            LotteryCategoryModels.Clear();
+            LotteryCategoryModel model;
+            model = new LotteryCategoryModel() {
+                Title = "平日", NumberOfLoops = 10, TotalTimeOfAllLoops = 500, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "文学" },
+                    new LotteryModel(){ Name = "理学" },
+                    new LotteryModel(){ Name = "芸術" },
+                    new LotteryModel(){ Name = "運動" },
+                    new LotteryModel(){ Name = "部活" ,IsSelected = true},
+                    new LotteryModel(){ Name = "遊び" },
+                    new LotteryModel(){ Name = "容姿" },
+                    new LotteryModel(){ Name = "休憩" ,Ratio = 2 },
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "休日", NumberOfLoops = 10, TotalTimeOfAllLoops = 500, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "文学" },
+                    new LotteryModel(){ Name = "理学" },
+                    new LotteryModel(){ Name = "芸術" },
+                    new LotteryModel(){ Name = "運動" },
+                    new LotteryModel(){ Name = "部活" ,IsSelected = true},
+                    new LotteryModel(){ Name = "遊び" },
+                    new LotteryModel(){ Name = "容姿" },
+                    new LotteryModel(){ Name = "休憩" },
+                    new LotteryModel(){ Name = "電話" ,Ratio = 2},
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "下校", NumberOfLoops = 10, TotalTimeOfAllLoops = 500, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "一緒に帰る" },
+                    new LotteryModel(){ Name = "俺様は忙しい" },
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "攻略対象", NumberOfLoops = 50, TotalTimeOfAllLoops = 5000, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel { Name = "藤崎詩織" },
+                    new LotteryModel { Name = "如月未緒" },
+                    new LotteryModel { Name = "紐緒結奈" },
+                    new LotteryModel { Name = "片桐彩子" },
+                    new LotteryModel { Name = "虹野沙希" },
+                    new LotteryModel { Name = "古式ゆかり" },
+                    new LotteryModel { Name = "清川望" },
+                    new LotteryModel { Name = "鏡魅羅" },
+                    new LotteryModel { Name = "朝日奈夕子" },
+                    new LotteryModel { Name = "美樹原愛" },
+                    new LotteryModel { Name = "早乙女優美" },
+                    new LotteryModel { Name = "館林見晴" },
+                    new LotteryModel { Name = "伊集院レイ" ,IsSelected = true},                }
+            };
             LotteryCategoryModels.Add(model);
         }
 
-        /// <summary>カテゴリの前移動</summary>
-        public void Up(LotteryCategoryModel m) {
-            var item = LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == m);
-            if (item.index == 0) return;
-            LotteryCategoryModels.Move(item.index, item.index - 1);
+        /// <summary>
+        /// このページの設定を乱メモ1にする
+        /// </summary>
+        public void ChangeRanmemo2() {
+            Title = "乱メモ2";
+            LotteryCategoryModels.Clear();
+            LotteryCategoryModel model;
+            model = new LotteryCategoryModel() {
+                Title = "平日", NumberOfLoops = 10, TotalTimeOfAllLoops = 500, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "文学" },
+                    new LotteryModel(){ Name = "理学" },
+                    new LotteryModel(){ Name = "芸術" },
+                    new LotteryModel(){ Name = "運動" },
+                    new LotteryModel(){ Name = "部活" ,IsSelected = true},
+                    new LotteryModel(){ Name = "遊び" },
+                    new LotteryModel(){ Name = "容姿" },
+                    new LotteryModel(){ Name = "休憩" ,Ratio = 2 },
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "休日", NumberOfLoops = 10, TotalTimeOfAllLoops = 500, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "文学" },
+                    new LotteryModel(){ Name = "理学" },
+                    new LotteryModel(){ Name = "芸術" },
+                    new LotteryModel(){ Name = "運動" },
+                    new LotteryModel(){ Name = "部活" ,IsSelected = true},
+                    new LotteryModel(){ Name = "遊び" },
+                    new LotteryModel(){ Name = "容姿" },
+                    new LotteryModel(){ Name = "休憩" },
+                    new LotteryModel(){ Name = "電話" ,Ratio = 2},
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "攻略対象", NumberOfLoops = 50, TotalTimeOfAllLoops = 5000, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel { Name = "陽ノ下光" },
+                    new LotteryModel { Name = "水無月琴子" },
+                    new LotteryModel { Name = "寿美幸" },
+                    new LotteryModel { Name = "一文字茜" },
+                    new LotteryModel { Name = "白雪美帆" },
+                    new LotteryModel { Name = "赤井ほむら" },
+                    new LotteryModel { Name = "八重花桜梨" },
+                    new LotteryModel { Name = "佐倉楓子" },
+                    new LotteryModel { Name = "伊集院メイ" },
+                    new LotteryModel { Name = "麻生華澄" },
+                    new LotteryModel { Name = "白雪真帆" },
+                    new LotteryModel { Name = "九段下舞佳" },
+                    new LotteryModel { Name = "野咲すみれ" ,IsSelected = true},
+                }
+            };
+            LotteryCategoryModels.Add(model);
         }
 
-        /// <summary>カテゴリの後移動</summary>
-        public void Down(LotteryCategoryModel m) {
-            var item = LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == m);
-            if (item.index == LotteryCategoryModels.Count - 1) return;
-            LotteryCategoryModels.Move(item.index, item.index + 1);
-        }
-
-        /// <summary>抽選モデルの削除</summary>
-        public void Clear(LotteryCategoryModel m) {
-            if (LotteryCategoryModels.Count == 1) return;
-            LotteryCategoryModels.Remove(m);
-        }
-        /// <summary>全項目抽選の実施</summary>
-        public async void AllToDraw() {
-            IsAllToDraw = true;
-            foreach (var (x, i) in LotteryCategoryModels.Select((x, i) => (x, i))) {
-                if (i > 0) await Task.Delay(AllToDrawTimeDifference);
-                x.ToDrawAsync(this);
-            }
-        }
     }
 }
