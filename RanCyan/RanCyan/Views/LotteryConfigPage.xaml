@@ -37,6 +37,11 @@
             <Button Text="現在のページを削除" Command="{Binding DeletePage}"/>
           </ViewCell>
         </TableSection>
+        <TableSection Title="初期化">
+          <ViewCell>
+            <Button Text="乱屍" Command="{Binding ChangeRanshikaCommand}" />
+          </ViewCell>
+        </TableSection>
       </TableRoot>
     </TableView>
   </ContentPage>

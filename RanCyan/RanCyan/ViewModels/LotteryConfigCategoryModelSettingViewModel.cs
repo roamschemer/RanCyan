@@ -34,11 +34,11 @@ namespace RanCyan.ViewModels {
             Up = new ReactiveCommand<object>().WithSubscribe(_ => lotteryPageModel.Up(lotteryCategoryModel));
             Down = new ReactiveCommand<object>().WithSubscribe(_ => lotteryPageModel.Down(lotteryCategoryModel));
             Clear = new ReactiveCommand<object>().WithSubscribe(async _ => {
-                var select = await Application.Current.MainPage.DisplayAlert("削除", "この項目を削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
+                var select = await Application.Current.MainPage.DisplayAlert("削除", "この項目を削除しますか？", "いいよ", "待った");
                 if (select) lotteryPageModel.Clear(lotteryCategoryModel);
             }).AddTo(this.Disposable);
             //抽選モデルの設定
-            LotteryConfigLotteryModelSettingViewModels = lotteryCategoryModel.LotteryModels.ToReadOnlyReactiveCollection(x=> new LotteryConfigLotteryModelSettingViewModel(lotteryCategoryModel, x)).AddTo(this.Disposable);
+            LotteryConfigLotteryModelSettingViewModels = lotteryCategoryModel.LotteryModels.ToReadOnlyReactiveCollection(x => new LotteryConfigLotteryModelSettingViewModel(lotteryCategoryModel, x)).AddTo(this.Disposable);
             LotteryConfigLotteryModelSettingViewModel = new ReactiveProperty<LotteryConfigLotteryModelSettingViewModel>(LotteryConfigLotteryModelSettingViewModels.First());
             CreateSelectCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");

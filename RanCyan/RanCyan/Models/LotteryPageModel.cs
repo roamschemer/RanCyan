@@ -71,12 +71,65 @@ namespace RanCyan.Models {
         }
 
         /// <summary>
+        /// このページの設定を乱屍にする
+        /// </summary>
+        public void ChangeRanshika() {
+            Title = "乱屍";
+            LotteryCategoryModels.Clear();
+            LotteryCategoryModel model;
+            model = new LotteryCategoryModel() {
+                Title = "進言", NumberOfLoops = 10, TotalTimeOfAllLoops = 500, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "進言1" },
+                    new LotteryModel(){ Name = "進言2" },
+                    new LotteryModel(){ Name = "進言3" },
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "交神", NumberOfLoops = 50, TotalTimeOfAllLoops = 5000, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "火の神様" },
+                    new LotteryModel(){ Name = "水の神様" },
+                    new LotteryModel(){ Name = "風の神様" },
+                    new LotteryModel(){ Name = "土の神様" },
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "職業", NumberOfLoops = 50, TotalTimeOfAllLoops = 5000, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "剣士" },
+                    new LotteryModel(){ Name = "薙刀士" },
+                    new LotteryModel(){ Name = "弓使い" },
+                    new LotteryModel(){ Name = "槍使い" },
+                    new LotteryModel(){ Name = "拳法家" },
+                    new LotteryModel(){ Name = "壊し屋" },
+                    new LotteryModel(){ Name = "大筒士" },
+                    new LotteryModel(){ Name = "踊り屋" },
+                }
+            };
+            LotteryCategoryModels.Add(model);
+            model = new LotteryCategoryModel() {
+                Title = "討伐先", NumberOfLoops = 50, TotalTimeOfAllLoops = 5000, LotteryModels = new ObservableCollection<LotteryModel>() {
+                    new LotteryModel(){ Name = "鳥居千万宮" },
+                    new LotteryModel(){ Name = "相翼院" },
+                    new LotteryModel(){ Name = "九重楼" },
+                    new LotteryModel(){ Name = "白骨城" },
+                    new LotteryModel(){ Name = "忘我流水道" },
+                    new LotteryModel(){ Name = "親王鎮魂墓" },
+                    new LotteryModel(){ Name = "紅蓮の祠" },
+                    new LotteryModel(){ Name = "大江山" },
+                    new LotteryModel(){ Name = "地獄巡り" },
+                }
+            };
+            LotteryCategoryModels.Add(model);
+        }
+
+        /// <summary>
         /// 新規にLotteryCategoryModelを追加する
         /// </summary>
         public void Cleate() {
             var model = new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" };
             model.ResetModels();
-            LotteryCategoryModels.Add(model); 
+            LotteryCategoryModels.Add(model);
         }
 
         /// <summary>カテゴリの前移動</summary>

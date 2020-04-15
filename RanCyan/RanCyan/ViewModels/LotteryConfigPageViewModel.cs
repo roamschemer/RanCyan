@@ -22,6 +22,8 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveCollection<int> AllToDrawTimeDifferenceList { get; }
         public ReactiveProperty<int> AllToDrawTimeDifference { get; }
         public ReactiveCommand<object> DeletePage { get; }
+        public ReactiveCommand<string> ChangeRanshikaCommand { get; }
+
         //カテゴリ設定
         public ReadOnlyReactiveCollection<LotteryConfigCategoryModelSettingViewModel> LotteryConfigCategoryModelSettingViewModels { get; }
         public ReactiveProperty<LotteryConfigCategoryModelSettingViewModel> LotteryConfigCategoryModelSettingViewModel { get; }
@@ -40,11 +42,15 @@ namespace RanCyan.ViewModels {
             AllToDrawTimeDifferenceList = lotteryPageModel.AllToDrawTimeDifferenceList.ToReadOnlyReactiveCollection(x => x).AddTo(this.Disposable);
             AllToDrawTimeDifference = lotteryPageModel.ToReactivePropertyAsSynchronized(x => x.AllToDrawTimeDifference).AddTo(this.Disposable);
             DeletePage = new ReactiveCommand<object>().WithSubscribe(async _ => {
-                var select = await Application.Current.MainPage.DisplayAlert("削除", "このページを削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
+                var select = await Application.Current.MainPage.DisplayAlert("削除", "このページを削除しますか？", "いいよ", "待った");
                 if (select) {
                     coreModel.DeleteLotteryPageModel();
                     await NavigationService.GoBackToRootAsync();
                 }
+            }).AddTo(this.Disposable);
+            ChangeRanshikaCommand = new ReactiveCommand<string>().WithSubscribe(async x => {
+                var select = await Application.Current.MainPage.DisplayAlert("初期化", $"このページを乱屍に初期化しますか？", "いいよ", "待った");
+                if (select) lotteryPageModel.ChangeRanshika();
             }).AddTo(this.Disposable);
 
             //カテゴリ設定

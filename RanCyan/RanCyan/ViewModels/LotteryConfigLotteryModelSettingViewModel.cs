@@ -25,7 +25,7 @@ namespace RanCyan.ViewModels {
             Up = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Up(lotteryModel));
             Down = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Down(lotteryModel));
             Clear = new ReactiveCommand<object>().WithSubscribe(async _ => {
-                var select = await Application.Current.MainPage.DisplayAlert("削除", "この項目を削除しますか？\r\n※この操作は戻せません", "いいよ", "待った");
+                var select = await Application.Current.MainPage.DisplayAlert("削除", "この項目を削除しますか？", "いいよ", "待った");
                 if (select) lotteryCategoryModel.Clear(lotteryModel);
             }).AddTo(this.Disposable);
         }
