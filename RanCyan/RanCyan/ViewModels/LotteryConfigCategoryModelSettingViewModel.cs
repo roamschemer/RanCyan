@@ -24,6 +24,7 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveCollection<LotteryConfigLotteryModelSettingViewModel> LotteryConfigLotteryModelSettingViewModels { get; }
         public ReactiveProperty<LotteryConfigLotteryModelSettingViewModel> LotteryConfigLotteryModelSettingViewModel { get; }
         public ReactiveCommand<object> CreateSelectCommand { get; }
+        public ReactiveCommand<object> ClipboardGetTextCommand { get; }
         public LotteryConfigCategoryModelSettingViewModel(LotteryPageModel lotteryPageModel, LotteryCategoryModel lotteryCategoryModel) {
             Title = lotteryCategoryModel.ToReactivePropertyAsSynchronized(x => x.Title).AddTo(this.Disposable);
             NumberOfLoops = lotteryCategoryModel.ToReactivePropertyAsSynchronized(x => x.NumberOfLoops).AddTo(this.Disposable);
@@ -42,6 +43,10 @@ namespace RanCyan.ViewModels {
             CreateSelectCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
                 var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
                 if (select) lotteryCategoryModel.Create();
+            }).AddTo(this.Disposable);
+            ClipboardGetTextCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
+                var select = await Application.Current.MainPage.DisplayAlert("クリップボードから貼り付け", "クリップボードにある項目を一括追加しますか？", "いいよ", "待った");
+                if (select) lotteryCategoryModel.ClipboardGet();
             }).AddTo(this.Disposable);
         }
         //後始末

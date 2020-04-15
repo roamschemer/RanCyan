@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace RanCyan.Models {
     /// <summary>カテゴリークラス</summary>
@@ -80,6 +81,15 @@ namespace RanCyan.Models {
         /// <summary>抽選モデルの作成</summary>
         public void Create() => LotteryModels.Add(new LotteryModel() {  Name = $"select{LotteryModels.Count}" });
 
+        /// <summary>クリップボードに存在する項目を全部張り付ける</summary>
+        public async void ClipboardGet() {
+            if (!Clipboard.HasText) return;
+            var words = await Clipboard.GetTextAsync();
+            var names = words.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
+            foreach(var x in names) {
+                LotteryModels.Add(new LotteryModel() { Name = x });
+            }
+        }
         /// <summary>
         /// 抽選の実施
         /// </summary>

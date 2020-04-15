@@ -74,6 +74,7 @@
   <ContentPage Title="抽選モデル設定">
     <StackLayout>
       <Button Text="新しい抽選モデルの追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.CreateSelectCommand}"/>
+      <Button Text="クリップボードから一括追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.ClipboardGetTextCommand}"/>
       <Picker ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModels}" 
               SelectedItem="{Binding LotteryConfigCategoryModelSettingViewModel.Value}" 
               ItemDisplayBinding="{Binding Title.Value}"/>
