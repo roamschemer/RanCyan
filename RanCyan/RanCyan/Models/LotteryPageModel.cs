@@ -47,6 +47,7 @@ namespace RanCyan.Models {
         /// <summary>コンストラクタ</summary>
         public LotteryPageModel() {
             SelectionLotteryCategoryModel = new LotteryCategoryModel();
+            SelectionLotteryCategoryModel.ResetModels();
             AllToDrawTimeDifferenceList = new ObservableCollection<int>(Enumerable.Range(0, 11).Select(x => x * 100));
             ResetModels();
             ConfigRead();
@@ -61,14 +62,22 @@ namespace RanCyan.Models {
         /// 見本作成
         /// </summary>
         private void ResetModels() {
-            var items = Enumerable.Range(0, 4).Select(x => new LotteryCategoryModel() { Title = $"Category{x}" });
+            var items = Enumerable.Range(0, 4).Select(x => {
+                var model = new LotteryCategoryModel() { Title = $"Category{x}" };
+                model.ResetModels();
+                return model;
+            });
             LotteryCategoryModels = new ObservableCollection<LotteryCategoryModel>(items);
         }
 
         /// <summary>
         /// 新規にLotteryCategoryModelを追加する
         /// </summary>
-        public void Cleate() => LotteryCategoryModels.Add(new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" });
+        public void Cleate() {
+            var model = new LotteryCategoryModel() { Title = $"Category{LotteryCategoryModels.Count()}" };
+            model.ResetModels();
+            LotteryCategoryModels.Add(model); 
+        }
 
         /// <summary>カテゴリの前移動</summary>
         public void Up(LotteryCategoryModel m) {

@@ -48,12 +48,11 @@ namespace RanCyan.Models {
         public LotteryCategoryModel() {
             NumberOfLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 10));
             TotalTimeOfAllLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 500));
-            ResetModels();
             LotteryLabelModel = new LotteryLabelModel();
         }
 
         /// <summary>見本生成</summary>
-        private void ResetModels() {
+        public void ResetModels() {
             var items = Enumerable.Range(0, 6).Select(x => new LotteryModel() { Name = $"select{x}" });
             LotteryModels = new ObservableCollection<LotteryModel>(items);
         }
@@ -90,6 +89,7 @@ namespace RanCyan.Models {
                 LotteryModels.Add(new LotteryModel() { Name = x });
             }
         }
+
         /// <summary>
         /// 抽選の実施
         /// </summary>
