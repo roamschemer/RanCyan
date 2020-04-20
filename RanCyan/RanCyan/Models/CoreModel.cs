@@ -78,19 +78,11 @@ namespace RanCyan.Models {
         private void InfomationPageSet() {
             var items = new List<LotteryPageModel>(){
                 new LotteryPageModel() {
-                    Title = "取説(外部ページへ飛びます)",
+                    Title = "取説(外部ページ)",
                     MenuModel = new MenuModel() {
                         ImageAddress = "resource://RanCyan.Images.Ranshika.png",
                         ViewAddress = "https://www.gunshi.info/rancyanproject",
                         PageType = MenuModel.PageTypeEnum.Web
-                    }
-                },
-                new LotteryPageModel() {
-                    Title = "ライセンス情報",
-                    MenuModel = new MenuModel() {
-                        ImageAddress = "resource://RanCyan.Images.Ranshika.png",
-                        ViewAddress = "",
-                        PageType = MenuModel.PageTypeEnum.Other
                     }
                 },
             };

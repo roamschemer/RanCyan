@@ -99,6 +99,7 @@
 
   <ItemGroup>
     <Folder Include="Interfaces\" />
+    <Folder Include="Texts\" />
   </ItemGroup>
 
 </Project>
