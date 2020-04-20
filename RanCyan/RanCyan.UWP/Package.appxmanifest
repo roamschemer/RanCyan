@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="19990435D2A7B.Project" Publisher="CN=66051133-DECA-4995-A1BA-EC8A9672F060" Version="2.0.4.0" />
+  <Identity Name="19990435D2A7B.Project" Publisher="CN=66051133-DECA-4995-A1BA-EC8A9672F060" Version="3.0.0.0" />
   <mp:PhoneIdentity PhoneProductId="b56adbc2-f9c2-4f75-8f2c-142e93d3ad04" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>乱ちゃんProject</DisplayName>
