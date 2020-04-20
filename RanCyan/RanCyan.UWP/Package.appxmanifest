@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="19990435D2A7B.Project" Publisher="CN=放浪軍師, C=JP" Version="2.0.3.0" />
-  <mp:PhoneIdentity PhoneProductId="26a3f875-e010-4bfc-9f01-89d18d8e8e35" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
+  <Identity Name="19990435D2A7B.Project" Publisher="CN=66051133-DECA-4995-A1BA-EC8A9672F060" Version="2.0.4.0" />
+  <mp:PhoneIdentity PhoneProductId="b56adbc2-f9c2-4f75-8f2c-142e93d3ad04" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>乱ちゃんProject</DisplayName>
     <PublisherDisplayName>放浪軍師</PublisherDisplayName>
