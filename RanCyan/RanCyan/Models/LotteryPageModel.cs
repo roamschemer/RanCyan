@@ -62,7 +62,7 @@ namespace RanCyan.Models {
         /// 見本作成
         /// </summary>
         private void ResetModels() {
-            var items = Enumerable.Range(0, 4).Select(x => {
+            var items = Enumerable.Range(0, 1).Select(x => {
                 var model = new LotteryCategoryModel() { Title = $"Category{x}" };
                 model.ResetModels();
                 return model;
