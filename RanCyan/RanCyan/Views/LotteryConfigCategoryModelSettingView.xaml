@@ -16,7 +16,14 @@
           </OnPlatform>
         </ColumnDefinition.Width>
       </ColumnDefinition>
-      <ColumnDefinition Width="80" />
+      <ColumnDefinition>
+        <ColumnDefinition.Width>
+          <OnPlatform x:TypeArguments="GridLength">
+            <On Platform="Android">60</On>
+            <On Platform="UWP">80</On>
+          </OnPlatform>
+        </ColumnDefinition.Width>
+      </ColumnDefinition>
       <ColumnDefinition Width="40" />
       <ColumnDefinition Width="40" />
       <ColumnDefinition Width="60" />
