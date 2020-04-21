@@ -40,9 +40,9 @@
         <TableSection Title="初期化">
           <ViewCell>
             <StackLayout>
-              <Button Text="乱屍" Command="{Binding ChangeRanshikaCommand}" />
-              <Button Text="乱メモ1" Command="{Binding ChangeRanmemo1Command}" />
-              <Button Text="乱メモ2" Command="{Binding ChangeRanmemo2Command}" />
+              <Button Grid.Row="0" Text="乱屍" Command="{Binding ChangeRanshikaCommand}" />
+              <Button Grid.Row="1" Text="乱メモ1" Command="{Binding ChangeRanmemo1Command}" />
+              <Button Grid.Row="2" Text="乱メモ2" Command="{Binding ChangeRanmemo2Command}" />
             </StackLayout>
           </ViewCell>
         </TableSection>
@@ -58,7 +58,14 @@
           <Grid>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="80" />
+              <ColumnDefinition>
+                <ColumnDefinition.Width>
+                  <OnPlatform x:TypeArguments="GridLength">
+                    <On Platform="Android">40</On>
+                    <On Platform="UWP">80</On>
+                  </OnPlatform>
+                </ColumnDefinition.Width>
+              </ColumnDefinition>
               <ColumnDefinition Width="80" />
               <ColumnDefinition Width="40" />
               <ColumnDefinition Width="40" />
@@ -82,11 +89,12 @@
 
   <ContentPage Title="抽選モデル設定">
     <StackLayout>
-      <Button Text="新しい抽選モデルの追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.CreateSelectCommand}"/>
-      <Button Text="クリップボードから一括追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.ClipboardGetTextCommand}"/>
+      <Label Text="カテゴリ選択" />
       <Picker ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModels}" 
               SelectedItem="{Binding LotteryConfigCategoryModelSettingViewModel.Value}" 
               ItemDisplayBinding="{Binding Title.Value}"/>
+      <Button Text="新しい抽選モデルの追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.CreateSelectCommand}"/>
+      <Button Text="クリップボードから一括追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.ClipboardGetTextCommand}"/>
       <ListView ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModel.Value.LotteryConfigLotteryModelSettingViewModels}">
         <ListView.Header>
           <Grid>
