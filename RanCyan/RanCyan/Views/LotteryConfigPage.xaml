@@ -99,9 +99,22 @@
   <ContentPage Title="抽選モデル設定">
     <StackLayout>
       <Label Text="カテゴリ選択" />
-      <Picker ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModels}" 
+      <!--<Picker ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModels}" 
               SelectedItem="{Binding LotteryConfigCategoryModelSettingViewModel.Value}" 
-              ItemDisplayBinding="{Binding Title.Value}"/>
+              ItemDisplayBinding="{Binding Title.Value}"/>-->
+      <CollectionView ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModels}"
+                      SelectedItem="{Binding LotteryConfigCategoryModelSettingViewModel.Value}"
+                      SelectionMode="Single"
+                      ItemsLayout="HorizontalList" 
+                      HeightRequest="60">
+        <CollectionView.ItemTemplate>
+          <DataTemplate>
+            <Grid HeightRequest="48" WidthRequest="100">
+              <Label Text="{Binding Title.Value}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+            </Grid>
+          </DataTemplate>
+        </CollectionView.ItemTemplate>
+      </CollectionView>
       <Button Text="新しい抽選モデルの追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.CreateSelectCommand}"/>
       <Button Text="クリップボードから一括追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.ClipboardGetTextCommand}"/>
       <ListView ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModel.Value.LotteryConfigLotteryModelSettingViewModels}">
