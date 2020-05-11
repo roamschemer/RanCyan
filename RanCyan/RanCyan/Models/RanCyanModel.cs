@@ -4,13 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace RanCyan.Models {
     /// <summary>乱ちゃんに関するモデル</summary>
     public class RanCyanModel : BindableBase {
         /// <summary>乱ちゃんの表示画像</summary>
-        public string RanCyanImage { get => ranCyanImage; set => SetProperty(ref ranCyanImage, value); }
-        private string ranCyanImage;
+        public ImageSource RanCyanImage { get => ranCyanImage; set => SetProperty(ref ranCyanImage, value); }
+        private ImageSource ranCyanImage;
 
         /// <summary>
         /// 乱ちゃん画像の表示アクションフラグ
@@ -27,7 +28,7 @@ namespace RanCyan.Models {
         public async void LotteryRancyanImageAsync() {
             if (isRancyanLottery) return;
             isRancyanLottery = true;
-            RanCyanImage = "RanCyan.Images.3D_Jamp1.gif";
+            RanCyanImage = ImageSource.FromResource("RanCyan.Images.3D_Jamp1.gif");
             await Task.Delay(4000);
             WaitingRancyanImage();
             isRancyanLottery = false;
@@ -38,11 +39,11 @@ namespace RanCyan.Models {
         /// </summary>
         public void WaitingRancyanImage() {
             var images = new[] {
-                "RanCyan.Images.3D_Taiki2.gif",
-                "RanCyan.Images.3D_Taiki5.gif",
-                "RanCyan.Images.3D_Taiki6.gif",
-                "RanCyan.Images.3D_Taiki7.gif",
-                "RanCyan.Images.3D_Taiki8.gif",
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki2.gif"),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki5.gif"),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki6.gif"),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki7.gif"),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki8.gif"),
             };
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             RanCyanImage = images[rnd.Next(0, images.Count())];
@@ -53,7 +54,7 @@ namespace RanCyan.Models {
         /// 乱ちゃんの立ち絵を消す(初期状態)
         /// </summary>
         public void StartRancyanImage() {
-            RanCyanImage = "";
+            RanCyanImage = null;
             IsImageActive = false;
         }
 

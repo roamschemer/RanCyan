@@ -17,7 +17,7 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> Title { get; }
         public ReadOnlyReactiveCollection<LotteryCategorySelectionViewModel> LotteryCategorySelectionViewModels { get; }
         public ReactiveProperty<int> SelectionViewWidth { get; }
-        public ReactiveProperty<string> RanCyanImage { get; }
+        public ReactiveProperty<ImageSource> RanCyanImage { get; }
         public ReactiveProperty<bool> IsImageActive { get; }
         public ReactiveProperty<LotteryCategoryModel> LotteryCategorySelectedModel { get; }
         public AsyncReactiveCommand<object> ConfigPageNavigationCommand { get; }

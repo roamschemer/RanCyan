@@ -12,7 +12,6 @@
 
   <ContentPage.Resources>
     <ResourceDictionary>
-      <cv:ImageSourceConverter x:Key="ImageSourceConverter"/>
       <Style x:Key="LabelStyle" TargetType="Label">
         <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
         <Setter Property="HorizontalTextAlignment" Value="Center"/>
@@ -43,7 +42,7 @@
              Grid.RowSpan="2"
              Aspect = "AspectFit" 
              VerticalOptions ="End"
-             Source="{Binding RanCyanImage.Value, Converter={StaticResource ImageSourceConverter}}">
+             Source="{Binding RanCyanImage.Value}" >
         <Image.Triggers>
           <DataTrigger TargetType="Image" Binding="{Binding IsImageActive.Value}" Value="True">
             <DataTrigger.EnterActions>
