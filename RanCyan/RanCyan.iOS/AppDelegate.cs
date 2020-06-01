@@ -23,7 +23,6 @@ namespace RanCyan.iOS
         {
             global::Xamarin.Forms.Forms.Init();
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
-            AiForms.Renderers.iOS.CollectionViewInit.Init();
             LoadApplication(new App(new iOSInitializer()));
 
             return base.FinishedLaunching(app, options);

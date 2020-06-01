@@ -16,6 +16,8 @@ namespace RanCyan.ViewModels {
         public ReactiveCommand<object> ToDrawCommand { get; }
         /// <summary>ボタン名称</summary>
         public ReactiveProperty<string> CategoryTitle { get; }
+        /// <summary>ラベルの情報</summary>
+        public ReactiveProperty<LotteryLabelModel> LotteryLabelModel { get; }
         public LotteryCategorySelectionViewModel(CoreModel coreModel, LotteryCategoryModel lotteryCategoryModel) {
             //選択リスト
             LotteryModels = lotteryCategoryModel.LotteryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
@@ -31,6 +33,8 @@ namespace RanCyan.ViewModels {
                 coreModel.RanCyanModel.LotteryRancyanImageAsync();
                 lotteryCategoryModel.ToDrawAsync(coreModel.SelectionLotteryPageModel);
             }).AddTo(this.Disposable);
+            //ラベル情報
+            LotteryLabelModel = lotteryCategoryModel.ObserveProperty(x => x.LotteryLabelModel).ToReactiveProperty().AddTo(this.Disposable);
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
