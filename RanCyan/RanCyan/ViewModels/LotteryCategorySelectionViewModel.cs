@@ -2,6 +2,7 @@
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
+using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 
@@ -18,6 +19,8 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> CategoryTitle { get; }
         /// <summary>ラベルの情報</summary>
         public ReactiveProperty<LotteryLabelModel> LotteryLabelModel { get; }
+        public ReactiveProperty<string> AccessKey { get; }
+
         public LotteryCategorySelectionViewModel(CoreModel coreModel, LotteryCategoryModel lotteryCategoryModel) {
             //選択リスト
             LotteryModels = lotteryCategoryModel.LotteryModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
@@ -35,6 +38,10 @@ namespace RanCyan.ViewModels {
             }).AddTo(this.Disposable);
             //ラベル情報
             LotteryLabelModel = lotteryCategoryModel.ObserveProperty(x => x.LotteryLabelModel).ToReactiveProperty().AddTo(this.Disposable);
+            //AccessKey
+            var accessKey = coreModel.SelectionLotteryPageModel.LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == lotteryCategoryModel);
+            AccessKey = new ReactiveProperty<string>(accessKey.index.ToString());
+
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();

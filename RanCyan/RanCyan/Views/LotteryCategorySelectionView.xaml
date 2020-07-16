@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:RanCyan.Controls"
+             xmlns:windows="clr-namespace:Xamarin.Forms.PlatformConfiguration.WindowsSpecific;assembly=Xamarin.Forms.Core"
              mc:Ignorable="d"
              x:Class="RanCyan.Views.LotteryCategorySelectionView"
              x:Name="Base">
@@ -30,7 +31,8 @@
       <RowDefinition Height="40" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Button Grid.Row="0" Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"/>
+    <Button Grid.Row="0" Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"
+            windows:VisualElement.AccessKey="{Binding AccessKey.Value}"/>
     <Grid Grid.Row="1">
       <ListView ItemsSource="{Binding LotteryModels}">
         <ListView.ItemTemplate>
