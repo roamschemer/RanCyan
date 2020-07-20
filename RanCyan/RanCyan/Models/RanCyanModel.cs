@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -28,7 +29,8 @@ namespace RanCyan.Models {
         public async void LotteryRancyanImageAsync() {
             if (isRancyanLottery) return;
             isRancyanLottery = true;
-            RanCyanImage = ImageSource.FromResource("RanCyan.Images.3D_Jamp1.gif");
+            var assembly = typeof(App).GetTypeInfo().Assembly;
+            RanCyanImage = ImageSource.FromResource("RanCyan.Images.3D_Jamp1.gif", assembly);
             await Task.Delay(4000);
             WaitingRancyanImage();
             isRancyanLottery = false;
@@ -38,12 +40,13 @@ namespace RanCyan.Models {
         /// 乱ちゃんの画像を待機画像に差し替える
         /// </summary>
         public void WaitingRancyanImage() {
+            var assembly = typeof(App).GetTypeInfo().Assembly;
             var images = new[] {
-                ImageSource.FromResource("RanCyan.Images.3D_Taiki2.gif"),
-                ImageSource.FromResource("RanCyan.Images.3D_Taiki5.gif"),
-                ImageSource.FromResource("RanCyan.Images.3D_Taiki6.gif"),
-                ImageSource.FromResource("RanCyan.Images.3D_Taiki7.gif"),
-                ImageSource.FromResource("RanCyan.Images.3D_Taiki8.gif"),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki2.gif", assembly),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki5.gif", assembly),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki6.gif", assembly),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki7.gif", assembly),
+                ImageSource.FromResource("RanCyan.Images.3D_Taiki8.gif", assembly),
             };
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             RanCyanImage = images[rnd.Next(0, images.Count())];
