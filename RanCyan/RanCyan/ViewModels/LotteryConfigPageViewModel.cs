@@ -66,10 +66,7 @@ namespace RanCyan.ViewModels {
 
 
             //カテゴリ設定
-            CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
-                var select = await Application.Current.MainPage.DisplayAlert("新規追加", "新規追加しますか？", "いいよ", "待った");
-                if (select) lotteryPageModel.Cleate();
-            }).AddTo(this.Disposable);
+            CreateCategoryCommand = new ReactiveCommand<object>().WithSubscribe(_ => lotteryPageModel.Cleate());
             LotteryConfigCategoryModelSettingViewModels = lotteryPageModel.LotteryCategoryModels.ToReadOnlyReactiveCollection(x => new LotteryConfigCategoryModelSettingViewModel(lotteryPageModel, x)).AddTo(this.Disposable);
             LotteryConfigCategoryModelSettingViewModel = new ReactiveProperty<LotteryConfigCategoryModelSettingViewModel>(LotteryConfigCategoryModelSettingViewModels.First());
 
