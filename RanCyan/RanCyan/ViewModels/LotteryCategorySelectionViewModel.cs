@@ -40,7 +40,8 @@ namespace RanCyan.ViewModels {
             LotteryLabelModel = lotteryCategoryModel.ObserveProperty(x => x.LotteryLabelModel).ToReactiveProperty().AddTo(this.Disposable);
             //AccessKey
             var accessKey = coreModel.SelectionLotteryPageModel.LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == lotteryCategoryModel);
-            AccessKey = new ReactiveProperty<string>(accessKey.index.ToString());
+            var keyItems = new[] { "Z", "X", "C", "V", "B", "N", "M", ".", "/", "\\" };
+            AccessKey = new ReactiveProperty<string>(accessKey.index < keyItems.Count() ? keyItems[accessKey.index] : string.Empty);
 
         }
         //後始末

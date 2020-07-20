@@ -109,7 +109,7 @@
           <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Button Grid.Column="0" Text="全抽選" Command="{Binding AllToDrawCommand}" windows:VisualElement.AccessKey="A"/>
-        <Button Grid.Column="1" Text="Config" Command="{Binding ConfigPageNavigationCommand}" windows:VisualElement.AccessKey="C"/>
+        <Button Grid.Column="1" Text="Config" Command="{Binding ConfigPageNavigationCommand}"/>
       </Grid>
     </Grid>
   </Grid>
