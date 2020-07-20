@@ -24,10 +24,7 @@ namespace RanCyan.ViewModels {
             RatioItems = lotteryModel.RatioItems.ToReadOnlyReactiveCollection(x => x).AddTo(this.Disposable);
             Up = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Up(lotteryModel));
             Down = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Down(lotteryModel));
-            Clear = new ReactiveCommand<object>().WithSubscribe(async _ => {
-                var select = await Application.Current.MainPage.DisplayAlert("削除", "この項目を削除しますか？", "いいよ", "待った");
-                if (select) lotteryCategoryModel.Clear(lotteryModel);
-            }).AddTo(this.Disposable);
+            Clear = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Clear(lotteryModel);
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
