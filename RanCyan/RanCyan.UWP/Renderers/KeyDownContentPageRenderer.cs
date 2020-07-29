@@ -35,38 +35,24 @@ namespace RanCyan.UWP.Renderers {
         private void Dispatcher_AcceleratorKeyActivated(Windows.UI.Core.CoreDispatcher sender, Windows.UI.Core.AcceleratorKeyEventArgs args) {
             if (args.EventType == Windows.UI.Core.CoreAcceleratorKeyEventType.KeyDown) {
                 if (myPage != null) {
-                    var strKey = args.VirtualKey.ToString();
-
-                    switch (strKey) {
-                        case "186":
-                            strKey = ":";
-                            break;
-                        case "187":
-                            strKey = ";";
-                            break;
-                        case "188":
-                            strKey = ",";
-                            break;
-                        case "190":
-                            strKey = ".";
-                            break;
-                        case "191":
-                            strKey = "/";
-                            break;
-                        case "192":
-                            strKey = "@";
-                            break;
-                        case "219":
-                            strKey = "[";
-                            break;
-                        case "220":
-                            strKey = "\\";
-                            break;
-                        case "221":
-                            strKey = "]";
-                            break;
+                    string resKey(string s) {
+                        if (s == "186") return ":";
+                        if (s == "187") return ";";
+                        if (s == "188") return ",";
+                        if (s == "189") return "-";
+                        if (s == "190") return ".";
+                        if (s == "191") return "/";
+                        if (s == "192") return "@";
+                        if (s == "219") return "[";
+                        if (s == "221") return "]";
+                        if (s == "222") return "^";
+                        if (s == "226") return "\\";
+                        return s;
                     }
-                    myPage.OnKeyDown(strKey);
+                    var e = new KeyDownEventArgs {
+                        Key = resKey(args.VirtualKey.ToString())
+                    };
+                    myPage.OnKeyDown(e);
                 }
             }
         }

@@ -98,6 +98,27 @@ namespace RanCyan.Models {
             if (LotteryCategoryModels.Count == 1) return;
             LotteryCategoryModels.Remove(m);
         }
+
+        /// <summary>
+        /// ショートカットからの抽選実施
+        /// </summary>
+        /// <param name="key">ショートカットキー</param>
+        public void LotteryShortcut(CoreModel coreModel,string key) {
+            if (key == "A") {
+                coreModel.RanCyanModel.LotteryRancyanImageAsync();
+                AllToDraw();
+                return;
+            }
+            var keyItems = new[] { "Z", "X", "C", "V", "B", "N", "M", ".", "/", "\\" };
+            if (!keyItems.Contains(key)) return;
+            var index = keyItems.Select((value, i) => (value, i)).Where(x => key == x.value).Select(x => x.i).FirstOrDefault();
+            if (index < LotteryCategoryModels.Count()) {
+                coreModel.SelectionLotteryPageModel.IsAllToDraw = false;
+                coreModel.RanCyanModel.LotteryRancyanImageAsync();
+                LotteryCategoryModels[index].ToDrawAsync(coreModel.SelectionLotteryPageModel);
+            }
+        }
+
         /// <summary>全項目抽選の実施</summary>
         public async void AllToDraw() {
             IsAllToDraw = true;

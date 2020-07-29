@@ -26,7 +26,7 @@ namespace RanCyan.ViewModels {
         public ReadOnlyReactiveProperty<bool> IsNotAllToDraw { get; }
         public ReadOnlyReactiveCollection<LotteryCategoryModel> LotteryCategoryModels { get; }
         public ReactiveProperty<string> BackgroundColor { get; }
-        public ReactiveProperty<string> DownKey { get; } = new ReactiveProperty<string>(mode: ReactivePropertyMode.RaiseLatestValueOnSubscribe);
+        public ReactiveCommand<string> KeyDownCommand { get; }
 
         public LotteryPageViewModel(INavigationService navigationService, CoreModel coreModel) : base(navigationService) {
             //乱ちゃんイメージ
@@ -59,22 +59,7 @@ namespace RanCyan.ViewModels {
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
             }).AddTo(this.Disposable);
-            DownKey.Subscribe(key => {
-                if (string.IsNullOrEmpty(key)) return;
-                if (key == "A") {
-                    ranCyanModel.LotteryRancyanImageAsync();
-                    lotteryPageModel.AllToDraw();
-                    return;
-                }
-                var keyItems = new[] { "Z", "X", "C", "V", "B", "N", "M", ".", "/", "\\" };
-                if (!keyItems.Contains(key)) return;
-                var index = keyItems.Select((value, i) => (value, i)).Where(x => key == x.value).Select(x => x.i).FirstOrDefault();
-                if (index < lotteryPageModel.LotteryCategoryModels.Count()) {
-                    coreModel.SelectionLotteryPageModel.IsAllToDraw = false;
-                    coreModel.RanCyanModel.LotteryRancyanImageAsync();
-                    lotteryPageModel.LotteryCategoryModels[index].ToDrawAsync(coreModel.SelectionLotteryPageModel);
-                }
-            });
+            KeyDownCommand = new ReactiveCommand<string>().WithSubscribe(x => lotteryPageModel.LotteryShortcut(coreModel,x));
         }
     }
 }

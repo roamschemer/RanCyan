@@ -10,10 +10,13 @@
   prism:ViewModelLocator.AutowireViewModel="True"
   x:Class="RanCyan.Views.LotteryUwpPage"
   x:Name="this"
-  Title="{Binding Title.Value}"
-  DownKey="{Binding DownKey.Value}">
+  Title="{Binding Title.Value}">
 
-  <ContentPage.Resources>
+  <renderers:KeyDownContentPage.Behaviors>
+    <prism:EventToCommandBehavior EventName="KeyDown" Command="{Binding KeyDownCommand}" EventArgsParameterPath="Key"/>
+  </renderers:KeyDownContentPage.Behaviors>
+
+  <renderers:KeyDownContentPage.Resources>
     <ResourceDictionary>
       <Style x:Key="LabelStyle" TargetType="Label">
         <Setter Property="VerticalOptions" Value="CenterAndExpand"/>
@@ -27,7 +30,7 @@
         <Setter Property="BackgroundColor" Value="White"/>
       </Style>
     </ResourceDictionary>
-  </ContentPage.Resources>
+  </renderers:KeyDownContentPage.Resources>
 
   <Grid>
     <Grid.ColumnDefinitions>
