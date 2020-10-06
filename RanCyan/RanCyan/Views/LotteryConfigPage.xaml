@@ -116,7 +116,14 @@
         </CollectionView.ItemTemplate>
       </CollectionView>
       <Button Text="新しい抽選モデルの追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.CreateSelectCommand}"/>
-      <Button Text="クリップボードから一括追加" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.ClipboardGetTextCommand}"/>
+      <Button Text="クリップボードから一括入力" Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.ClipboardGetTextCommand}"/>
+      <StackLayout Orientation="Horizontal">
+        <Picker ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModel.Value.RangeList}" SelectedItem="{Binding LotteryConfigCategoryModelSettingViewModel.Value.RangeFrom.Value}"/>
+        <Label Text="から" VerticalTextAlignment = "Center"/>
+        <Picker ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModel.Value.RangeList}" SelectedItem="{Binding LotteryConfigCategoryModelSettingViewModel.Value.RangeTo.Value}"/>
+        <Label Text="まで" VerticalTextAlignment = "Center"/>
+        <Button Command="{Binding LotteryConfigCategoryModelSettingViewModel.Value.RangeInputCommand}" Text="連番の入力" HorizontalOptions="FillAndExpand"/>
+      </StackLayout>
       <ListView ItemsSource="{Binding LotteryConfigCategoryModelSettingViewModel.Value.LotteryConfigLotteryModelSettingViewModels}">
         <ListView.Header>
           <Grid>

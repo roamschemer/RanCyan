@@ -44,10 +44,25 @@ namespace RanCyan.Models {
         [JsonIgnore]
         public ObservableCollection<int> TotalTimeOfAllLoopsSelectList { get; }
 
+        /// <summary>数値追加選択リスト</summary>
+        [JsonIgnore]
+        public ObservableCollection<int> RangeList { get; }
+
+        /// <summary>数値追加選択レンジFrom</summary>
+        [JsonIgnore]
+        public int RangeFrom { get => rangeFrom; set => SetProperty(ref rangeFrom, value); }
+        private int rangeFrom = 1;
+
+        /// <summary>数値追加選択レンジTo</summary>
+        [JsonIgnore]
+        public int RangeTo { get => rangeTo; set => SetProperty(ref rangeTo, value); }
+        private int rangeTo = 1;
+
         /// <summary>コンストラクタ</summary>
         public LotteryCategoryModel() {
             NumberOfLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 10));
             TotalTimeOfAllLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 500));
+            RangeList = new ObservableCollection<int>(Enumerable.Range(0, 1000));
             LotteryLabelModel = new LotteryLabelModel();
         }
 
@@ -85,8 +100,18 @@ namespace RanCyan.Models {
             if (!Clipboard.HasText) return;
             var words = await Clipboard.GetTextAsync();
             var names = words.Split(new[] { "\r\n", "\n", "\r" }, StringSplitOptions.None);
-            foreach(var x in names) {
+            LotteryModels.Clear();
+            foreach (var x in names) {
                 LotteryModels.Add(new LotteryModel() { Name = x });
+            }
+        }
+
+        /// <summary>連番追加</summary>
+        public void RangeInput() {
+            if (RangeFrom > RangeTo) return;
+            LotteryModels.Clear();
+            foreach (var x in Enumerable.Range(RangeFrom, RangeTo - RangeFrom + 1)) {
+                LotteryModels.Add(new LotteryModel() { Name = x.ToString() });
             }
         }
 

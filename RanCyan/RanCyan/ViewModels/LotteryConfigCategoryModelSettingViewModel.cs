@@ -25,6 +25,11 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<LotteryConfigLotteryModelSettingViewModel> LotteryConfigLotteryModelSettingViewModel { get; }
         public ReactiveCommand<object> CreateSelectCommand { get; }
         public ReactiveCommand<object> ClipboardGetTextCommand { get; }
+        public ReadOnlyReactiveCollection<int> RangeList { get; }
+        public ReactiveProperty<int> RangeFrom { get; }
+        public ReactiveProperty<int> RangeTo { get; }
+        public ReactiveCommand<object> RangeInputCommand { get; }
+
         public LotteryConfigCategoryModelSettingViewModel(LotteryPageModel lotteryPageModel, LotteryCategoryModel lotteryCategoryModel) {
             Title = lotteryCategoryModel.ToReactivePropertyAsSynchronized(x => x.Title).AddTo(this.Disposable);
             NumberOfLoops = lotteryCategoryModel.ToReactivePropertyAsSynchronized(x => x.NumberOfLoops).AddTo(this.Disposable);
@@ -39,8 +44,15 @@ namespace RanCyan.ViewModels {
             LotteryConfigLotteryModelSettingViewModel = new ReactiveProperty<LotteryConfigLotteryModelSettingViewModel>(LotteryConfigLotteryModelSettingViewModels.First());
             CreateSelectCommand = new ReactiveCommand<object>().WithSubscribe(_ => lotteryCategoryModel.Create());
             ClipboardGetTextCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
-                var select = await Application.Current.MainPage.DisplayAlert("クリップボードから貼り付け", "クリップボードにある項目を一括追加しますか？", "いいよ", "待った");
+                var select = await Application.Current.MainPage.DisplayAlert("クリップボードから貼り付け", "クリップボードにある項目を一括入力しますか？", "いいよ", "待った");
                 if (select) lotteryCategoryModel.ClipboardGet();
+            }).AddTo(this.Disposable);
+            RangeList = lotteryCategoryModel.RangeList.ToReadOnlyReactiveCollection(x => x).AddTo(this.Disposable);
+            RangeFrom = lotteryCategoryModel.ToReactivePropertyAsSynchronized(x => x.RangeFrom).AddTo(this.Disposable);
+            RangeTo = lotteryCategoryModel.ToReactivePropertyAsSynchronized(x => x.RangeTo).AddTo(this.Disposable);
+            RangeInputCommand = new ReactiveCommand<object>().WithSubscribe(async _ => {
+                var select = await Application.Current.MainPage.DisplayAlert("連番の追加", "連番を一括入力しますか？", "いいよ", "待った");
+                if (select) lotteryCategoryModel.RangeInput();
             }).AddTo(this.Disposable);
         }
         //後始末
