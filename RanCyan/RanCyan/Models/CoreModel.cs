@@ -81,7 +81,7 @@ namespace RanCyan.Models {
                     Title = "取説(外部ページ)",
                     MenuModel = new MenuModel() {
                         ImageAddress = "resource://RanCyan.Images.Ranshika.png",
-                        ViewAddress = "https://www.gunshi.info/rancyanproject",
+                        ViewAddress = "https://www.gunshi.info/entry/rancyanproject",
                         PageType = MenuModel.PageTypeEnum.Web
                     }
                 },
