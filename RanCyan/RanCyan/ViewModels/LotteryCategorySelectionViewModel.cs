@@ -19,6 +19,7 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> CategoryTitle { get; }
         /// <summary>ラベルの情報</summary>
         public ReactiveProperty<LotteryLabelModel> LotteryLabelModel { get; }
+        /// <summary>ショートカットキー</summary>
         public ReactiveProperty<string> AccessKey { get; }
 
         public LotteryCategorySelectionViewModel(CoreModel coreModel, LotteryCategoryModel lotteryCategoryModel) {
