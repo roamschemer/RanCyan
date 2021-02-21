@@ -29,11 +29,13 @@
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="40" />
+      <RowDefinition Height="40" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
-    <Button Grid.Row="0" Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"
+    <Picker Grid.Row="0" ItemsSource="{Binding LotteryNumberList}" SelectedItem="{Binding LotteryNumber.Value}" />
+    <Button Grid.Row="1" Text="{Binding CategoryTitle.Value}" Command="{Binding ToDrawCommand}" BackgroundColor="LightGray"
             windows:VisualElement.AccessKey="{Binding AccessKey.Value}"/>
-    <Grid Grid.Row="1">
+    <Grid Grid.Row="2">
       <ListView ItemsSource="{Binding LotteryModels}">
         <ListView.ItemTemplate>
           <DataTemplate>

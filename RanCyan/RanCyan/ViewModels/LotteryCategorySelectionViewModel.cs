@@ -2,6 +2,8 @@
 using Reactive.Bindings;
 using Reactive.Bindings.Extensions;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
@@ -21,6 +23,11 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<LotteryLabelModel> LotteryLabelModel { get; }
         /// <summary>ショートカットキー</summary>
         public ReactiveProperty<string> AccessKey { get; }
+        /// <summary>抽選数</summary>
+        public ReactiveProperty<int> LotteryNumber { get; }
+        /// <summary>抽選数picker選択用のコレクション</summary>
+        public ObservableCollection<int> LotteryNumberList { get; }
+
 
         public LotteryCategorySelectionViewModel(CoreModel coreModel, LotteryCategoryModel lotteryCategoryModel) {
             //選択リスト
@@ -39,11 +46,21 @@ namespace RanCyan.ViewModels {
             }).AddTo(this.Disposable);
             //ラベル情報
             LotteryLabelModel = lotteryCategoryModel.ObserveProperty(x => x.LotteryLabelModel).ToReactiveProperty().AddTo(this.Disposable);
+            //抽選数
+            LotteryNumber = new ReactiveProperty<int>(1);
+            LotteryNumberList = new ObservableCollection<int>(Enumerable.Range(1, LotteryModels.Count));
+            LotteryModels.ObserveAddChanged().Subscribe(_ => {
+                LotteryNumberList.Add(LotteryModels.Count);
+                LotteryNumber.Value = 1;
+            });
+            LotteryModels.ObserveRemoveChanged().Subscribe(_ => {
+                LotteryNumberList.Remove(LotteryModels.Count + 1);
+                LotteryNumber.Value = 1;
+            });
             //AccessKey
             var accessKey = coreModel.SelectionLotteryPageModel.LotteryCategoryModels.Select((model, index) => (model, index)).First(x => x.model == lotteryCategoryModel);
             var keyItems = new[] { "Z", "X", "C", "V", "B", "N", "M", ".", "/", "\\" };
             AccessKey = new ReactiveProperty<string>(accessKey.index < keyItems.Count() ? keyItems[accessKey.index] : string.Empty);
-
         }
         //後始末
         private CompositeDisposable Disposable { get; } = new CompositeDisposable();
