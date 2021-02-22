@@ -36,6 +36,12 @@ namespace RanCyan.Models {
         public ObservableCollection<LotteryModel> LotteryModels { get => lotteryModels; set => SetProperty(ref lotteryModels, value); }
         private ObservableCollection<LotteryModel> lotteryModels;
 
+        /// <summary>抽選ラベルのコレクション(複数回抽選用)</summary>
+        [JsonIgnore]
+        public ObservableCollection<LotteryLabelModel> LotteryLabelModels { get => lotteryLabelModels; set => SetProperty(ref lotteryLabelModels, value); }
+        private ObservableCollection<LotteryLabelModel> lotteryLabelModels;
+
+
         /// <summary>ループする回数選択リスト</summary>
         [JsonIgnore]
         public ObservableCollection<int> NumberOfLoopsSelectList { get; }
@@ -64,6 +70,7 @@ namespace RanCyan.Models {
             TotalTimeOfAllLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 500));
             RangeList = new ObservableCollection<int>(Enumerable.Range(0, 1000));
             LotteryLabelModel = new LotteryLabelModel();
+            LotteryLabelModels = new ObservableCollection<LotteryLabelModel>();
         }
 
         /// <summary>見本生成</summary>
@@ -93,7 +100,7 @@ namespace RanCyan.Models {
         }
 
         /// <summary>抽選モデルの作成</summary>
-        public void Create() => LotteryModels.Add(new LotteryModel() {  Name = $"select{LotteryModels.Count}" });
+        public void Create() => LotteryModels.Add(new LotteryModel() { Name = $"select{LotteryModels.Count}" });
 
         /// <summary>クリップボードに存在する項目を全部張り付ける</summary>
         public async void ClipboardGet() {
@@ -118,12 +125,13 @@ namespace RanCyan.Models {
         /// <summary>
         /// 抽選の実施
         /// </summary>
-        public async void ToDrawAsync(LotteryPageModel pageModel) {
+        public async Task ToDrawAsync(LotteryPageModel pageModel, LotteryLabelModel lotteryLabelModel = null) {
+            if (lotteryLabelModel == null) lotteryLabelModel = LotteryLabelModel;
             var raitoSum = LotteryModels.Where(x => !x.IsSelected).Sum(x => x.Ratio);
             if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2 || InLottery) return;
             pageModel.SelectionLotteryCategoryModel = this;
             InLottery = true;
-            LotteryLabelModel.Color = "Black";
+            lotteryLabelModel.Color = "Black";
             foreach (var x in LotteryModels) x.IsHited = false;
             var rnd = new Random((int)DateTime.Now.Ticks & 0x0000FFFF);
             float oneWaitTime = TotalTimeOfAllLoops / (((NumberOfLoops - 1) * NumberOfLoops) / 2); //基準となるウェイト時間(msec)
@@ -134,21 +142,34 @@ namespace RanCyan.Models {
                 foreach (var x in LotteryModels.Where(x => !x.IsSelected)) {
                     count += x.Ratio;
                     x.IsHited = (lastCount < hitCount && hitCount <= count);
-                    if (x.IsHited) LotteryLabelModel.Text = x.Name;
+                    if (x.IsHited) lotteryLabelModel.Text = x.Name;
                     lastCount = count;
                 }
                 if (i < NumberOfLoops) await Task.Delay((int)(oneWaitTime * i)); //少しずつウェイト時間を長くする
             }
             //最後に点滅させる
-            LotteryLabelModel.Color = "Red";
+            lotteryLabelModel.Color = "Red";
             foreach (var x in LotteryModels.Where(x => x.IsHited)) {
                 foreach (var i in Enumerable.Range(0, 10)) {
                     x.IsHited = !x.IsHited;
-                    LotteryLabelModel.Text = x.IsHited ? x.Name : string.Empty;
+                    lotteryLabelModel.Text = x.IsHited ? x.Name : string.Empty;
                     await Task.Delay(50);
                 }
             }
             InLottery = false;
+        }
+
+        /// <summary>
+        /// 抽選の実施
+        /// </summary>
+        /// <param name="lotteryNumber">抽選回数</param>
+        public async Task ToDrawAsync(LotteryPageModel pageModel, int lotteryNumber) {
+            LotteryLabelModels.Clear();
+            foreach (var _ in Enumerable.Range(0, lotteryNumber)) {
+                var lotterLabelModel = new LotteryLabelModel();
+                LotteryLabelModels.Add(lotterLabelModel);
+                await ToDrawAsync(pageModel, lotterLabelModel);
+            }
         }
     }
 }

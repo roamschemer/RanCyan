@@ -59,7 +59,7 @@ namespace RanCyan.ViewModels {
             ConfigPageNavigationCommand = new AsyncReactiveCommand<object>().WithSubscribe(async _ => {
                 await navigationService.NavigateAsync(nameof(LotteryConfigPage));
             }).AddTo(this.Disposable);
-            KeyDownCommand = new ReactiveCommand<string>().WithSubscribe(x => lotteryPageModel.LotteryShortcut(coreModel,x));
+            KeyDownCommand = new ReactiveCommand<string>().WithSubscribe(async x => await lotteryPageModel.LotteryShortcutAsync(coreModel, x));
         }
     }
 }

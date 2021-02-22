@@ -21,6 +21,8 @@ namespace RanCyan.ViewModels {
         public ReactiveProperty<string> CategoryTitle { get; }
         /// <summary>ラベルの情報</summary>
         public ReactiveProperty<LotteryLabelModel> LotteryLabelModel { get; }
+        /// <summary>複数抽選ラベルの情報</summary>
+        public ReadOnlyReactiveCollection<LotteryLabelModel> LotteryLabelModels { get; }
         /// <summary>ショートカットキー</summary>
         public ReactiveProperty<string> AccessKey { get; }
         /// <summary>抽選数</summary>
@@ -39,13 +41,14 @@ namespace RanCyan.ViewModels {
             //抽選ボタン
             CategoryTitle = lotteryCategoryModel.ObserveProperty(x => x.Title).ToReactiveProperty().AddTo(this.Disposable);
             ToDrawCommand = new ReactiveCommand();
-            ToDrawCommand.Where(_ => !lotteryCategoryModel.InLottery).Subscribe(_ => {
+            ToDrawCommand.Where(_ => !lotteryCategoryModel.InLottery).Subscribe(async _ => {
                 coreModel.SelectionLotteryPageModel.IsAllToDraw = false;
                 coreModel.RanCyanModel.LotteryRancyanImageAsync();
-                lotteryCategoryModel.ToDrawAsync(coreModel.SelectionLotteryPageModel);
+                await lotteryCategoryModel.ToDrawAsync(coreModel.SelectionLotteryPageModel, LotteryNumber.Value);
             }).AddTo(this.Disposable);
             //ラベル情報
             LotteryLabelModel = lotteryCategoryModel.ObserveProperty(x => x.LotteryLabelModel).ToReactiveProperty().AddTo(this.Disposable);
+            LotteryLabelModels = lotteryCategoryModel.LotteryLabelModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             //抽選数
             LotteryNumber = new ReactiveProperty<int>(1);
             LotteryNumberList = new ObservableCollection<int>(Enumerable.Range(1, LotteryModels.Count));

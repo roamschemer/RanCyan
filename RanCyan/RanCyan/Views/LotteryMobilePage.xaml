@@ -31,18 +31,36 @@
         <ContentPage Title="{Binding CategoryTitle.Value}" >
           <Grid>
             <Grid.RowDefinitions>
-              <RowDefinition Height="*"/>
-              <RowDefinition Height="4*"/>
+              <RowDefinition Height="2*"/>
+              <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
               <ColumnDefinition Width="3*"/>
               <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <BoxView Grid.RowSpan="2" Grid.ColumnSpan="2" BackgroundColor="{Binding BindingContext.BackgroundColor.Value, Source={x:Reference Base}}"/>
-            <Label Grid.Row="0" 
+            <!--<Label Grid.Row="0" 
                    Style="{StaticResource LabelStyle}"
                    Text="{Binding LotteryLabelModel.Value.Text}" 
-                   TextColor="{Binding LotteryLabelModel.Value.Color}" />
+                   TextColor="{Binding LotteryLabelModel.Value.Color}" />-->
+            <ListView Grid.Row="0" 
+                ItemsSource="{Binding LotteryLabelModels}"
+                SelectionMode="None">
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                    <Grid>
+                      <!--<Label FontSize="16"
+                       Text="{Binding Title}" 
+                       TextColor="{Binding LotteryLabelModel.Color}" />-->
+                      <Label Style="{StaticResource LabelStyle}"
+                       Text="{Binding Text}" 
+                       TextColor="{Binding Color}" />
+                    </Grid>
+                  </ViewCell>
+                </DataTemplate>
+              </ListView.ItemTemplate>
+            </ListView>
             <ff:CachedImage Grid.Row="0" 
                    Grid.RowSpan="2"
                    Aspect = "AspectFit" 

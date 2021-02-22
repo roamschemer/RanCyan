@@ -61,12 +61,33 @@
         </Image.Triggers>
       </Image>
       <!-- 抽選結果(シングル) -->
-      <Label Grid.Row="0" 
+      <!--<Label Grid.Row="0" 
              Style="{StaticResource LabelStyle}"
              Text="{Binding LotteryCategorySelectedModel.Value.LotteryLabelModel.Text}" 
              TextColor="{Binding LotteryCategorySelectedModel.Value.LotteryLabelModel.Color}" 
              IsVisible="{Binding IsNotAllToDraw.Value}">
-      </Label>
+      </Label>-->
+      <!-- 抽選結果(シングル複数回) -->
+      <ListView Grid.Row="0" 
+                Grid.RowSpan="2"
+                ItemsSource="{Binding LotteryCategorySelectedModel.Value.LotteryLabelModels}"
+                IsVisible="{Binding IsNotAllToDraw.Value}"
+                SelectionMode="None">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <Grid>
+                <!--<Label FontSize="16"
+                       Text="{Binding Title}" 
+                       TextColor="{Binding LotteryLabelModel.Color}" />-->
+                <Label Style="{StaticResource LabelStyle}"
+                       Text="{Binding Text}" 
+                       TextColor="{Binding Color}" />
+              </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
       <!-- 抽選結果(オール) -->
       <ListView Grid.Row="0" 
                 Grid.RowSpan="2"

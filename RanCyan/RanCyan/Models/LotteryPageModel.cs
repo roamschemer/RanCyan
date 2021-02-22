@@ -103,7 +103,7 @@ namespace RanCyan.Models {
         /// ショートカットからの抽選実施
         /// </summary>
         /// <param name="key">ショートカットキー</param>
-        public void LotteryShortcut(CoreModel coreModel,string key) {
+        public async Task LotteryShortcutAsync(CoreModel coreModel, string key) {
             if (key == "A") {
                 coreModel.RanCyanModel.LotteryRancyanImageAsync();
                 AllToDraw();
@@ -115,7 +115,7 @@ namespace RanCyan.Models {
             if (index < LotteryCategoryModels.Count()) {
                 coreModel.SelectionLotteryPageModel.IsAllToDraw = false;
                 coreModel.RanCyanModel.LotteryRancyanImageAsync();
-                LotteryCategoryModels[index].ToDrawAsync(coreModel.SelectionLotteryPageModel);
+                await LotteryCategoryModels[index].ToDrawAsync(coreModel.SelectionLotteryPageModel);
             }
         }
 
@@ -124,7 +124,7 @@ namespace RanCyan.Models {
             IsAllToDraw = true;
             foreach (var (x, i) in LotteryCategoryModels.Select((x, i) => (x, i))) {
                 if (i > 0) await Task.Delay(AllToDrawTimeDifference);
-                x.ToDrawAsync(this);
+                _ = x.ToDrawAsync(this);
             }
         }
 
