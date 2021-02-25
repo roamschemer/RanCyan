@@ -15,5 +15,10 @@ namespace RanCyan.Models {
         public string Color { get => color; set => SetProperty(ref color, value); }
         private string color;
 
+        /// <summary>選択回数</summary>
+        public int Number { get => number; set => SetProperty(ref number, value); }
+        private int number;
+
+
     }
 }

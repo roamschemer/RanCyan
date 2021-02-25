@@ -165,8 +165,9 @@ namespace RanCyan.Models {
         /// <param name="lotteryNumber">抽選回数</param>
         public async Task ToDrawAsync(LotteryPageModel pageModel, int lotteryNumber) {
             LotteryLabelModels.Clear();
-            foreach (var _ in Enumerable.Range(0, lotteryNumber)) {
+            foreach (var i in Enumerable.Range(0, lotteryNumber)) {
                 var lotterLabelModel = new LotteryLabelModel();
+                lotterLabelModel.Number = i + 1;
                 LotteryLabelModels.Add(lotterLabelModel);
                 await ToDrawAsync(pageModel, lotterLabelModel);
             }
