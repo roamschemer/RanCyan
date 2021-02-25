@@ -28,7 +28,7 @@ namespace RanCyan.ViewModels {
         /// <summary>抽選数</summary>
         public ReactiveProperty<int> LotteryNumber { get; }
         /// <summary>抽選数picker選択用のコレクション</summary>
-        public ObservableCollection<int> LotteryNumberList { get; }
+        public ObservableCollection<int> LotteryNumberList { get; set; }
 
 
         public LotteryCategorySelectionViewModel(CoreModel coreModel, LotteryCategoryModel lotteryCategoryModel) {
@@ -52,12 +52,11 @@ namespace RanCyan.ViewModels {
             //抽選数
             LotteryNumber = new ReactiveProperty<int>(1);
             LotteryNumberList = new ObservableCollection<int>(Enumerable.Range(1, LotteryModels.Count));
-            LotteryModels.ObserveAddChanged().Subscribe(_ => {
-                LotteryNumberList.Add(LotteryModels.Count);
-                LotteryNumber.Value = 1;
-            });
-            LotteryModels.ObserveRemoveChanged().Subscribe(_ => {
-                LotteryNumberList.Remove(LotteryModels.Count + 1);
+            LotteryModels.CollectionChangedAsObservable().Subscribe(_ => {
+                LotteryNumberList.Clear();
+                foreach (var i in Enumerable.Range(1, LotteryModels.Count)) {
+                    LotteryNumberList.Add(i);
+                }
                 LotteryNumber.Value = 1;
             });
             //AccessKey
