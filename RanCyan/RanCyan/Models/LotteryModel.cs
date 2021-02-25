@@ -29,6 +29,11 @@ namespace RanCyan.Models {
         [JsonIgnore]
         public ObservableCollection<int> RatioItems { get; }
 
+        /// <summary>抽選済み</summary>
+        [JsonIgnore]
+        public bool IsCompleted { get => isCompleted; set => SetProperty(ref isCompleted, value); }
+        private bool isCompleted;
+
         public LotteryModel() {
             RatioItems = new ObservableCollection<int>(Enumerable.Range(1, 100));
         }

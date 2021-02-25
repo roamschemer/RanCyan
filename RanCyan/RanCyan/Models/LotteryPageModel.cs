@@ -115,6 +115,7 @@ namespace RanCyan.Models {
             if (index < LotteryCategoryModels.Count()) {
                 coreModel.SelectionLotteryPageModel.IsAllToDraw = false;
                 coreModel.RanCyanModel.LotteryRancyanImageAsync();
+                LotteryCategoryModels[index].ResetCompleted();
                 await LotteryCategoryModels[index].ToDrawAsync(coreModel.SelectionLotteryPageModel);
             }
         }
@@ -124,6 +125,7 @@ namespace RanCyan.Models {
             IsAllToDraw = true;
             foreach (var (x, i) in LotteryCategoryModels.Select((x, i) => (x, i))) {
                 if (i > 0) await Task.Delay(AllToDrawTimeDifference);
+                x.ResetCompleted();
                 _ = x.ToDrawAsync(this);
             }
         }

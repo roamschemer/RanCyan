@@ -122,13 +122,20 @@ namespace RanCyan.Models {
             }
         }
 
+        /// <summary>抽選状態の全リセット</summary>
+        public void ResetCompleted() {
+            foreach (var x in LotteryModels) {
+                x.IsCompleted = x.IsSelected;
+            }
+        }
+
         /// <summary>
         /// 抽選の実施
         /// </summary>
         public async Task ToDrawAsync(LotteryPageModel pageModel, LotteryLabelModel lotteryLabelModel = null) {
             if (lotteryLabelModel == null) lotteryLabelModel = LotteryLabelModel;
-            var raitoSum = LotteryModels.Where(x => !x.IsSelected).Sum(x => x.Ratio);
-            if (raitoSum == 0 || LotteryModels.Count(x => !x.IsSelected) < 2 || InLottery) return;
+            var raitoSum = LotteryModels.Where(x => !x.IsCompleted).Sum(x => x.Ratio);
+            if (raitoSum == 0 || LotteryModels.Count(x => !x.IsCompleted) < 1 || InLottery) return;
             pageModel.SelectionLotteryCategoryModel = this;
             InLottery = true;
             lotteryLabelModel.Color = "Black";
@@ -139,7 +146,7 @@ namespace RanCyan.Models {
             foreach (var i in Enumerable.Range(0, NumberOfLoops)) {
                 var hitCount = rnd.Next(1, raitoSum + 1);
                 int lastCount = 0; int count = 0;
-                foreach (var x in LotteryModels.Where(x => !x.IsSelected)) {
+                foreach (var x in LotteryModels.Where(x => !x.IsCompleted)) {
                     count += x.Ratio;
                     x.IsHited = (lastCount < hitCount && hitCount <= count);
                     if (x.IsHited) lotteryLabelModel.Text = x.Name;
@@ -150,6 +157,7 @@ namespace RanCyan.Models {
             //最後に点滅させる
             lotteryLabelModel.Color = "Red";
             foreach (var x in LotteryModels.Where(x => x.IsHited)) {
+                x.IsCompleted = true;
                 foreach (var i in Enumerable.Range(0, 10)) {
                     x.IsHited = !x.IsHited;
                     lotteryLabelModel.Text = x.IsHited ? x.Name : string.Empty;
@@ -165,6 +173,7 @@ namespace RanCyan.Models {
         /// <param name="lotteryNumber">抽選回数</param>
         public async Task ToDrawAsync(LotteryPageModel pageModel, int lotteryNumber) {
             LotteryLabelModels.Clear();
+            ResetCompleted();
             foreach (var i in Enumerable.Range(0, lotteryNumber)) {
                 var lotterLabelModel = new LotteryLabelModel();
                 lotterLabelModel.Number = i + 1;
