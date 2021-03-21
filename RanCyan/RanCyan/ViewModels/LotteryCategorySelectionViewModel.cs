@@ -44,13 +44,13 @@ namespace RanCyan.ViewModels {
             ToDrawCommand.Where(_ => !lotteryCategoryModel.InLottery).Subscribe(async _ => {
                 coreModel.SelectionLotteryPageModel.IsAllToDraw = false;
                 coreModel.RanCyanModel.LotteryRancyanImageAsync();
-                await lotteryCategoryModel.ToDrawAsync(coreModel.SelectionLotteryPageModel, LotteryNumber.Value);
+                await lotteryCategoryModel.ToDrawAsync(coreModel.SelectionLotteryPageModel);
             }).AddTo(this.Disposable);
             //ラベル情報
             LotteryLabelModel = lotteryCategoryModel.ObserveProperty(x => x.LotteryLabelModel).ToReactiveProperty().AddTo(this.Disposable);
             LotteryLabelModels = lotteryCategoryModel.LotteryLabelModels.ToReadOnlyReactiveCollection().AddTo(this.Disposable);
             //抽選数
-            LotteryNumber = new ReactiveProperty<int>(1);
+            LotteryNumber = lotteryCategoryModel.ToReactivePropertyAsSynchronized(x => x.LotteryNumber).AddTo(this.Disposable);
             LotteryNumberList = new ObservableCollection<int>(Enumerable.Range(1, LotteryModels.Count));
             LotteryModels.CollectionChangedAsObservable().Subscribe(_ => {
                 LotteryNumberList.Clear();
