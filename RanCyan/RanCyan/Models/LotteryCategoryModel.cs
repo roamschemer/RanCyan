@@ -65,6 +65,7 @@ namespace RanCyan.Models {
         private int rangeTo = 1;
 
         /// <summary>抽選回数</summary>
+        [JsonIgnore]
         public int LotteryNumber { get => lotteryNumber; set => SetProperty(ref lotteryNumber, value); }
         private int lotteryNumber = 1;
 
@@ -137,7 +138,7 @@ namespace RanCyan.Models {
         /// <summary>
         /// 抽選の実施
         /// </summary>
-        public async Task ToDrawAsync(LotteryPageModel pageModel, LotteryLabelModel lotteryLabelModel = null) {
+        public async Task ToDrawAsync(LotteryPageModel pageModel, LotteryLabelModel lotteryLabelModel) {
             if (lotteryLabelModel == null) lotteryLabelModel = LotteryLabelModel;
             var raitoSum = LotteryModels.Where(x => !x.IsCompleted).Sum(x => x.Ratio);
             if (raitoSum == 0 || LotteryModels.Count(x => !x.IsCompleted) < 1 || InLottery) return;
