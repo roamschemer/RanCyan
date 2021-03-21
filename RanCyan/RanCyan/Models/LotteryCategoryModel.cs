@@ -64,6 +64,11 @@ namespace RanCyan.Models {
         public int RangeTo { get => rangeTo; set => SetProperty(ref rangeTo, value); }
         private int rangeTo = 1;
 
+        /// <summary>抽選回数</summary>
+        public int LotteryNumber { get => lotteryNumber; set => SetProperty(ref lotteryNumber, value); }
+        private int lotteryNumber = 1;
+
+
         /// <summary>コンストラクタ</summary>
         public LotteryCategoryModel() {
             NumberOfLoopsSelectList = new ObservableCollection<int>(Enumerable.Range(1, 50).Select(x => x * 10));
@@ -171,12 +176,13 @@ namespace RanCyan.Models {
         /// 抽選の実施
         /// </summary>
         /// <param name="lotteryNumber">抽選回数</param>
-        public async Task ToDrawAsync(LotteryPageModel pageModel, int lotteryNumber) {
+        public async Task ToDrawAsync(LotteryPageModel pageModel) {
             LotteryLabelModels.Clear();
             ResetCompleted();
-            foreach (var i in Enumerable.Range(0, lotteryNumber)) {
-                var lotterLabelModel = new LotteryLabelModel();
-                lotterLabelModel.Number = i + 1;
+            foreach (var i in Enumerable.Range(0, LotteryNumber)) {
+                var lotterLabelModel = new LotteryLabelModel {
+                    Number = i + 1
+                };
                 LotteryLabelModels.Add(lotterLabelModel);
                 await ToDrawAsync(pageModel, lotterLabelModel);
             }
